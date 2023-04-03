@@ -8,7 +8,7 @@ Es ist eine Webanwendung, die eine detailliertere Dokumentation der Ursachen fü
 - Bessere Dokumentation der Maschinenverfügbarkeit
 - Erkennen von Störgrößen im Produktionsprozess
 - Ausarbeitung von möglichen Fehlerbehandlungen
-- Unterstützung der OEE-Analysen
+- Unterstützung der Overall-Equipment-Efficiency-Analysen
 - Steigerung der Effizienz
 
 
