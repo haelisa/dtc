@@ -1,5 +1,6 @@
 # Was ist downtimecapture?
-Es ist eine Webanwendung, die eine detailliertere Dokumentation der Ursachen für Maschinenausfälle ermöglicht. Hierbei erfolgt die Erfassung der Meldungen durch das Scannen eines QR-Codes.
+Es ist eine Webanwendung, die eine detailliertere Dokumentation der Ursachen für Maschinenausfälle ermöglicht. <br>
+Hierbei erfolgt die Erfassung der Meldungen durch das Scannen eines QR-Codes.
 
 
 
