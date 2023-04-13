@@ -9,7 +9,10 @@
 - Angular: in Kommandozeile: `npm install -g @angular/cli`
 - NestJS: in Kommandozeile: `npm install -g @nestjs/cli`
 
-
+## Hilfreiche VSC Extensions
+- PowerShell (Microsoft) -> PowerShell Terminal
+- Live Server (Ritwick Dey) -> für Launch auf Smartphone 
+- Auto Close Tag (Jun Han) -> HTML Auto Close Tags
 
 # Anwendung starten
 
