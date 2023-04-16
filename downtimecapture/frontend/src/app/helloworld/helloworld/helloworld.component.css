@@ -1,0 +1,40 @@
+
+div {
+    height: 100vh;    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.content {
+
+    height: 60%;
+    padding: 0 40px 0 40px;
+    border: 3px solid #373d40;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    text-align: center;
+    color: #456f81;
+    font-size: 52px;
+}
+
+h2{
+    text-align: center;
+    color: #373d40;
+    font-size: 48px;
+}
+
+p {
+    color: #373d40;
+    font-size: 48px;
+}
+
+p a{
+    
+    color: #373d40;
+}

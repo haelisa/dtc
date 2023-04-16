@@ -7,13 +7,13 @@ import { FORMERR } from 'dns';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal:true}),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      url: process.env.DATABASE_URL,
-      autoLoadEntities:true,
-      synchronize:true
-    })
+    // ConfigModule.forRoot({isGlobal:true}),
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   url: process.env.DATABASE_URL,
+    //   autoLoadEntities:true,
+    //   synchronize:true
+    // })
   ],
   controllers: [AppController],
   providers: [AppService],
