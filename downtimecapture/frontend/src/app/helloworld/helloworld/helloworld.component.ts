@@ -15,7 +15,8 @@ export class HelloworldComponent implements OnInit {
   constructor(private client: HttpClient) { }
 
   ngOnInit() {
-    this.client.get('http://localhost:3000/').subscribe(data => { 
+    //Hier anstelle localhost die IPv4-Adresse einfügen 
+    this.client.get('http://localhost:3000/').subscribe(data => {
       this.results = data['hi']; 
       console.log(data)
     })

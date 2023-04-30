@@ -1,0 +1,141 @@
+/* Styling Smartphones */
+ @media only screen and (max-width: 900px) {
+
+    .wrapper{
+        height: 90vh;
+        margin: 0 10px 0 10px;
+        display: grid;
+        grid-template-columns: auto; 
+        grid-template-rows: 10% 13% 52% 20% 5%;
+        grid-template-areas:
+            "header"
+            "dtcdata"
+            "img"
+            "comment"
+            "footer";    
+    }
+
+
+    .title{
+        grid-area: header;
+        text-align: center;
+    }
+
+
+    /* Section Table Data QR-Code */
+    .maschinedata{
+        grid-area: dtcdata;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 30% 70%;
+        grid-template-areas: 
+            "eqlabel eqcontent"
+            "LabelEventid ContentEventid"
+            "LabelTimestamp ContentTimestamp"
+            "LabelName ContentName";
+        column-gap: 10px;
+        color: gray;
+        margin: 0 0 0 20px;
+        font-size: 12px;
+    }
+    .eqlabel{
+        grid-area: eqlabel;
+    }
+    .eqcontent{
+        grid-area: eqcontent;
+    }
+    .evlabel{
+        grid-area: LabelEventid;
+    }
+    .evcontent{
+        grid-area: ContentEventid;
+    }
+    .tslabel{
+        grid-area: LabelTimestamp;
+    }
+    .tscontent{
+        grid-area: ContentTimestamp;
+    }
+    .nalabel{
+        grid-area: LabelName;
+    }
+    .nacontent{
+        grid-area: ContentName;
+    }
+    
+    
+    /* Section Image */
+    .captureimg{
+        grid-area: img;
+        width: 100%;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+    .custom-file-upload {
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+        background-color: #373d40;
+        border: 1px solid #373d40;
+        color: white;
+    }
+    #imgpreview{
+        display:block;
+        margin:auto;
+        margin-top: 10px;
+        height: 80%;
+        width: auto;
+    }
+
+
+    /* Comment Section */
+    .comment{
+        grid-area: comment;
+    }
+    .optional{
+        color: gray;
+    }
+    .commentinput{
+        margin-top: 5px;
+        width: 90%;
+        height: 60%;
+        font-size:16px;
+        font-family: HelveticaNeueLTStd-Th, sans-serif;
+        overflow: auto;
+        border: 2px solid #333;
+    }
+
+
+    /* Send Button */
+    .footer{
+        grid-area: footer;
+    }
+
+    .footer button{
+        height: 100%;
+        width: 23%;
+        color: #fff;
+        background-color: #456f81;
+        border-color: #456f81;
+        /* border-style: solid; */
+        border: 2px solid #333;
+        float: right;
+        margin-right: 15px;
+    }
+ }
+
+ 
+ 
+
+ 
+
+
+/* Styling Tablets */
+/* @media only screen and (max-width: 1400px) { 
+    
+} */
+
