@@ -34,6 +34,6 @@
 
 # Test auf remote Smartphone
 - beide Geräte müssen mit dem selben Netzwerk verbunden sein!
-- über `ipconig` in Kommandozeile IPv4-Adresse finden
+- über `ipconfig` in Kommandozeile IPv4-Adresse finden
 - vorgegebenen QR-Code aus (US 6)[https://inf-git.fh-rosenheim.de/sep-wif-23/downtimecapture/-/issues/47] scannen oder (Website)[http://localhost:4200/712-005/002d9403-185c-4328-8640-02681be5275e/1682396626/Mouse/Micky] öffnen
 - in URL localhost mit eigener IPv4-Adresse austauschen
