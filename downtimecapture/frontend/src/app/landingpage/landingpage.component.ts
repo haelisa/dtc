@@ -49,7 +49,7 @@ export class LandingpageComponent implements OnInit{
         alert("Nur die gängigen Fotoformate (jpeg, png und jpg) sind zulässig.");
         return;
       }
-
+      //Variable, die den TimeStamp zwischenspeichert
       this.mediatimestamp = new Date();
       //alert(this.mediatimestamp);
       
