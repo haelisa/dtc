@@ -1,7 +1,7 @@
 <div class="wrapper">
     <h2 class="title">Capture Downtime-Message</h2>
-    <form (ngSubmit) ="OnSubmit">
-        <div class="maschinedata">
+
+    <div class="maschinedata">
         <div class="item eqlabel">EquipmentNo: </div>
         <div class="content eqcontent">{{equipmentno}}</div>
         <div class="item evlabel">EventID: </div>
@@ -12,7 +12,7 @@
         <div class="content nacontent">{{name}} {{surname}}</div>
     </div>
 
-    
+    <!-- Foto Aufnehmen Button, Preview des Fotos, Lösch Button -->
     <div class="captureimg">
         <span style="color:red;" *ngIf="message">{{message}}</span>
         <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
@@ -30,8 +30,10 @@
         <br>
         <textarea class="commentinput" id="commentdtc"> </textarea>
     </div>
+    
+    <!-- Senden Button -->
     <div class="footer">
-        <button type="submit"> Send dtc-Message </button>
+        <button id="send">Send</button>
 
     </div> 
     </form>
