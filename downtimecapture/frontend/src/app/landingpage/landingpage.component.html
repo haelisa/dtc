@@ -1,7 +1,7 @@
 <div class="wrapper">
-    <h2 class="title">Capture Downtime-Issue</h2>
-
-    <div class="maschinedata">
+    <h2 class="title">Capture Downtime-Message</h2>
+    <form (ngSubmit) ="OnSubmit">
+        <div class="maschinedata">
         <div class="item eqlabel">EquipmentNo: </div>
         <div class="content eqcontent">{{equipmentno}}</div>
         <div class="item evlabel">EventID: </div>
@@ -31,11 +31,9 @@
         <textarea class="commentinput" id="commentdtc"> </textarea>
     </div>
     <div class="footer">
-        <button id="send">Send</button>
+        <button type="submit"> Send dtc-Message </button>
+
     </div> 
-
-
-
-
-   
+    </form>
+        
 </div>

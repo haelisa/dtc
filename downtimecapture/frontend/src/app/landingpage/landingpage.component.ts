@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,8 +14,12 @@ export class LandingpageComponent implements OnInit{
   timestamp: string;
   name: string;
   surname: string;
+  imgToSave: File;
+  public imagePath: any;
+  imgURL: any;
+  public message: string;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private client: HttpClient) {}
 
   ngOnInit() {
     this.equipmentno = this.route.snapshot.paramMap.get('equipmentno')!;
@@ -22,16 +27,9 @@ export class LandingpageComponent implements OnInit{
     this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
     this.name = this.route.snapshot.paramMap.get('name')!;
     this.surname = this.route.snapshot.paramMap.get('surname')!;
-    
+  }  
 
-  }
-
-
-
-
-  public imagePath: any;
-  imgURL: any;
-  public message: string;
+  
  
   preview(files:any) {
     if (files.length === 0)
@@ -55,7 +53,9 @@ export class LandingpageComponent implements OnInit{
         alert("Das Foto darf nicht größer als 5 MB sein.");
         return;
       }
-    
+      
+      this.imgToSave = file;
+
       const formData = new FormData();
       formData.append("photo", file);
     
@@ -82,6 +82,31 @@ export class LandingpageComponent implements OnInit{
       this.imgURL = reader.result; 
     }
   }
-    
+
+
+    OnSubmit() {
+
+    const options = {
+      headers: new HttpHeaders().append('Content-Type', 'multipart/form-data')
+    }
+
+    let formData = new FormData();
+    formData.append('file', this.imgToSave);
+
+    this.client.post('http://141.60.168.225:3000/postdtcMessage/' , formData, options)
+      .subscribe(data => {
+          alert("Das Bild wurde erfolgreich gespeichert: " + this.imgToSave.name)
+
+          console.log("Post call successful value returned in body", data);
+        }, 
+
+        response => {
+          console.log("Post call in error", response);
+        })
+        
+        // () => {
+        //   console.log("The post observable is now completed");
+        // })
+  }
 
 }
