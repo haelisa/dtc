@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-landingpage',
@@ -50,7 +51,9 @@ export class LandingpageComponent implements OnInit{
         alert("Nur die gängigen Fotoformate (jpeg, png und jpg) sind zulässig.");
         return;
       }
-    
+
+      this.timestamp = new Date().toString();
+      
       if (file.size > 5 * 1024 * 1024) {
         alert("Das Foto darf nicht größer als 5 MB sein.");
         return;
@@ -80,6 +83,8 @@ export class LandingpageComponent implements OnInit{
     reader.readAsDataURL(files[0]); 
     reader.onload = (_event) => { 
       this.imgURL = reader.result; 
+      const imageData = reader.result!.toString();
+
     }
   }
     
