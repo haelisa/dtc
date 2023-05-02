@@ -51,10 +51,10 @@ export class LandingpageComponent implements OnInit{
 
       this.timestamp = new Date().toString();
       
-      if (file.size > 5 * 1024 * 1024) {
+      /*if (file.size > 5 * 1024 * 1024) {
         alert("Das Foto darf nicht größer als 5 MB sein.");
         return;
-      }
+      }*/
       
       this.imgToSave = file;
 
