@@ -114,4 +114,9 @@ export class LandingpageComponent implements OnInit{
         // })
   }
 
+  deleteImage() {
+    this.imgURL = null; // or this.imgURL = undefined;
+    this.imagePath = null; // or this.imagePath = undefined;
+  }
+
 }

@@ -6,7 +6,7 @@
         margin: 0 10px 0 10px;
         display: grid;
         grid-template-columns: auto; 
-        grid-template-rows: 10% 13% 52% 20% 5%;
+        grid-template-rows: 10% 15% 50% 20% 5%;
         grid-template-areas:
             "header"
             "dtcdata"
@@ -66,42 +66,48 @@
     
     /* Section Image */
     .captureimg{
+        position: relative;
         grid-area: img;
-        width: 100%;
-        margin-top: 10px;
+        margin-top: 15px;
         text-align: center;
     }
 
     input[type="file"] {
         display: none;
     }
+
     .custom-file-upload {
         display: inline-block;
-        padding: 6px 12px;
+        padding: 20px 40px;
         cursor: pointer;
         background-color: #373d40;
         border: 1px solid #373d40;
         color: white;
     }
+
     #imgpreview{
         display:block;
         margin:auto;
-        margin-top: 10px;
-        height: 80%;
-        width: auto;
+        height: 100%;
+        width: 72%;
+        float: left;
     }
 
 
     /* Comment Section */
     .comment{
         grid-area: comment;
+        margin-top: 15px;
+        margin-bottom: 5px;
     }
+
     .optional{
         color: gray;
     }
+
     .commentinput{
         margin-top: 5px;
-        width: 90%;
+        width: 96%;
         height: 60%;
         font-size:16px;
         font-family: HelveticaNeueLTStd-Th, sans-serif;
@@ -124,9 +130,29 @@
         /* border-style: solid; */
         border: 2px solid #333;
         float: right;
-        margin-right: 15px;
+        margin-right: 5px;
     }
- }
+
+    /* Delete Button */
+    .delete{
+        height: 20%;
+        width: 23%;
+        color: #fff;
+        background-color: #f44336;
+        border: 2px solid #090909;
+        border-radius: 10px;
+        position: absolute;
+        bottom: 0;
+        right: 5px;
+    }
+
+    .delete:hover {
+        background-color: #861a1a;
+}
+
+
+
+}
 
  
  

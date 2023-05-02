@@ -15,11 +15,11 @@
     
     <div class="captureimg">
         <span style="color:red;" *ngIf="message">{{message}}</span>
-        <label for="captureimg" class="custom-file-upload">Open Camera</label>
+        <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
         <input #file type="file" accept='image/*' (change)="preview(file.files)" capture="environments" id="captureimg" />
-        <div></div>
         <img [src]="imgURL" height="200" *ngIf="imgURL" id="imgpreview">
-    </div>
+        <button id="delete" *ngIf="imgURL" (click)="deleteImage()" class="delete">Delete</button>
+      </div>
     
 
     <!-- Comment -->
