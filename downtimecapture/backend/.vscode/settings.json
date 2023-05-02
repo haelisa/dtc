@@ -10,7 +10,7 @@
             "driver": "MySQL",
             "name": "MySQL80",
             "database": "dtcdb",
-            "username": "root",
+            "username": "sqluser",
             "askForPassword": true
         }
     ]
