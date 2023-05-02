@@ -22,7 +22,7 @@ export class LandingpageComponent implements OnInit{
     this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
     this.name = this.route.snapshot.paramMap.get('name')!;
     this.surname = this.route.snapshot.paramMap.get('surname')!;
-    this.registerUploadButtonClickListener();
+    
 
   }
 
@@ -42,16 +42,7 @@ export class LandingpageComponent implements OnInit{
       this.message = "Only images are supported.";
       return;
     }
- 
-    var reader = new FileReader();
-    this.imagePath = files;
-    reader.readAsDataURL(files[0]); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result; 
-    }
-  }
-  registerUploadButtonClickListener() {
-    document.getElementById("upload-button")!.addEventListener("click", () => {
+    
       const fileInput = document.getElementById("captureimg") as HTMLInputElement;
       const file = fileInput.files!.item(0)!;
     
@@ -68,20 +59,29 @@ export class LandingpageComponent implements OnInit{
       const formData = new FormData();
       formData.append("photo", file);
     
-      fetch("/upload", {
-        method: "POST",
-        body: formData
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("Das Foto wurde erfolgreich hochgeladen.");
-        } else {
-          alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
-        }
-      })
-      .catch(error => {
-        alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
-      });
-    });
+      // fetch("/upload", {
+      //   method: "POST",
+      //   body: formData
+      // })
+      // .then(response => {
+      //   if (response.ok) {
+      //     alert("Das Foto wurde erfolgreich hochgeladen.");
+      //   } else {
+      //     alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
+      //   }
+      // })
+      // .catch(error => {
+      //   alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
+      // });
+    
+ 
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+    }
   }
+    
+
 }
