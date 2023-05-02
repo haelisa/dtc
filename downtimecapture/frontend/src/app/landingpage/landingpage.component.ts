@@ -18,6 +18,7 @@ export class LandingpageComponent implements OnInit{
   public imagePath: any;
   imgURL: any;
   public message: string;
+  mediatimestamp: Date;
 
   constructor(private route: ActivatedRoute, private client: HttpClient) {}
 
@@ -49,12 +50,13 @@ export class LandingpageComponent implements OnInit{
         return;
       }
 
-      this.timestamp = new Date().toString();
+      this.mediatimestamp = new Date();
+      //alert(this.mediatimestamp);
       
-      /*if (file.size > 5 * 1024 * 1024) {
+      if (file.size > 5 * 1024 * 1024) {
         alert("Das Foto darf nicht größer als 5 MB sein.");
         return;
-      }*/
+      }
       
       this.imgToSave = file;
 
