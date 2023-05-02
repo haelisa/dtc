@@ -22,6 +22,8 @@ export class LandingpageComponent implements OnInit{
     this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
     this.name = this.route.snapshot.paramMap.get('name')!;
     this.surname = this.route.snapshot.paramMap.get('surname')!;
+    this.registerUploadButtonClickListener();
+
   }
 
 
@@ -48,11 +50,38 @@ export class LandingpageComponent implements OnInit{
       this.imgURL = reader.result; 
     }
   }
-
-
-
-
-
-
-
+  registerUploadButtonClickListener() {
+    document.getElementById("upload-button")!.addEventListener("click", () => {
+      const fileInput = document.getElementById("captureimg") as HTMLInputElement;
+      const file = fileInput.files!.item(0)!;
+    
+      if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
+        alert("Nur die gängigen Fotoformate (jpeg, png und jpg) sind zulässig.");
+        return;
+      }
+    
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Das Foto darf nicht größer als 5 MB sein.");
+        return;
+      }
+    
+      const formData = new FormData();
+      formData.append("photo", file);
+    
+      fetch("/upload", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Das Foto wurde erfolgreich hochgeladen.");
+        } else {
+          alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
+        }
+      })
+      .catch(error => {
+        alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
+      });
+    });
+  }
 }
