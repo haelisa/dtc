@@ -23,16 +23,15 @@
     
 
     <!-- Comment -->
-    <div class="comment">
+    <div class="comment" *ngIf="imgURL">
         <span>Comment </span>
-        <span class="optional">(optional) </span>
-        <span> max. 300 characters</span>
+        <span class="optional">(optional): </span>
         <br>
         <textarea class="commentinput" id="commentdtc"> </textarea>
     </div>
     
     <!-- Senden Button -->
-    <div class="footer">
+    <div class="footer" *ngIf="imgURL">
         <button id="send">Send</button>
 
     </div> 

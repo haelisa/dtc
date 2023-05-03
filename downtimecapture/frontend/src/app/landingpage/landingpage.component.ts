@@ -18,7 +18,7 @@ export class LandingpageComponent implements OnInit{
   public imagePath: any;
   imgURL: any;
   public message: string;
-  mediatimestamp: Date;
+  mediatimestamp: string;
 
   constructor(private route: ActivatedRoute, private client: HttpClient) {}
 
@@ -50,8 +50,8 @@ export class LandingpageComponent implements OnInit{
         return;
       }
       //Variable, die den TimeStamp zwischenspeichert
-      this.mediatimestamp = new Date();
-      //alert(this.mediatimestamp);
+      this.mediatimestamp = new Date().toString();
+      //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
       
       if (file.size > 5 * 1024 * 1024) {
         alert("Das Foto darf nicht größer als 5 MB sein.");
@@ -115,9 +115,14 @@ export class LandingpageComponent implements OnInit{
         // })
   }
 
+  // Löschen Button: Foto Preview, Foto Zeitstempel, Kommentarinhalt
   deleteImage() {
     this.imgURL = null; // or this.imgURL = undefined;
     this.imagePath = null; // or this.imagePath = undefined;
+    this.mediatimestamp= '';
+    const commentInput = document.getElementById("commentdtc") as HTMLInputElement;
+    commentInput.value = "";
+    //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
   }
 
 }
