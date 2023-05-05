@@ -8,27 +8,23 @@ import { Media } from './modules/media/media.entity';
 import { DowntimeMessage } from './modules/downtimeMessage/downtimeMessage.entity';
 import { MediaModule } from './modules/media/media.module';
 import { DowntimeMessageModule } from './modules/downtimeMessage/downtimeMessage.module';
+import { join } from 'path';
 
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      // type: 'mysql',
-      // url: process.env.DATABASE_URL,
-      // host: process.env.DB_HOST,
-      // port: parseInt(process.env.DB_PORT),
-      // username: process.env.DB_USERNAME,
-      // database: process.env.DATABASE,
-      // entities: [Media, DowntimeMessage],
-      // synchronize: true,
-      // autoLoadEntities: true,
-      // password: process.env.DB_PASSWORD
-
-      type: 'mysql',
-      host: 'localhost'
-    
-    }),
-    MediaModule, 
+    TypeOrmModule.forRoot(
+      {
+        "type": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "username": "root",
+        "database": "downtimecapture",
+        "entities": [join(__dirname, '**', '*.entity.{ts,js}')],
+        "synchronize": true
+      }
+    ),
+    // MediaModule, 
     DowntimeMessageModule
   ],
   controllers: [AppController],

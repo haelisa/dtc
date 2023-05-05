@@ -24,8 +24,8 @@ export class DowntimeMessage {
     @Column({type: 'varchar'})
     surename: string
 
-    @OneToMany(() => Media, (media) => media.mediaName)
-    media: Media
+    // @OneToMany(() => Media, (media) => media.mediaName)
+    // media: Media
 
     @Column({type: 'text'})
     comment : string
