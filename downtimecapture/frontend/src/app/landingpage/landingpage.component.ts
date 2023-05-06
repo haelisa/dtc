@@ -124,6 +124,7 @@ export class LandingpageComponent implements OnInit{
     this.mediatimestamp= '';
     const commentInput = document.getElementById("commentdtc") as HTMLInputElement;
     commentInput.value = "";
+    this.charCount = 0;
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
   }
 
