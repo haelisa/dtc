@@ -124,7 +124,22 @@ export class LandingpageComponent implements OnInit{
     this.mediatimestamp= '';
     const commentInput = document.getElementById("commentdtc") as HTMLInputElement;
     commentInput.value = "";
+    this.charCount = 0;
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
+  }
+
+  //Kommentar Maximale Zeichenanzahl und Popup
+  charCount: number = 0;
+  
+  updateCharCount(event: any) {
+    const input = event.target.value;
+    if (input.length > 300) {
+      event.target.value = input.substring(0, 300); //Anzahl auf 300 Zeichen
+      this.charCount = 300;
+      alert('Maximum character limit (300) has been reached!');
+    } else {
+      this.charCount = input.length;
+    }
   }
 
 }

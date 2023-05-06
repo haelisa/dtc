@@ -18,19 +18,19 @@
         <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
         <input #file type="file" accept='image/*' (change)="preview(file.files)" capture="environments" id="captureimg" />
         <img [src]="imgURL" height="200" *ngIf="imgURL" id="imgpreview">
-        <button id="delete" *ngIf="imgURL" (click)="deleteImage()" class="delete">Delete</button>
+        <button id="delete" *ngIf="imgURL" (click)="deleteImage()" class="delete"></button>
       </div>
-    
 
 
 
-    <!-- Comment -->
-    <div class="comment" *ngIf="imgURL">
-        <span>Comment </span>
-        <span class="optional">(optional): </span>
-        <br>
-        <textarea class="commentinput" id="commentdtc"> </textarea>
-    </div> 
+   <!-- Comment -->
+   <div class="comment" *ngIf="imgURL">
+    <span>Comment </span>
+    <span class="optional">(optional): </span>
+    <br>
+    <textarea class="commentinput" id="commentdtc" (input)="updateCharCount($event)"> </textarea>
+    <span class="limit">{{charCount}}/300</span>
+    </div>
     
     <!-- Senden Button -->
     <div class="footer" *ngIf="imgURL">
