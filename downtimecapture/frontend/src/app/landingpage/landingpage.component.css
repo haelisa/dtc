@@ -146,6 +146,13 @@
         right: 5px;
     }
 
+    .limit {
+        color: gray;
+        font-size: 12px;
+        margin-top: 5px;
+        display: block;
+    }
+
     .delete:hover {
         background-color: #861a1a;
 }

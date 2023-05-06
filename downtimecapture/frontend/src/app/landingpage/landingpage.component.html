@@ -22,23 +22,15 @@
       </div>
     
 
-      <!-- Comment -->
-    <div class="comment" *ngIf="imgURL">
-        <span>Comment </span>
-        <span class="optional">(optional): </span>
-        <br>
-        <textarea class="commentinput" id="commentdtc" (input)="updateCharCount($event)"> </textarea>
-        <span class="limit">{{charCount}}/300</span>
-    </div>
 
-    
-    <!-- Comment
+
+    <!-- Comment -->
     <div class="comment" *ngIf="imgURL">
         <span>Comment </span>
         <span class="optional">(optional): </span>
         <br>
         <textarea class="commentinput" id="commentdtc"> </textarea>
-    </div> -->
+    </div> 
     
     <!-- Senden Button -->
     <div class="footer" *ngIf="imgURL">
