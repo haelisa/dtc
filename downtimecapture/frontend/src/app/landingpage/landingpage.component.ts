@@ -33,29 +33,30 @@ export class LandingpageComponent implements OnInit{
   
  
   preview(files:any) {
+    preview: {
     if (files.length === 0)
       return;
  
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message = "Only images are supported.";
-      return;
+      break preview;      
     }
-    
       const fileInput = document.getElementById("captureimg") as HTMLInputElement;
       const file = fileInput.files!.item(0)!;
     
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
         alert("Nur die gängigen Fotoformate (jpeg, png und jpg) sind zulässig.");
-        return;
+        break preview;
       }
+
       //Variable, die den TimeStamp zwischenspeichert
       this.mediatimestamp = new Date().toString();
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
       
       if (file.size > 5 * 1024 * 1024) {
         alert("Das Foto darf nicht größer als 5 MB sein.");
-        return;
+        break preview;
       }
       
       this.imgToSave = file;
@@ -88,6 +89,7 @@ export class LandingpageComponent implements OnInit{
 
     }
   }
+  }
 
 
     OnSubmit() {
@@ -99,7 +101,7 @@ export class LandingpageComponent implements OnInit{
     let formData = new FormData();
     formData.append('file', this.imgToSave);
 
-    this.client.post('http://141.60.168.225:3000/postdtcMessage/' , formData, options)
+    this.client.post('http://141.60.173.62:3000/postdtcMessage/' , formData, options)
       .subscribe(data => {
           alert("Das Bild wurde erfolgreich gespeichert: " + this.imgToSave.name)
 
@@ -123,6 +125,20 @@ export class LandingpageComponent implements OnInit{
     const commentInput = document.getElementById("commentdtc") as HTMLInputElement;
     commentInput.value = "";
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
+  }
+
+  //Kommentar mit maximaler Zeichenanzahl und Popup
+  charCount: number = 0;
+  
+  updateCharCount(event: any) {
+    const input = event.target.value;
+    if (input.length > 300) {
+      event.target.value = input.substring(0, 300); //Anzahl auf 300 Zeichen
+      this.charCount = 300;
+      alert('Maximum number of 300 carcharacters has been exceeded');
+    } else {
+      this.charCount = input.length;
+    }
   }
 
 }
