@@ -39,9 +39,10 @@ export class LandingpageComponent implements OnInit{
  
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      break preview;      
-    }
+      this.message = "Only images are supported.";    
+      break preview;  
+    }      
+
       const fileInput = document.getElementById("captureimg") as HTMLInputElement;
       const file = fileInput.files!.item(0)!;
     
@@ -134,9 +135,9 @@ export class LandingpageComponent implements OnInit{
   updateCharCount(event: any) {
     const input = event.target.value;
     if (input.length > 300) {
-      event.target.value = input.substring(0, 300); //Anzahl auf 300 Zeichen
+      event.target.value = input.substring(0, 300);
       this.charCount = 300;
-      alert('Maximum character limit (300) has been reached!');
+      alert('Limit of 300 characters has been exceeded');
     } else {
       this.charCount = input.length;
     }
