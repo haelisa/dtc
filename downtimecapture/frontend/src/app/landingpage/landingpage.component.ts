@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { buffer } from 'rxjs';
 
 @Component({
   selector: 'app-landingpage',
@@ -50,6 +51,7 @@ export class LandingpageComponent implements OnInit{
         break preview;
       }
 
+
       //Variable, die den TimeStamp zwischenspeichert
       this.mediatimestamp = new Date().toString();
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
@@ -60,6 +62,7 @@ export class LandingpageComponent implements OnInit{
       }
       
       this.imgToSave = file;
+      console.log(this.imgToSave.name)
 
       const formData = new FormData();
       formData.append("photo", file);
@@ -125,6 +128,7 @@ export class LandingpageComponent implements OnInit{
     const commentInput = document.getElementById("commentdtc") as HTMLInputElement;
     commentInput.value = "";
     this.charCount = 0;
+    console.log('Media deleted successfully.')
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
   }
 
@@ -140,6 +144,48 @@ export class LandingpageComponent implements OnInit{
     } else {
       this.charCount = input.length;
     }
+  }
+  
+  async onSave(){
+    // const formData = new FormData();
+    // formData.append('mediaName', this.imgToSave.name)
+    // formData.append('mediaTimeStamp', this.mediatimestamp);
+      
+
+    const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(this.imgToSave);
+      reader.onload = () => resolve(reader.result as ArrayBuffer);
+      reader.onerror = reject;
+    });
+
+    var mediablob = (new Blob([buffer],{ type: this.imgToSave.type }), this.imgToSave.name);
+    const requestData = {
+      mediaName: this.imgToSave.name,
+      mediaTimeStamp: this.mediatimestamp,
+      mediaFile: mediablob
+    };
+
+    // const reader = new FileReader();
+    // reader.readAsArrayBuffer(this.imgToSave)
+    // reader.onload = () => {
+    //   const buffer = reader.result as ArrayBuffer
+      //formData.append('mediaFile', new Blob([buffer],{ type: this.imgToSave.type }), this.imgToSave.name);
+      
+      this.client.post('http://192.168.178.103:3000/media/setMedia', requestData).subscribe(() => {
+      console.log('Media saved successfully.' + '\n' + this.imgToSave.name + ',\n' + this.mediatimestamp + '\n');
+      alert('Foto wurde gespeichert: \n'+ this.imgToSave.name + '\n' + 'Zeitstempel: ' + this.mediatimestamp)
+      }, (error) => {
+      console.error('Error while saving media:', error);
+      });
+    
+    
+
+    // this.client.post('http://192.168.178.103:3000/media/media', formData).subscribe(() => {
+    // console.log('Media saved successfully.');
+    // }, (error) => {
+    // console.error('Error while saving media:', error);
+    // });
   }
 
 }

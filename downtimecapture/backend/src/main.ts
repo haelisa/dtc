@@ -3,8 +3,14 @@ import { AppModule } from './app.module';
 import 'reflect-metadata';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: true
+  });
 
+  // app.enableCors({
+  //   origin: ['from', 'to']
+  // })
+  
   await app.listen(process.env.DB_PORT || 3000);
 }
 bootstrap();

@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Media } from './media.entity';
+import { MediaTypeEnum } from './enums/media.enum';
+import { MediaFormatEnum } from './enums/media.enum';
 
 @Injectable()
 export class MediaService {
@@ -10,9 +12,14 @@ export class MediaService {
     private readonly mediaRepository: Repository<Media>,
   ) {}
 
-  async createMedia(data: Partial<Media>): Promise<Media> {
-    const media = await this.mediaRepository.create(data);
-    return await this.mediaRepository.save(media);
+  createMedia(medianame: string, mediatimestamp:Date, mediafile: Blob): Promise<Media> {
+    const media = new Media();
+    media.mediaName = medianame;
+    media.mediaTimeStamp = mediatimestamp;
+    media.MediaFormat = MediaFormatEnum.FOTO;
+    media.MediaType = MediaTypeEnum.AUFNAHME;
+    media.mediaFile = mediafile;
+    return this.mediaRepository.save(media);
   }
 
   findAll(): Promise<Media[]> {

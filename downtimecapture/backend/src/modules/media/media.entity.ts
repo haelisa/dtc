@@ -11,10 +11,10 @@ export class Media {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({type: 'varchar', unique: true})
+    @Column({type: 'varchar', unique: true, nullable: true})
     mediaName: string
 
-    @Column({type: 'timestamp'})
+    @Column({type: 'datetime', nullable: true})
     mediaTimeStamp: Date
 
     @Column( {type: 'enum', enum: MediaTypeEnum} )
@@ -23,7 +23,7 @@ export class Media {
     @Column( {type: 'enum', enum: MediaFormatEnum})
     MediaFormat: MediaFormatEnum
     
-    //@Column()
-    //mediaFile: Blob
+    @Column({type: 'longblob', nullable: true})
+    mediaFile: any
 }
 
