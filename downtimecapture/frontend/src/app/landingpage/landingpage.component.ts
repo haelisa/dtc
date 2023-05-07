@@ -40,9 +40,10 @@ export class LandingpageComponent implements OnInit{
  
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      break preview;      
-    }
+      this.message = "Only images are supported.";    
+      break preview;  
+    }      
+
       const fileInput = document.getElementById("captureimg") as HTMLInputElement;
       const file = fileInput.files!.item(0)!;
     
@@ -132,15 +133,15 @@ export class LandingpageComponent implements OnInit{
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
   }
 
-  //Kommentar mit maximaler Zeichenanzahl und Popup
+  //Kommentar Maximale Zeichenanzahl und Popup
   charCount: number = 0;
   
   updateCharCount(event: any) {
     const input = event.target.value;
     if (input.length > 300) {
-      event.target.value = input.substring(0, 300); //Anzahl auf 300 Zeichen
+      event.target.value = input.substring(0, 300);
       this.charCount = 300;
-      alert('Maximum number of 300 carcharacters has been exceeded');
+      alert('Limit of 300 characters has been exceeded');
     } else {
       this.charCount = input.length;
     }

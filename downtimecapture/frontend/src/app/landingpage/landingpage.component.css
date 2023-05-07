@@ -93,7 +93,6 @@
         float: left;
     }
 
-
     /* Comment Section */
     .comment{
         grid-area: comment;
@@ -105,15 +104,28 @@
         color: gray;
     }
 
-    .commentinput{
+    .add-comment {
+        display: flex;
+      }
+      .add-comment .comment-input {
+        position: relative;
+        width: 97%;
+        max-width: 600px;
+      }
+
+      .add-comment .comment-input input {
         margin-top: 5px;
         width: 96%;
         height: 60%;
-        font-size:16px;
+        font: size 14px;
         font-family: HelveticaNeueLTStd-Th, sans-serif;
         overflow: auto;
         border: 2px solid #333;
-    }
+      }
+      
+      .add-comment .comment-input input::placeholder {
+        color: #c3ccd3;
+      }
 
 
     /* Send Button */
@@ -127,7 +139,7 @@
         color: #fff;
         background-color: #456f81;
         border-color: #456f81;
-        /* border-style: solid; */
+        border-style: solid;
         border: 2px solid #333;
         float: right;
         margin-right: 5px;
@@ -135,23 +147,35 @@
 
     /* Delete Button */
     .delete{
-        background-image: url('../../assets/Icons/PapierkorbIcon.png');
         background-repeat: no-repeat;
         background-position: center;
         background-size: 60%;
-        height: 20%;
-        width: 23%;
+        height: 15%;
+        width: 10%;
         color: #fff;
-        background-color: #f2463a;
-        border: 2px solid #090909;
+        border: 1px solid #090909;
         border-radius: 10%;
         position: absolute;
         bottom: 0;
         right: 5px;
-    }
+        background-color: white;
+    } 
 
+    img {
+        width: 33px;
+        height: 33px;
+      }
+    
+
+    .limit {
+        font-size: 12px;
+        margin-top: 5px;
+        display: block;
+        background-color: white;
+    }
+    
     .delete:hover {
-        background-color: #861a1a;
+        background-color: red;
 }
 
 
