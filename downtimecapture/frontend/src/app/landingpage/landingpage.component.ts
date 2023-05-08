@@ -123,11 +123,14 @@ export class LandingpageComponent implements OnInit{
 
   // Löschen Button: Foto Preview, Foto Zeitstempel, Kommentarinhalt
   deleteImage() {
-    this.imgURL = null; // Foto wird aus Frontend gelöscht
-    this.mediatimestamp= '';
+    this.imgURL = null;
+    this.imagePath = null;
+    const fileInput = document.getElementById("captureimg") as HTMLInputElement;
+    fileInput.value = ""; //Foto aus Frontend löschen
+    this.mediatimestamp= ''; //Foto Zeitstempel löschen
     const commentInput = document.getElementById("commentdtc") as HTMLInputElement;
-    commentInput.value = "";
-    this.charCount = 0;
+    commentInput.value = ""; //Kommentarfeld löschen
+    this.charCount = 0; //Kommentar Anzahl Zähler auf '0'
     console.log('Media deleted successfully.')
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
   }
