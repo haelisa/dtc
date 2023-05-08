@@ -12,7 +12,7 @@
             "dtcdata"
             "img"
             "comment"
-            "footer";    
+            "send";    
     }
 
 
@@ -129,11 +129,11 @@
 
 
     /* Send Button */
-    .footer{
-        grid-area: footer;
+    .send{
+        grid-area: send;
     }
 
-    .footer button{
+    .send button{
         height: 100%;
         width: 23%;
         color: #fff;
