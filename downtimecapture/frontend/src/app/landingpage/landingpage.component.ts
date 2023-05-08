@@ -96,7 +96,7 @@ export class LandingpageComponent implements OnInit{
   }
 
 
-    OnSubmit() {
+    /*OnSubmit() {  //Erfolgsmeldung für gesamte Downtime-Meldung
 
     const options = {
       headers: new HttpHeaders().append('Content-Type', 'multipart/form-data')
@@ -119,7 +119,7 @@ export class LandingpageComponent implements OnInit{
         // () => {
         //   console.log("The post observable is now completed");
         // })
-  }
+  }*/
 
   // Löschen Button: Foto Preview, Foto Zeitstempel, Kommentarinhalt
   deleteImage() {
@@ -178,8 +178,10 @@ export class LandingpageComponent implements OnInit{
     // reader.onload = () => {
     //   const buffer = reader.result as ArrayBuffer
       //formData.append('mediaFile', new Blob([buffer],{ type: this.imgToSave.type }), this.imgToSave.name);
-      
-      this.client.post('http://192.168.178.103:3000/media/setMedia', requestData).subscribe(() => {
+
+      const ip = window.location.hostname;
+
+      this.client.post(`http://${ip}:3000/media/setMedia`, requestData).subscribe(() => {
       console.log('Media saved successfully.' + '\n' + this.imgToSave.name + ',\n' + this.mediatimestamp + '\n');
       alert('Foto wurde gespeichert: \n'+ this.imgToSave.name + '\n' + 'Zeitstempel: ' + this.mediatimestamp)
       }, (error) => {
