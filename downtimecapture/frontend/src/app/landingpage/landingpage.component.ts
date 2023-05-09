@@ -48,7 +48,7 @@ export class LandingpageComponent implements OnInit{
       const file = fileInput.files!.item(0)!;
     
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
-        alert("Nur die gängigen Fotoformate (jpeg, png und jpg) sind zulässig.");
+        alert("Only common photo formats (jpeg, png and jpg) are allowed.");
         break preview;
       }
 
@@ -58,7 +58,7 @@ export class LandingpageComponent implements OnInit{
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
       
       if (file.size > 5 * 1024 * 1024) {
-        alert("Das Foto darf nicht größer als 5 MB sein.");
+        alert("The photo is larger than 5 MB.");
         break preview;
       }
       
@@ -183,7 +183,7 @@ export class LandingpageComponent implements OnInit{
 
       this.client.post(`http://${ip}:3000/media/setMedia`, requestData).subscribe(() => {
       console.log('Media saved successfully.' + '\n' + this.imgToSave.name + ',\n' + this.mediatimestamp + '\n');
-      alert('Foto wurde gespeichert: \n'+ this.imgToSave.name + '\n' + 'Zeitstempel: ' + this.mediatimestamp)
+      alert('Media saved successfully: \n'+ this.imgToSave.name + '\n' + 'Timestamp: ' + this.mediatimestamp)
       }, (error) => {
       console.error('Error while saving media:', error);
       });
