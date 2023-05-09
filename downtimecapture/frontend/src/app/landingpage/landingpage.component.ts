@@ -58,7 +58,7 @@ export class LandingpageComponent implements OnInit{
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
       
       if (file.size > 5 * 1024 * 1024) {
-        alert("The photo is larger than 5 MB.");
+        alert("The photo must not be larger than 5 MB.");
         break preview;
       }
       
