@@ -31,36 +31,39 @@ export class LandingpageComponent implements OnInit{
     this.surname = this.route.snapshot.paramMap.get('surname')!;
   }  
 
-  
- 
+ //Foto aufnehmen, Foto Zeitstempel sowie Name übergeben
   preview(files:any) {
     preview: {
     if (files.length === 0)
       return;
  
+    //Prüfen ob Datei in Varibale abgespeichert wurde und es ein Bild ist 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message = "Only images are supported.";    
       break preview;  
-    }      
+    }    
 
+    //HTML-Input-Elemente aufrufen
       const fileInput = document.getElementById("captureimg") as HTMLInputElement;
       const file = fileInput.files!.item(0)!;
     
+      //Nur gängige Formate erlaubt
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
         alert("Only common photo formats (jpeg, png and jpg) are allowed.");
         break preview;
       }
 
-
       //Variable, die den TimeStamp zwischenspeichert
       this.mediatimestamp = new Date().toString();
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
       
+      //Foto kleiner als 5MB
       if (file.size > 5 * 1024 * 1024) {
         alert("The photo must not be larger than 5 MB.");
         break preview;
       }
+      
       
       this.imgToSave = file;
       console.log(this.imgToSave.name)
@@ -123,18 +126,24 @@ export class LandingpageComponent implements OnInit{
 
   // Löschen Button: Foto Preview, Foto Zeitstempel, Kommentarinhalt
   deleteImage() {
+    
     this.imgURL = null;
     this.imagePath = null;
+
     const fileInput = document.getElementById("captureimg") as HTMLInputElement;
     if (fileInput) {
         fileInput.value = ""; //Foto aus Frontend löschen
     }
+
     this.mediatimestamp= ''; //Foto Zeitstempel löschen
+
     const commentInput = document.getElementById("commentdtc") as HTMLInputElement;
     if (commentInput) {
         commentInput.value = ""; //Kommentarfeld löschen
     }
+
     this.charCount = 0; //Kommentar Anzahl Zähler auf '0'
+    
     console.log('Media deleted successfully.')
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
   }
