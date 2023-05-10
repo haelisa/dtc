@@ -11,7 +11,7 @@ export class Media {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({type: 'varchar', unique: true, nullable: true})
+    @Column({type: 'varchar', unique: false, nullable: true})
     mediaName: string
 
     @Column({type: 'datetime', nullable: true})
