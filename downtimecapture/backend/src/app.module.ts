@@ -19,7 +19,7 @@ import { join } from 'path';
         "host": "localhost",
         "port": 3306,
         "username": "root",
-        "password": "root",
+        "password": "santino",
         "database": "downtimecapture",
         "entities": [join(__dirname, '**', '*.entity.{ts,js}')],
         "synchronize": true

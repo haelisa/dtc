@@ -10,8 +10,7 @@
             "driver": "MySQL",
             "name": "downtimecapture",
             "database": "downtimecapture",
-            "username": "root",
-            "askForPassword": true
+            "username": "root"
         }
     ]
 }
