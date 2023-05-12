@@ -8,9 +8,9 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "MySQL80",
-            "database": "dtcdb",
-            "username": "sqluser",
+            "name": "downtimecapture",
+            "database": "downtimecapture",
+            "username": "root",
             "askForPassword": true
         }
     ]
