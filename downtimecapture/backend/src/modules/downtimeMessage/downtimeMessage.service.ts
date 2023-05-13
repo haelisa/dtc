@@ -7,8 +7,8 @@ import { Media } from '../media/media.entity';
 @Injectable()
 export class DowntimeMessageService {
   constructor(@InjectRepository(DowntimeMessage)
-  private readonly dtmRepository: Repository<DowntimeMessage>,
-  private readonly mediaRepository: Repository<Media>){}
+  private readonly dtmRepository: Repository<DowntimeMessage>
+  ){}
   
   async getDowntimeMessage(_id: number): Promise<DowntimeMessage[]> {
     return await this.dtmRepository.find({
