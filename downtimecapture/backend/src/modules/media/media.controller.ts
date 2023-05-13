@@ -19,10 +19,10 @@ export class MediaController {
     return this.mediaServices.createMedia(medianame, mediatimestampDATE, mediafile);
   }
 
-  @Get()
-  findAll(): Promise<Media[]> {
-    return this.mediaServices.findAll();
-  }
+  // @Get()
+  // findAll(): Promise<Media[]> {
+  //   return this.mediaServices.findAll();
+  // }
 
   
 }
