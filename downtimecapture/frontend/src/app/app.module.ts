@@ -8,6 +8,8 @@ import { HelloworldComponent } from './helloworld/helloworld/helloworld.componen
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { ShowimgComponent } from './showimg/showimg.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { ShowimgComponent } from './showimg/showimg.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

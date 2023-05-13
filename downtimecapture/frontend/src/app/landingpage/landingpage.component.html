@@ -32,13 +32,16 @@
         <div class="add-comment">
             <div class="comment-input">
 
-                <textarea id="form-control form-control-sm" name="commentinput" rows="7"cols="50" style ="resize: none;" placeholder="Add a comment..." (input)="updateCharCount($event)"></textarea>      
+                <textarea id="comment" name="commentinput" value={comment} rows="7"cols="50" [(ngModel)]="comment" style ="resize: none;" placeholder="Add a comment..." (input)="updateCharCount($event)"></textarea>      
                  <span class="limit">{{charCount}}/300</span>
+                
+            </div>
+        </div>        
 
 
     <!-- Senden Button -->
     <div class="send" *ngIf="imgURL">
-        <button id="send" (click)="onSave()">Send downtime Message</button>
+        <button id="send" (click)="onSubmit()">Send downtime Message</button>
         
     </div> 
         

@@ -22,12 +22,11 @@ export class MediaService {
     return this.mediaRepository.save(media);
   }
 
-  findAll(): Promise<Media[]> {
-    return this.mediaRepository.find();
-  }
+  // async getMediabyId(id: number): Promise<Media> {
+  //   return await this.mediaRepository.findOne(id);
+  // }
 
-  //async getMediaById(id: number): Promise<Media> {
-    //return await this.mediaRepository.findOne(id)
-  //}
+ 
+
 }
 

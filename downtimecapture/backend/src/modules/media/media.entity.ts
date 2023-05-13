@@ -1,7 +1,8 @@
 import { timeStamp } from "console";
-import { Entity, Column, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Timestamp, OneToMany } from "typeorm";
 import { MediaFormatEnum } from './enums/media.enum';
 import { MediaTypeEnum } from './enums/media.enum';
+import { DowntimeMessage } from "../downtimeMessage/downtimeMessage.entity";
 
 
 @Entity()
@@ -25,5 +26,9 @@ export class Media {
     
     @Column({type: 'longblob', nullable: true})
     mediaFile: any
+    
+    @OneToMany(() => DowntimeMessage, (downtimeMessage) => downtimeMessage.media)
+    downtimeMessages: DowntimeMessage[];
+
 }
 

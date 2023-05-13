@@ -3,10 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { buffer } from 'rxjs';
 
+
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
-  styleUrls: ['./landingpage.component.css']
+  styleUrls: ['./landingpage.component.css'],
+  
+
 })
 export class LandingpageComponent implements OnInit{
 
@@ -20,6 +23,8 @@ export class LandingpageComponent implements OnInit{
   imgURL: any;
   public message: string;
   mediatimestamp: string;
+  comment: string = '';
+
 
   constructor(private route: ActivatedRoute, private client: HttpClient) {}
 
@@ -98,32 +103,6 @@ export class LandingpageComponent implements OnInit{
   }
   }
 
-
-    /*OnSubmit() {  //Erfolgsmeldung für gesamte Downtime-Meldung
-
-    const options = {
-      headers: new HttpHeaders().append('Content-Type', 'multipart/form-data')
-    }
-
-    let formData = new FormData();
-    formData.append('file', this.imgToSave);
-
-    this.client.post('http://141.60.173.62:3000/postdtcMessage/' , formData, options)
-      .subscribe(data => {
-          alert("Das Bild wurde erfolgreich gespeichert: " + this.imgToSave.name)
-
-          console.log("Post call successful value returned in body", data);
-        }, 
-
-        response => {
-          console.log("Post call in error", response);
-        })
-        
-        // () => {
-        //   console.log("The post observable is now completed");
-        // })
-  }*/
-
   // Löschen Button: Foto Preview, Foto Zeitstempel, Kommentarinhalt
   deleteImage() {
     
@@ -149,6 +128,8 @@ export class LandingpageComponent implements OnInit{
   }
 
   //Kommentar Maximale Zeichenanzahl und Popup
+
+  
   charCount: number = 0;
   
   updateCharCount(event: any) {
@@ -162,7 +143,7 @@ export class LandingpageComponent implements OnInit{
     }
   }
   
-  async onSave(){
+  async onSubmit(){
     // const formData = new FormData();
     // formData.append('mediaName', this.imgToSave.name)
     // formData.append('mediaTimeStamp', this.mediatimestamp);
@@ -176,7 +157,7 @@ export class LandingpageComponent implements OnInit{
     });
 
     var mediablob = (new Blob([buffer],{ type: this.imgToSave.type }), this.imgToSave.name);
-    const requestData = {
+    const requestDataMedia = {
       mediaName: this.imgToSave.name,
       mediaTimeStamp: this.mediatimestamp,
       mediaFile: mediablob
@@ -190,12 +171,29 @@ export class LandingpageComponent implements OnInit{
 
       const ip = window.location.hostname;
 
-      this.client.post(`http://${ip}:3000/media/setMedia`, requestData).subscribe(() => {
+      this.client.post(`http://${ip}:3000/media/setMedia`, requestDataMedia).subscribe(() => {
       console.log('Media saved successfully.' + '\n' + this.imgToSave.name + ',\n' + this.mediatimestamp + '\n');
-      alert('Media saved successfully: \n'+ this.imgToSave.name + '\n' + 'Timestamp: ' + this.mediatimestamp)
       }, (error) => {
       console.error('Error while saving media:', error);
       });
+
+      const requestDataDtm = {
+        dtmComment: this.comment,
+        dtmTimeStamp: this.timestamp,
+        dtmEquipmentNo: this.equipmentno,
+        dtmEventid: this.eventid,
+        dtmName: this.name,
+        dtmSurname: this.surname
+      };
+
+      this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
+        console.log('Downtime-Message saved successfully.');
+        alert('Downtime-Message saved successfully.' + '\n' + 'Timestamp: ' + this.timestamp)
+        }, (error) => {
+        console.error('Error while saving Downtime-Message:', error);
+        });
+
+
     
     
 
@@ -207,3 +205,4 @@ export class LandingpageComponent implements OnInit{
   }
 
 }
+

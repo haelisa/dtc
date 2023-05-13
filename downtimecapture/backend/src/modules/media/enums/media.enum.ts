@@ -6,7 +6,7 @@ enum MediaFormatEnum {
 export {MediaFormatEnum}
 
 enum MediaTypeEnum {
-    AUFNAHME = 'auswahl',
+    AUFNAHME = 'aufnahme',
     GALERIE = 'galerie',
     STANDARD = 'standard'
 }

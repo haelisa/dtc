@@ -9,24 +9,25 @@ export class DowntimeMessage {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', nullable: true})
     eventID: string
 
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', nullable: true})
     equipmentNo : string
 
-    @Column({type: 'timestamp'})
-    dtcTimeStamp : Timestamp
+    @Column({type: 'int', nullable: true})
+    dtcTimeStampUnixEpoch : number
 
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', nullable: true})
     name : string
 
-    @Column({type: 'varchar'})
-    surename: string
+    @Column({type: 'varchar', nullable: true})
+    surname: string
 
-    // @OneToMany(() => Media, (media) => media.mediaName)
-    // media: Media
+    @ManyToOne(() => Media, (media) => media.downtimeMessages)
+    media: Media;
 
-    @Column({type: 'text'})
+    @Column({type: 'text', nullable: true})
     comment : string
+    dtcTimeStamp: number;
 }
