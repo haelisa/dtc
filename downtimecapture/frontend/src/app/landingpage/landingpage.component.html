@@ -14,9 +14,13 @@
 
     <!-- Foto Aufnehmen Button, Preview des Fotos, Lösch Button -->
     <div class="captureimg">
-        <span style="color:red;" *ngIf="message">{{message}}</span>
+
         <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
-        <input #file type="file" accept='image/*' (change)="preview(file.files)" capture="environments" id="captureimg" />
+        <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
+
+        <label for="galleryimg" class="custom-file-upload" *ngIf="!imgURL">Open Gallery</label>
+        <input #galleryImgInput type="file" accept='image/*' (change)="preview(galleryImgInput.files)" id="galleryimg">
+
         <img [src]="imgURL" height="200" *ngIf="imgURL" id="imgpreview">
         
        <button id="delete" *ngIf="imgURL" (click)="deleteImage()" class="delete" type="submit" style="width: 40px; height: 40px; padding:0">
