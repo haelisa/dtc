@@ -23,7 +23,7 @@ export class LandingpageComponent implements OnInit{
   surname: string;
   imgToSave: File;
   imgURL: any;
-  mediatimestamp: string;
+  mediatimestamp: Date;
   comment: string = '';
   mediaType: MediaTypeEnum;
   mediaFormat: MediaFormatEnum;
@@ -94,7 +94,7 @@ export class LandingpageComponent implements OnInit{
     }
 
     //TimeStamp zwischenspeichern
-    this.mediatimestamp = new Date(file.lastModified).toString();
+    this.mediatimestamp = new Date(file.lastModified);
     //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
 
 
@@ -144,7 +144,7 @@ export class LandingpageComponent implements OnInit{
 
     this.comment = '';        //Kommentar löschen
     this.charCount = 0;       //Kommentarzeichen Anzahl Zähler auf '0'
-    this.mediatimestamp= '';  //Foto Zeitstempel löschen
+    this.mediatimestamp=  null as unknown as Date;  //Foto Zeitstempel löschen
     
     console.log('Media deleted successfully.')
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
@@ -197,7 +197,7 @@ export class LandingpageComponent implements OnInit{
       //Media-Objekt erstellen, um es in die Post-Methode der Downtime-Message zu übergeben
       this.mediaObject = new Media();
       this.mediaObject.mediaName = this.imgToSave.name;
-      this.mediaObject.mediaTimeStamp = new Date(this.mediatimestamp);
+      this.mediaObject.mediaTimeStamp = this.mediatimestamp;
       this.mediaObject.MediaType = this.mediaType;
       this.mediaObject.MediaFormat = this.mediaFormat;
       this.mediaObject.mediaFile = mediablob;
@@ -213,7 +213,7 @@ export class LandingpageComponent implements OnInit{
       };
 
       //Unix-Epoch Number zu Date parsen, Beispiel: von 1620980318 zu 2021-05-14T10:05:18.000Z
-      const dtcDate = new Date(parseInt(this.timestamp) * 1000)
+      //const dtcDate = new Date(parseInt(this.timestamp) * 1000)
 
       //Post-Methode um die Downtime-Message ins Backend zu schicken
       this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
