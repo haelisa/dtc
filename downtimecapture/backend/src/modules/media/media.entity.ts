@@ -10,7 +10,7 @@ import { DowntimeMessage } from "../downtimeMessage/downtimeMessage.entity";
 export class Media {
 
     @PrimaryGeneratedColumn()
-    id: number
+    mediaId: number
 
     @Column({type: 'varchar', unique: false, nullable: true})
     mediaName: string

@@ -1,4 +1,4 @@
-import { Entity,Column, PrimaryGeneratedColumn, Timestamp, ManyToOne, OneToMany } from "typeorm";
+import { Entity,Column, PrimaryGeneratedColumn, Timestamp, ManyToOne, OneToMany, JoinColumn } from "typeorm";
 import { Media } from "../media/media.entity";
 import { text } from "stream/consumers";
 
@@ -7,27 +7,31 @@ import { text } from "stream/consumers";
 export class DowntimeMessage {
 
     @PrimaryGeneratedColumn()
-    id: number
+    dtmId: number
 
-    @Column({type: 'varchar', nullable: true})
+    @Column({type: 'varchar'})
     eventID: string
 
-    @Column({type: 'varchar', nullable: true})
+    @Column({type: 'varchar'})
     equipmentNo : string
 
-    @Column({type: 'int', nullable: true})
+    @Column({type: 'int'})
     dtcTimeStampUnixEpoch : number
 
-    @Column({type: 'varchar', nullable: true})
+    @Column({type: 'varchar'})
     name : string
 
-    @Column({type: 'varchar', nullable: true})
+    @Column({type: 'varchar'})
     surname: string
 
     @ManyToOne(() => Media, (media) => media.downtimeMessages)
+    @JoinColumn({name: 'mediaId' })
     media: Media;
 
     @Column({type: 'text', nullable: true})
     comment : string
-    dtcTimeStamp: number;
+
+    @Column({type: 'int'})
+    mediaId : number
+    
 }
