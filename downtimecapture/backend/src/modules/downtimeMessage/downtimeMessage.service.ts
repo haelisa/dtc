@@ -10,33 +10,16 @@ export class DowntimeMessageService {
   private readonly dtmRepository: Repository<DowntimeMessage>
   ){}
   
-  async getDowntimeMessage(_id: number): Promise<DowntimeMessage[]> {
-    return await this.dtmRepository.find({
-        select: ["eventID", "equipmentNo", "dtcTimeStampUnixEpoch", "name", "surname", "comment"],
-        where: [{ "id": _id }]
-    });
-  }
+  // async getDowntimeMessage(_id: number): Promise<DowntimeMessage[]> {
+  //   return await this.dtmRepository.find({
+  //       select: ["eventID", "equipmentNo", "dtcTimeStampUnixEpoch", "name", "surname", "comment"],
+  //       where: [{ "mediaId": _id }]
+  //   });
+  // }
 
-  createDowntimeMessage(downtimeComment : string, downtimeEquipmentNo : string, downtimeEventid: string,
-    downtimeTimeStampUTC: number, downtimeName: string ,downtimeSurname: string): Promise<DowntimeMessage>{
-      console.log('Dtm Service funktioniert.');
-      // var mediaObject = new Media();
-      // const media = this.mediaRepository.findOne(mediaId);
-      // if (!media) {
-      //   throw new NotFoundException(`Media with id ${media} not found`);
-      // }
-
-      var dtm = new DowntimeMessage();
-      dtm.dtcTimeStampUnixEpoch = downtimeTimeStampUTC;
-      dtm.equipmentNo = downtimeEquipmentNo;
-      dtm.eventID = downtimeEventid;
-      dtm.comment = downtimeComment;
-      dtm.name = downtimeName;
-      dtm.surname = downtimeSurname;
-
-      console.log(downtimeTimeStampUTC);
-   
-   return this.dtmRepository.save(dtm);
+  createDowntimeMessage(dtmObject: DowntimeMessage): Promise<DowntimeMessage>{
+    console.log('Dtm Service funktioniert.');
+    return this.dtmRepository.save(dtmObject);
   }
 
 

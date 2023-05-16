@@ -2,6 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { buffer } from 'rxjs';
+import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class'
+
+
 
 
 @Component({
@@ -20,8 +23,12 @@ export class LandingpageComponent implements OnInit{
   surname: string;
   imgToSave: File;
   imgURL: any;
-  mediatimestamp: string;
+  mediatimestamp: Date;
   comment: string = '';
+  mediaType: MediaTypeEnum;
+  mediaFormat: MediaFormatEnum;
+  mediaObject: Media;
+  
 
 
   constructor(private route: ActivatedRoute, private client: HttpClient) {}
@@ -32,6 +39,7 @@ export class LandingpageComponent implements OnInit{
     this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
     this.name = this.route.snapshot.paramMap.get('name')!;
     this.surname = this.route.snapshot.paramMap.get('surname')!;
+            
   }  
 
  //Foto aufnehmen, Foto Zeitstempel sowie Name übergeben
@@ -55,8 +63,10 @@ export class LandingpageComponent implements OnInit{
 
     if (captureImgInput.files && captureImgInput.files[0]) {
     file = captureImgInput.files[0];
+    this.mediaType = MediaTypeEnum.AUFNAHME;
     } else if (galleryImgInput.files && galleryImgInput.files[0]) {
     file = galleryImgInput.files[0];
+    this.mediaType = MediaTypeEnum.GALERIE;  
     }
     
     if (!file) {
@@ -84,9 +94,9 @@ export class LandingpageComponent implements OnInit{
     }
 
     //TimeStamp zwischenspeichern
-    this.mediatimestamp = new Date(file.lastModified).toString();
+    this.mediatimestamp = new Date(file.lastModified);
     //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
-      
+
 
     this.imgToSave = file;
     console.log(this.imgToSave.name)
@@ -134,7 +144,7 @@ export class LandingpageComponent implements OnInit{
 
     this.comment = '';        //Kommentar löschen
     this.charCount = 0;       //Kommentarzeichen Anzahl Zähler auf '0'
-    this.mediatimestamp= '';  //Foto Zeitstempel löschen
+    this.mediatimestamp=  null as unknown as Date;  //Foto Zeitstempel löschen
     
     console.log('Media deleted successfully.')
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
@@ -155,38 +165,42 @@ export class LandingpageComponent implements OnInit{
   }
   
   async onSubmit(){
-    // const formData = new FormData();
-    // formData.append('mediaName', this.imgToSave.name)
-    // formData.append('mediaTimeStamp', this.mediatimestamp);
       
-
+    //File wird als ArrayBuffer ausgelesen, Blob-Objekt wird erstellt
     const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsArrayBuffer(this.imgToSave);
       reader.onload = () => resolve(reader.result as ArrayBuffer);
       reader.onerror = reject;
     });
-
     var mediablob = (new Blob([buffer],{ type: this.imgToSave.type }), this.imgToSave.name);
+    
     const requestDataMedia = {
       mediaName: this.imgToSave.name,
       mediaTimeStamp: this.mediatimestamp,
+      mediaType: this.mediaType,
+      //mediaFormat: this.mediaFormat,
       mediaFile: mediablob
     };
 
-    // const reader = new FileReader();
-    // reader.readAsArrayBuffer(this.imgToSave)
-    // reader.onload = () => {
-    //   const buffer = reader.result as ArrayBuffer
-      //formData.append('mediaFile', new Blob([buffer],{ type: this.imgToSave.type }), this.imgToSave.name);
-
       const ip = window.location.hostname;
 
-      this.client.post(`http://${ip}:3000/media/setMedia`, requestDataMedia).subscribe(() => {
-      console.log('Media saved successfully.' + '\n' + this.imgToSave.name + ',\n' + this.mediatimestamp + '\n');
-      }, (error) => {
-      console.error('Error while saving media:', error);
-      });
+      // Nicht mehr notwendig, da Post-Methode createDtm nun das Media abspeichert
+
+      //Post-Methode um das Media ins Backend zu schicken
+      // this.client.post(`http://${ip}:3000/media/setMedia`, requestDataMedia).subscribe(() => {
+      // console.log('Media saved successfully.' + '\n' + this.imgToSave.name + ',\n' + this.mediatimestamp + '\n');
+      // }, (error) => {
+      // console.error('Error while saving media:', error);
+      // });
+
+      //Media-Objekt erstellen, um es in die Post-Methode der Downtime-Message zu übergeben
+      this.mediaObject = new Media();
+      this.mediaObject.mediaName = this.imgToSave.name;
+      this.mediaObject.mediaTimeStamp = this.mediatimestamp;
+      this.mediaObject.MediaType = this.mediaType;
+      this.mediaObject.MediaFormat = this.mediaFormat;
+      this.mediaObject.mediaFile = mediablob;
 
       const requestDataDtm = {
         dtmComment: this.comment,
@@ -194,25 +208,22 @@ export class LandingpageComponent implements OnInit{
         dtmEquipmentNo: this.equipmentno,
         dtmEventid: this.eventid,
         dtmName: this.name,
-        dtmSurname: this.surname
+        dtmSurname: this.surname,
+        mediaObject: this.mediaObject
       };
 
+      //Unix-Epoch Number zu Date parsen, Beispiel: von 1620980318 zu 2021-05-14T10:05:18.000Z
+      //const dtcDate = new Date(parseInt(this.timestamp) * 1000)
+
+      //Post-Methode um die Downtime-Message ins Backend zu schicken
       this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
         console.log('Downtime-Message saved successfully.');
-        alert('Downtime-Message saved successfully.' + '\n' + 'Timestamp: ' + this.timestamp)
+        alert('Downtime-Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType )
         }, (error) => {
         console.error('Error while saving Downtime-Message:', error);
         });
+        
 
-
-    
-    
-
-    // this.client.post('http://192.168.178.103:3000/media/media', formData).subscribe(() => {
-    // console.log('Media saved successfully.');
-    // }, (error) => {
-    // console.error('Error while saving media:', error);
-    // });
   }
 
 }
