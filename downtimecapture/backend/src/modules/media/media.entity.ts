@@ -12,10 +12,10 @@ export class Media {
     @PrimaryGeneratedColumn()
     mediaId: number
 
-    @Column({type: 'varchar', unique: false, nullable: true})
+    @Column({type: 'varchar', unique: false})
     mediaName: string
 
-    @Column({type: 'datetime', nullable: true})
+    @Column({type: 'datetime'})
     mediaTimeStamp: Date
 
     @Column( {type: 'enum', enum: MediaTypeEnum} )
@@ -24,7 +24,7 @@ export class Media {
     @Column( {type: 'enum', enum: MediaFormatEnum})
     MediaFormat: MediaFormatEnum
     
-    @Column({type: 'longblob', nullable: true})
+    @Column({type: 'longblob'})
     mediaFile: any
     
     @OneToMany(() => DowntimeMessage, (downtimeMessage) => downtimeMessage.media)

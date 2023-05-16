@@ -12,12 +12,11 @@ export class MediaController {
 
   @Post('setMedia')
   //@UseInterceptors(FileInterceptor('mediafile'))
-  async createMedia(@Body('mediaName') medianame: string, @Body('mediaTimeStamp') mediatimestamp: string, 
+  async createMedia(@Body('mediaName') medianame: string, @Body('mediaTimeStamp') mediatimestamp: Date, 
     @Body('mediaType') mediaType: MediaTypeEnum, @Body('mediaFile') mediafile: Blob) {
 
-    const mediatimestampDATE = new Date(mediatimestamp);
     console.log('MediaController funktioniert')
-    return this.mediaServices.createMedia(medianame, mediatimestampDATE, mediaType ,mediafile);
+    return this.mediaServices.createMedia(medianame, mediatimestamp, mediaType ,mediafile);
   }
 
   @Get('mediatype-enum')
