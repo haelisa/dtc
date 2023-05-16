@@ -9,6 +9,12 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { ShowimgComponent } from './showimg/showimg.component';
 import { FormsModule } from '@angular/forms';
+import { ModalComponent } from './landingpage/modalsuccess/modal.component';
+import { EditImageComponent } from './landingpage/edit-image-modal/edit-image.component';
+
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -17,13 +23,17 @@ import { FormsModule } from '@angular/forms';
     HelloworldComponent,
     PagenotfoundComponent,
     LandingpageComponent,
-    ShowimgComponent
+    ShowimgComponent,
+    ModalComponent,
+    EditImageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

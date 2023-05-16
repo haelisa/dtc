@@ -12,6 +12,7 @@
         <div class="content nacontent">{{name}} {{surname}}</div>
     </div>
 
+
     <!-- Foto Aufnehmen Button, Preview des Fotos, Lösch Button -->
     <div class="captureimg">
 
@@ -36,7 +37,7 @@
         <div class="add-comment">
             <div class="comment-input">
 
-                <textarea id="comment" name="commentinput" value={comment} rows="7"cols="50" [(ngModel)]="comment" style ="resize: none;" placeholder="Add a comment..." (input)="updateCharCount($event)"></textarea>      
+                <textarea id="comment" name="commentinput" value={comment} rows="7" [(ngModel)]="comment" style ="resize: none;" placeholder="Add a comment..." (input)="updateCharCount($event)"></textarea>      
                  <span class="limit">{{charCount}}/300</span>
                 
             </div>
@@ -49,4 +50,6 @@
         
     </div> 
         
+
+    
 </div>

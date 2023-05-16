@@ -1,0 +1,25 @@
+.successheader{
+    color: #27ae60;
+    text-align: center;
+}
+
+.primary{
+    color: #fff;
+    background-color: #385a68;
+    border-color: #335260;
+    margin: 10px 0;
+}
+
+.secondary{
+    color: #fff;
+    background-color:#acafb2;
+    border-color: #acafb2;
+    margin: 10px 0;
+}
+
+.wrapperbtns{
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    justify-content: space-between;
+}

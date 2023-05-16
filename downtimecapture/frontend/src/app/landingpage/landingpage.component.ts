@@ -2,7 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { buffer } from 'rxjs';
-import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class'
+import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { ModalComponent } from './modalsuccess/modal.component';
+
+
 
 
 
@@ -16,11 +20,13 @@ import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class
 })
 export class LandingpageComponent implements OnInit{
 
+  //Daten aus QR-Code
   equipmentno: string;
   eventid: string;
   timestamp: string;
   name: string;
   surname: string;
+  //Image
   imgToSave: File;
   imgURL: any;
   mediatimestamp: string;
@@ -30,16 +36,16 @@ export class LandingpageComponent implements OnInit{
   mediaObject: Media;
   
 
+  // Routing + Modal
+  constructor(private route: ActivatedRoute, private client: HttpClient, private dialog : MatDialog) {}
 
-  constructor(private route: ActivatedRoute, private client: HttpClient) {}
-
+  //On Init -> 
   ngOnInit() {
     this.equipmentno = this.route.snapshot.paramMap.get('equipmentno')!;
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
     this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
     this.name = this.route.snapshot.paramMap.get('name')!;
-    this.surname = this.route.snapshot.paramMap.get('surname')!;
-            
+    this.surname = this.route.snapshot.paramMap.get('surname')!;    
   }  
 
  //Foto aufnehmen, Foto Zeitstempel sowie Name übergeben
@@ -163,6 +169,15 @@ export class LandingpageComponent implements OnInit{
       this.charCount = input.length;
     }
   }
+
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(ModalComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
   
   async onSubmit(){
       
@@ -217,8 +232,11 @@ export class LandingpageComponent implements OnInit{
 
       //Post-Methode um die Downtime-Message ins Backend zu schicken
       this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
+
+        //Open Modal for send successful
         console.log('Downtime-Message saved successfully.');
-        alert('Downtime-Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType )
+        // alert('Downtime-Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
+        let dialogRef = this.dialog.open(ModalComponent);
         }, (error) => {
         console.error('Error while saving Downtime-Message:', error);
         });

@@ -5,9 +5,16 @@ body{
     padding: 0;
     font-family: HelveticaNeueLTStd-Th, sans-serif;
     color: #373d40;
+    height: 100vh;
+    width: 100vw;
 }
 
 /* Color-Sets
 
 #456f81 -> blau
 */
+
+/* Style for Modal */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
