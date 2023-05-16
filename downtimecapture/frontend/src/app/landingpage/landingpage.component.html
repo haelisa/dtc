@@ -1,7 +1,11 @@
-<div class="wrapper">
-    <h2 class="title">Capture Downtime-Message</h2>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <div class="maschinedata">
+<div class="wrapper">
+    <!-- Title -->
+    <h2 class="title">Capture Downtime-Message</h2>
+    
+    <!-- Machinedate table -->
+    <div class="machinedata">
         <div class="item eqlabel">EquipmentNo: </div>
         <div class="content eqcontent">{{equipmentno}}</div>
         <div class="item evlabel">EventID: </div>
@@ -12,26 +16,41 @@
         <div class="content nacontent">{{name}} {{surname}}</div>
     </div>
 
-
-    <!-- Foto Aufnehmen Button, Preview des Fotos, Lösch Button -->
+    <!-- Image -->
     <div class="captureimg">
-
+        <!-- Open Camera Button -->
         <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
         <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
-
-        <label for="galleryimg" class="custom-file-upload" *ngIf="!imgURL">Open Gallery</label>
+        
+        <!-- Open Gallery Button-->
+        <label for="galleryimg" class="custom-file-upload" *ngIf="!imgURL">Open Galery</label>
         <input #galleryImgInput type="file" accept='image/*' (change)="preview(galleryImgInput.files)" id="galleryimg">
 
-        <img [src]="imgURL" height="200" *ngIf="imgURL" id="imgpreview">
+        <!-- Photo preview -->
+        <img [src]="imgURL" class="imgpreview" *ngIf="imgURL" id="imgpreview">
         
-       <button id="delete" *ngIf="imgURL" (click)="deleteImage()" class="delete" type="submit" style="width: 40px; height: 40px; padding:0">
-            <img src="../../assets/Icons/PapierkorbIcon.png" alt="buttonpng" [border]="0" />
-       </button> 
-      </div>
+        <!-- Delete button -->
+        <button class="delete"  *ngIf="imgURL" (click)="deleteImage()" id="delete">
+            <!-- Delete button Icon -->
+            <img src="../../assets/Icons/PapierkorbIcon.png" class="deleteIcon "alt="Delete" [border]="0" id="deleteIcon"/>
+        </button> 
+    </div>
 
 
-      <!-- Kommentar verfassen-->
-      <div class="comment" *ngIf="imgURL">
+    <!-- Comment -->
+    <div class="comment">
+        <span>Comment </span>
+        <span class="optional">(optional): </span>
+        <!-- Comment field -->
+        <div class="comment-input">
+            <textarea rows="5" [(ngModel)]="comment" style ="resize: none;" placeholder="Add a comment..." (input)="updateCharCount($event)" id="comment-input"></textarea>     
+        </div>
+        <!-- Comment counter -->
+        <span class="limit">{{charCount}}/300</span>
+    </div> 
+    
+    
+    <!-- <div class="comment" *ngIf="imgURL">
         <span>Comment </span>
         <span class="optional">(optional): </span>
         <div class="add-comment">
@@ -41,15 +60,12 @@
                  <span class="limit">{{charCount}}/300</span>
                 
             </div>
-        </div>        
+        </div>    -->
 
 
-    <!-- Senden Button -->
-    <div class="send" *ngIf="imgURL">
-        <button id="send" (click)="onSubmit()">Send downtime Message</button>
-        
+    <!-- Send button -->
+    <div class="send">
+        <label id="send" class="send-button" (click)="onSubmit()">Send<br>downtime Message</label>
     </div> 
         
-
-    
 </div>
