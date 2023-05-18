@@ -1,71 +1,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="wrapper">
-    <!-- Title -->
-    <h2 class="title">Capture Downtime-Message</h2>
-    
-    <!-- Machinedate table -->
-    <div class="machinedata">
-        <div class="item eqlabel">EquipmentNo: </div>
-        <div class="content eqcontent">{{equipmentno}}</div>
-        <div class="item evlabel">EventID: </div>
-        <div class="content evcontent">{{eventid}}</div>
-        <div class="item tslabel">TimeStamp: </div>
-        <div class="content tscontent">{{timestamp}}</div>
-        <div class="item nalabel">Name: </div>
-        <div class="content nacontent">{{name}} {{surname}}</div>
+<div class="layout">
+    <!-- Header area -->
+    <div class="headerarea">
+
+        <!-- Title -->
+        <div class="heading">
+            <h2 class="title">Capture Downtime-Message</h2>
+        </div>
+        
+        <!-- Machinedate table -->
+        <div class="data">
+            <div class="machinedata">
+                <div class="machinedata-table">
+                    <div class="item eqlabel">EquipmentNo: </div>
+                    <div class="content eqcontent">{{equipmentno}}</div>
+                    <div class="item evlabel">EventID: </div>
+                    <div class="content evcontent">{{eventid}}</div>
+                    <div class="item tslabel">TimeStamp: </div>
+                    <div class="content tscontent">{{timestamp}}</div>
+                    <div class="item nalabel">Name: </div>
+                    <div class="content nacontent">{{name}} {{surname}}</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Image -->
-    <div class="captureimg">
-        <!-- Open Camera Button -->
-        <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
-        <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
+    <!-- Photo area-->
+    <div class="photoarea">
         
+        <!-- Open Camera Button -->
+        <div class="openCamera">
+            <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
+            <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
+        </div>
+
         <!-- Open Gallery Button-->
-        <label for="galleryimg" class="custom-file-upload" *ngIf="!imgURL">Open Galery</label>
-        <input #galleryImgInput type="file" accept='image/*' (change)="preview(galleryImgInput.files)" id="galleryimg">
+        <div class="openGalery">
+            <label for="galleryimg" class="custom-file-upload" *ngIf="!imgURL">Open Galery</label>
+            <input #galleryImgInput type="file" accept='image/*' (change)="preview(galleryImgInput.files)" id="galleryimg">
+        </div>
 
         <!-- Photo preview -->
         <img [src]="imgURL" class="imgpreview" *ngIf="imgURL" id="imgpreview">
         
         <!-- Delete button -->
-        <button class="delete"  *ngIf="imgURL" (click)="deleteImage()" id="delete">
+        <button class="delete" *ngIf="imgURL" (click)="deleteImage()" id="delete">
             <!-- Delete button Icon -->
             <img src="../../assets/Icons/PapierkorbIcon.png" class="deleteIcon "alt="Delete" [border]="0" id="deleteIcon"/>
         </button> 
     </div>
 
+    <!-- Footer area -->
+    <div class="footerarea">
+        <!-- Comment -->
+        <div class="textarea">
+            <div class="commentblock">
+                <!-- Comment-->
+                <div class ="commenttext">
+                    <span class="commentheading">Comment </span>
+                    <span class="optional">(optional):</span>
+                </div>
 
-    <!-- Comment -->
-    <div class="comment">
-        <span>Comment </span>
-        <span class="optional">(optional): </span>
-        <!-- Comment field -->
-        <div class="comment-input">
-            <textarea rows="5" [(ngModel)]="comment" style ="resize: none;" placeholder="Add a comment..." (input)="updateCharCount($event)" id="comment-input"></textarea>     
-        </div>
-        <!-- Comment counter -->
-        <span class="limit">{{charCount}}/300</span>
-    </div> 
-    
-    
-    <!-- <div class="comment" *ngIf="imgURL">
-        <span>Comment </span>
-        <span class="optional">(optional): </span>
-        <div class="add-comment">
-            <div class="comment-input">
+                <!-- Comment field -->
+                <textarea rows="5" [(ngModel)]="comment" placeholder="Add a comment..." (input)="updateCharCount($event)" id="commentfield"></textarea>     
 
-                <textarea id="comment" name="commentinput" value={comment} rows="7" [(ngModel)]="comment" style ="resize: none;" placeholder="Add a comment..." (input)="updateCharCount($event)"></textarea>      
-                 <span class="limit">{{charCount}}/300</span>
-                
+                <!-- Comment counter -->
+                <span class="limit">{{charCount}}/300</span>
             </div>
-        </div>    -->
+        </div>
 
+        <!-- buttons -->
+        <div class="buttons">
+            <!-- Get help button -->
+            <label id="send" class="help-button" >Get help</label>
+            
+            <!-- Send button -->
+            <label id="send" class="send-button" (click)="onSubmit()">Send<br>downtime Message</label>
+        </div>
 
-    <!-- Send button -->
-    <div class="send">
-        <label id="send" class="send-button" (click)="onSubmit()">Send<br>downtime Message</label>
-    </div> 
-        
-</div>
+    </div>
+
+<div>       
