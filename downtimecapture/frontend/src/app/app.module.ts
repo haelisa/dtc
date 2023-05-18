@@ -16,6 +16,9 @@ import { EditImageComponent } from './landingpage/edit-image-modal/edit-image.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { ImageDrawingModule  } from 'ngx-image-drawing';
+import {NgxImageCompressService} from 'ngx-image-compress';
+
 
 @NgModule({
   declarations: [
@@ -33,9 +36,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    ImageDrawingModule
   ],
-  providers: [],
+  providers: [NgxImageCompressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

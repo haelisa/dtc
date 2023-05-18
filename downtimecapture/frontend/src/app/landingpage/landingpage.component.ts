@@ -3,8 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { buffer } from 'rxjs';
 import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './modalsuccess/modal.component';
+import { EditImageComponent } from './edit-image-modal/edit-image.component';
+import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
+import { DomSanitizer } from '@angular/platform-browser';
+
+
 
 
 
@@ -15,7 +20,7 @@ import { ModalComponent } from './modalsuccess/modal.component';
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.css'],
-  
+
 
 })
 export class LandingpageComponent implements OnInit{
@@ -35,9 +40,21 @@ export class LandingpageComponent implements OnInit{
   mediaFormat: MediaFormatEnum;
   mediaObject: Media;
   
+  //Data Url to compress
+  dataUrl: DataUrl;
+  base64 = '';
+  dialogRef: MatDialogRef<EditImageComponent>;
+  compressedImgURL = '';
+  imgResultAfterCompression: string = '';
+  
 
   // Routing + Modal
-  constructor(private route: ActivatedRoute, private client: HttpClient, private dialog : MatDialog) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private client: HttpClient, 
+    private dialog : MatDialog,
+    private imageCompress: NgxImageCompressService
+    ) {}
 
   //On Init -> 
   ngOnInit() {
@@ -48,90 +65,170 @@ export class LandingpageComponent implements OnInit{
     this.surname = this.route.snapshot.paramMap.get('surname')!;    
   }  
 
+
+
+  //Compress Image with Size larger than 5 MB
+  async compressImage(dataUrl: string){
+    alert(dataUrl);
+    console.log(this.imageCompress.byteCount(dataUrl));
+    // const MAX_MEGABYTE = 2;
+    // await this.imageCompress.compressFile(dataUrl, 1, 50, 50,  0, 0).then(result => this.compressedImgURL = result);
+    await this.imageCompress
+    .compressFile(dataUrl, 1, 50, 50) // 50% ratio, 50% quality
+    .then(compressedImage => {
+        this.imgResultAfterCompression = compressedImage;
+        console.log('Size in bytes after compression is now:', this.imageCompress.byteCount(compressedImage));
+    });
+  }
+
+
+
  //Foto aufnehmen, Foto Zeitstempel sowie Name übergeben
   preview(files:any) {
     preview: {
-    if (files.length === 0)
-      return;
- 
-    //Prüfen ob Datei in Variable abgespeichert wurde und es ein Bild ist 
-    var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      alert("Only images are supported.");
-      break preview;  
-    }    
+      if (files.length === 0)
+        return;
+  
+      //Prüfen ob Datei in Variable abgespeichert wurde und es ein Bild ist 
+      var mimeType = files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        alert("Only images are supported.");
+        break preview;  
+      }    
 
-    //HTML-Input-Elemente aufrufen
-    const captureImgInput = document.getElementById("captureimg") as HTMLInputElement;
-    const galleryImgInput = document.getElementById("galleryimg") as HTMLInputElement;
-    
-    let file: File | null = null;
-
-    if (captureImgInput.files && captureImgInput.files[0]) {
-    file = captureImgInput.files[0];
-    this.mediaType = MediaTypeEnum.AUFNAHME;
-    } else if (galleryImgInput.files && galleryImgInput.files[0]) {
-    file = galleryImgInput.files[0];
-    this.mediaType = MediaTypeEnum.GALERIE;  
-    }
-    
-    if (!file) {
-      break preview;
-    }
-    
-    //Nur gängige Formate erlaubt
-    if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
-      alert("Only common photo formats (jpeg, png and jpg) are allowed.");
-      break preview;
-    }
+      //HTML-Input-Elemente aufrufen
+      const captureImgInput = document.getElementById("captureimg") as HTMLInputElement;
+      const galleryImgInput = document.getElementById("galleryimg") as HTMLInputElement;
       
-    //Foto kleiner als 5MB
-    if (file.size > 5 * 1024 * 1024) {
-      alert("The photo must not be larger than 5 MB.");
-      break preview;
-    }
+      let file: File | null = null;
 
-    //Foto nicht älter als 12 Stunden
-    const ageInMs = Date.now() - file.lastModified;
-    const ageInHours = ageInMs / (1000 * 60 * 60);
-    if (ageInHours > 12) {
-    alert("The photo must not be older than 12 hours.");
-    return;
-    }
+      if (captureImgInput.files && captureImgInput.files[0]) {
+        file = captureImgInput.files[0];
+        this.mediaType = MediaTypeEnum.AUFNAHME;
+      } else if (galleryImgInput.files && galleryImgInput.files[0]) {
+        file = galleryImgInput.files[0];
+        this.mediaType = MediaTypeEnum.GALERIE;  
+      }
+      
+      if (!file) {
+        break preview;
+      }
+      
+      //Nur gängige Formate erlaubt
+      if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
+        alert("Only common photo formats (jpeg, png and jpg) are allowed.");
+        break preview;
+      }
+        
+      //Foto kleiner als 5MB
+      if (file.size > 5 * 1024 * 1024) {
+        // alert("The photo must not be larger than 5 MB.");
+        // break preview;
+        
+        
+        
+        const compressreader = new FileReader();
+        compressreader.readAsDataURL(files[0]);
+        compressreader.onloadend = () => {
+          this.base64 = compressreader.result as string;
+          // alert(this.base64);
+          this.compressImage(this.base64);
+        }
+        
+        
+          
+      }
 
-    //TimeStamp zwischenspeichern
-    this.mediatimestamp = new Date(file.lastModified);
-    //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
+      //Foto nicht älter als 12 Stunden
+      const ageInMs = Date.now() - file.lastModified;
+      const ageInHours = ageInMs / (1000 * 60 * 60);
+      // if (ageInHours > 12) {
+      //   alert("The photo must not be older than 12 hours.");
+      //   return;
+      // }
+
+      //TimeStamp zwischenspeichern
+      this.mediatimestamp = new Date(file.lastModified);
+      //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
+
+      
+      
+      
+      
+      
+      this.imgToSave = file;
+      console.log(this.imgToSave.name)
+      
+      
 
 
-    this.imgToSave = file;
-    console.log(this.imgToSave.name)
+      // Call Popup to edit img
+      // if(this.imgResultAfterCompression != ''){
+      //   this.dialogRef = this.dialog.open(EditImageComponent, {
+      //     height: '90vh',
+      //     width: '100vvw',
+      //     data: {
+      //       dataUrl: this.imgResultAfterCompression
+      //     }
+      //   });
+      // }else{
+        const imgreader = new FileReader();
+        imgreader.readAsDataURL(files[0]);
+        imgreader.onloadend = () => {
+          this.base64 = imgreader.result as string;
+          
+          this.dialogRef = this.dialog.open(EditImageComponent, {
+            height: '90vh',
+            width: '100vvw',
+            data: {
+              dataUrl: this.base64
+            }
+          });
+        }
+      // }
+      // let dialogRef = this.dialog.open(EditImageComponent, {
+      //   height: '90vh',
+      //   width: '100vvw',
+      //   data: {
 
-    const formData = new FormData();
-    formData.append("photo", file);
-    
-    // fetch("/upload", {
-      //   method: "POST",
-      //   body: formData
-      // })
-      // .then(response => {
-      //   if (response.ok) {
-      //     alert("Das Foto wurde erfolgreich hochgeladen.");
-      //   } else {
-      //     alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
+      //     //image as DataURl Base64 string
+      //     // imgURL: this.imgURL
+      //     // data: 
+      //     dataUrl: this.base64
       //   }
-      // })
-      // .catch(error => {
-      //   alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
       // });
-    var reader = new FileReader();
-    reader.readAsDataURL(files[0]); 
-    reader.onload = (_event) => { 
-    this.imgURL = reader.result;
-    const imageData = reader.result!.toString();
 
+//TODO: After  close save edited img
+      // this.dialogRef.afterClosed().subscribe(
+      //   data => this.imgURL = data
+      // );
+
+      const formData = new FormData();
+      formData.append("photo", file);
+      
+      // fetch("/upload", {
+        //   method: "POST",
+        //   body: formData
+        // })
+        // .then(response => {
+        //   if (response.ok) {
+        //     alert("Das Foto wurde erfolgreich hochgeladen.");
+        //   } else {
+        //     alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
+        //   }
+        // })
+        // .catch(error => {
+        //   alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
+        // });
+
+        
+      var reader = new FileReader();
+      reader.readAsDataURL(files[0]); 
+      reader.onload = (_event) => { 
+        this.imgURL = reader.result;
+        const imageData = reader.result!.toString();
+      }
     }
-  }
   }
 
   // Löschen Button: Foto Preview, Foto Zeitstempel, Kommentarinhalt
@@ -171,13 +268,13 @@ export class LandingpageComponent implements OnInit{
   }
 
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(ModalComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-  }
+  // openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  //   this.dialog.open(ModalComponent, {
+  //     width: '250px',
+  //     enterAnimationDuration,
+  //     exitAnimationDuration,
+  //   });
+  // }
   
   async onSubmit(){
       
@@ -215,7 +312,9 @@ export class LandingpageComponent implements OnInit{
       this.mediaObject.mediaTimeStamp = this.mediatimestamp;
       this.mediaObject.MediaType = this.mediaType;
       this.mediaObject.MediaFormat = this.mediaFormat;
-      this.mediaObject.mediaFile = mediablob;
+      // this.mediaObject.mediaFile = mediablob;
+      this.mediaObject.mediaFile = this.base64;
+
 
       const requestDataDtm = {
         dtmComment: this.comment,
@@ -237,9 +336,9 @@ export class LandingpageComponent implements OnInit{
         console.log('Downtime-Message saved successfully.');
         // alert('Downtime-Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
         let dialogRef = this.dialog.open(ModalComponent);
-        }, (error) => {
+      }, (error) => {
         console.error('Error while saving Downtime-Message:', error);
-        });
+      });
         
 
   }
