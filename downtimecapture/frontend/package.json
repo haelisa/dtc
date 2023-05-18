@@ -19,7 +19,7 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
-    "html5-qrcode": "^2.3.8",
+    "@zxing/ngx-scanner": "^3.9.0",
     "ngx-image-compress": "^15.1.5",
     "ngx-image-drawing": "^1.2.4",
     "rxjs": "~7.8.0",

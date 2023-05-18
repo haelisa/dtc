@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LandingpageComponent } from '../landingpage.component';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-modal',
@@ -9,11 +10,19 @@ import { LandingpageComponent } from '../landingpage.component';
 })
 export class ModalComponent  {
 
-  constructor(public dialogRef: MatDialogRef<LandingpageComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<LandingpageComponent>,
+    private _router: Router
+  ) {}
 
 
   openQRCodeScanner(){
-    
+    this._router.navigateByUrl('/scan');
+    //ToDo: Route to scan Page
   }
 
+  routeToWaiting(){
+    //ToDo: Route to Waiting Page
+    // this._router.navigateByUrl('/newpage');
+  }
 }

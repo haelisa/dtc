@@ -180,6 +180,7 @@ export class LandingpageComponent implements OnInit{
           this.dialogRef = this.dialog.open(EditImageComponent, {
             height: '90vh',
             width: '100vvw',
+            disableClose: true,
             data: {
               dataUrl: this.base64
             }
@@ -335,7 +336,7 @@ export class LandingpageComponent implements OnInit{
         //Open Modal for send successful
         console.log('Downtime-Message saved successfully.');
         // alert('Downtime-Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
-        let dialogRef = this.dialog.open(ModalComponent);
+        let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
       }, (error) => {
         console.error('Error while saving Downtime-Message:', error);
       });

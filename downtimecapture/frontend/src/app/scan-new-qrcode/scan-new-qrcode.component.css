@@ -1,0 +1,28 @@
+zxing-scanner {
+    max-width: 100%;
+}
+
+.results {
+    position: sticky;
+    bottom: 0;
+    padding: 15px;
+    background: #02c3c3;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.results a {
+   color: #fff;
+   text-decoration: none;
+}
+.results button {
+    background: none;
+    border: none;
+    line-height: 1;
+    font-weight: bolder;
+    font-size: 120%;
+    float: right;
+    color: #fff;
+    margin: -8px -8px -8px 8px;
+}

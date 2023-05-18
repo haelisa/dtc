@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
+//Componenten
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HelloworldComponent } from './helloworld/helloworld/helloworld.component';
@@ -11,13 +12,18 @@ import { ShowimgComponent } from './showimg/showimg.component';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from './landingpage/modalsuccess/modal.component';
 import { EditImageComponent } from './landingpage/edit-image-modal/edit-image.component';
+import { ScanNewQRCodeComponent } from './scan-new-qrcode/scan-new-qrcode.component';
 
-
+//Popup
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 
+//Edit Image
 import { ImageDrawingModule  } from 'ngx-image-drawing';
-import {NgxImageCompressService} from 'ngx-image-compress';
+import { NgxImageCompressService } from 'ngx-image-compress';
+
+//QR-Code Scanner
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 
 @NgModule({
@@ -28,7 +34,8 @@ import {NgxImageCompressService} from 'ngx-image-compress';
     LandingpageComponent,
     ShowimgComponent,
     ModalComponent,
-    EditImageComponent
+    EditImageComponent,
+    ScanNewQRCodeComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +44,8 @@ import {NgxImageCompressService} from 'ngx-image-compress';
     FormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    ImageDrawingModule
+    ImageDrawingModule,
+    ZXingScannerModule
   ],
   providers: [NgxImageCompressService],
   bootstrap: [AppComponent]
