@@ -1,41 +1,54 @@
-/* Styling Smartphones */
-@media only screen and (max-width: 1300px) {
+/* Styling Smartphones & Tablets */
 
-    .wrapper{
+    /* Page layout */
+    .layout{                                        /*TODO: media Queries für Tablet, Horizontale Ansicht, Photo area*/
         position: relative;
         height: 90vh;
         margin: 0 10px 0 10px;
         display: grid;
-        grid-template-rows: 10% 15% 45% 20% 10%;
+        grid-template-rows: 25% 45% 30%;
         grid-template-areas:
             "header"
-            "dtcdata"
-            "img"
-            "comment"
-            "footer";  
+            "photo"
+            "footer";
+        /*border: 1px solid #ed0000;              /*Zum testen*/
     }
 
+
+    /* ----------Header area---------- */
+    .headerarea{
+        grid-area: header;
+        text-align: center;
+        grid-template-areas: 
+            "heading"
+            "data";
+        /*border: 1px solid #ed0000;          /*Zum testen*/
+    }
 
     /* Title */
     .title{
-        grid-area: header;
-        text-align: center;
+        display: inline-block;
+        font-size: 22px;
     }
 
+    /* Machinedata */
+    .machinedata{
+        display: inline-block;
+    }
 
     /* Machinedata table */
-    .machinedata{
-        grid-area: dtcdata;
+    .machinedata-table{
         display: grid;
+        text-align: left;
         grid-template-columns: 25% 75%;
         grid-template-areas: 
             "eqlabel eqcontent"
             "LabelEventid ContentEventid"
             "LabelTimestamp ContentTimestamp"
             "LabelName ContentName";
+        line-height: 20px;
         column-gap: 10px;
         color: gray;
-        margin: 0 20px 0 20px;
         font-size: 12px;
     }
     .eqlabel{
@@ -64,146 +77,63 @@
     }
     
     
-    /* Image*/
-    .captureimg{
-        grid-area: img;
+    /* ----------Photo area----------*/
+    .photoarea{                                     /*Überarbeiten, imgprevie passt ist noch nicht in Ordnung*/
+        grid-area: photo;
         margin: 15px 0 15px 0;
         text-align: center;
+        grid-template-areas: 
+            "openCamera"
+            "openGalery";
+        /*border: 1px solid #ed0000;      /*Zum testen*/
     }
 
     input[type="file"] {
         display: none;
     }
 
-    /* Open Camera, Open Galery Button*/
+    /* Open Camera & Galery button*/
     .custom-file-upload {
         display: inline-block;
         padding: 20px 40px;
         text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        background-color: #373d40;
-        border-radius: 5px;
-        color: white;
-        cursor: pointer;
         margin: 5px;
         width: 110px;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        background-color: #373d40;
+        border-radius: 5px;
+        /*border: 1px solid #ed0000;      /*Zum testen*/
+    }
+
+    .custom-file-upload:hover {
+        background-color: #494f53;
     }
 
     /*Photo preview*/
-    #imgpreview{
+    #imgpreview{                                /*Überarbeiten, Foto ist gestreckt sollte lieber in einen Festen Foto halter gehen*/
+        float: left;
         height: 100%;
         width: 75%;
-        float: left;
         border-radius: 5px;
         border: 2px solid #000000;
+        /*border: 1px solid #ed0000;          /*Zum testen*/
     }
-
-    
-    /* Comment */
-    .comment{
-        grid-area: comment;
-        font-size: 16px;
-    }
-
-    /* Comment (optional): */
-    .optional{
-        color: gray;
-    }
-
-    /* Comment field */
-    #comment-input {
-        margin: 5px 0 0 0;
-        display: flex;
-        max-width: 600px;
-        width: 98%;
-    }
-
-    /* Comment counter */
-    .limit {
-        font-size: 12px;
-    }
-
-
-    /*.comment{
-        grid-area: comment;
-        margin-top: 15px;
-        margin-bottom: 5px;
-    }
-
-    .optional{
-        color: gray;
-    }
-
-    .add-comment {
-        display: flex;
-      }
-      .add-comment .comment-input {
-        position: relative;
-        width: 97%;
-        max-width: 600px;
-      }
-
-      .add-comment .comment-input input {
-        margin-top: 5px;
-        width: 96%;
-        height: 60%;
-        font: size 14px;
-        font-family: HelveticaNeueLTStd-Th, sans-serif;
-        overflow: auto;
-        border: 2px solid #333;
-      }
-      
-      .add-comment .comment-input input::placeholder {
-        color: #c3ccd3;
-      }
-      #comment{
-        width: 100%;
-      }
-
-      .limit {
-        font-size: 12px;
-        margin-top: 5px;
-        display: block;
-        background-color: white;
-        position: relative;
-    }*/
-
-    
-    /* Send button */
-    .send{
-        grid-area: footer;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        text-align: right;
-    }
-
-    .send-button{
-        display: inline-block;
-        padding: 10px 10px;
-        text-align: center;
-        font-size: 12px;
-        font-weight: bold;
-        color: white;
-        background-color: #456f81;
-        border-radius: 5px;
-        border: 1px solid #333;
-    }
-    
 
     /* Delete Button */
-    .delete{
-        grid-area: img;
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
+    .delete{                            /*Überarbeiten, ist zurzeit ganz rechts oben in der ecke*/
+        /* position: absolute;
+        bottom: 15px;                           
+        right: 15px; */                         
+        
+        float: right;                   /*Damit es erstmals rechts angezeigt wird*/
+        width: 50px;
+        height: 50px;
         color: #fff;
         background-color: white;
         border: 1px solid #090909;
         border-radius: 5px;
-        width: 50px; 
-        height: 50px;
     } 
 
     .delete:hover {
@@ -215,11 +145,95 @@
         width: 25px;
         height: 25px;
     }
-}
 
 
+    /* ----------Footer area----------*/
+    .footerarea{
+        grid-area: footer;
+        text-align: center;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-areas: 
+            "textarea"
+            "buttons";
+        grid-template-rows: auto min-content;
+        /*border: 1px solid #ed0000;                      /*Zum testen*/
+    }
+    .buttons{
+        grid-area: buttons;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
 
-/* Styling Tablets */
-/* @media only screen and (max-width: 1400px) { 
+    /*Commentblock: Commenttext, Commentfiel, Commentcounter*/
+    .commentblock {
+        text-align: left;
+        max-width: 400px;
+        margin: 0 auto;
+      }
     
-} */
+    /*Commenttext: Commentheading, Comment "(optional):"*/
+    .commenttext{
+        display: inline-block;
+        font-size: 16px;
+    }
+    
+    /* Commentheading */
+    .commentheading{                                   
+        color: black;
+    }
+
+    /* Comment "(optional):" */
+    .optional{
+        color: gray;
+    }
+
+    /* Comment field */
+    #commentfield {
+        resize: none;
+        overflow: auto;
+        margin: 7px 0 -5px 0;
+        width: 98%;
+    }
+
+    /* Comment counter */
+    .limit {
+        font-size: 12px;
+    }
+
+    /*Send button*/
+    .send-button{
+        display: inline-block;
+        padding: 10px 10px;
+        text-align: center;
+        width: 120px;
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+        background-color: #456f81;
+        border-radius: 5px;
+        border: 1px solid #333;
+    }
+
+    .send-button:hover {
+        background-color: #5a7d8d;
+    }
+
+    /*Get help button*/
+    .help-button{
+        display: inline-block;
+        padding: 10px 10px;
+        text-align: center;
+        width: 50px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #000000;
+        background-color: #fefefe;
+        border-radius: 5px;
+        border: 1px solid #333;
+    }
+
+    .help-button:hover {
+        background-color: #b7bcbd;
+    }
