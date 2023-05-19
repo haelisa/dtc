@@ -1,11 +1,7 @@
-<!-- <p>edit-image works!</p>
-
-<p> Hier kannst du das Image markieren </p> -->
-<!-- <img [src]="imageUrl" class="imgpreview" *ngIf="imageUrl" id="imgpreview"> -->
-
 <image-drawing
     [src]="imageUrl"
     outputMimeType="'image/jpeg'"
+    [outputQuality]=0.9
     [width]=200
     [height]=300
     (save)="saveImage($event)"

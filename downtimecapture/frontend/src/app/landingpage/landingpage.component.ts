@@ -7,21 +7,11 @@ import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dial
 import { ModalComponent } from './modalsuccess/modal.component';
 import { EditImageComponent } from './edit-image-modal/edit-image.component';
 import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
-import { DomSanitizer } from '@angular/platform-browser';
-
-
-
-
-
-
-
 
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.css'],
-
-
 })
 export class LandingpageComponent implements OnInit{
 
@@ -123,10 +113,8 @@ export class LandingpageComponent implements OnInit{
       //Foto kleiner als 5MB
       if (file.size > 5 * 1024 * 1024) {
         // alert("The photo must not be larger than 5 MB.");
-        // break preview;
-        
-        
-        
+        // break preview;      
+
         const compressreader = new FileReader();
         compressreader.readAsDataURL(files[0]);
         compressreader.onloadend = () => {
@@ -135,17 +123,15 @@ export class LandingpageComponent implements OnInit{
           this.compressImage(this.base64);
         }
         
-        
-          
       }
 
       //Foto nicht älter als 12 Stunden
       const ageInMs = Date.now() - file.lastModified;
       const ageInHours = ageInMs / (1000 * 60 * 60);
-      // if (ageInHours > 12) {
-      //   alert("The photo must not be older than 12 hours.");
-      //   return;
-      // }
+      if (ageInHours > 12) {
+        alert("The photo must not be older than 12 hours.");
+        return;
+      }
 
       //TimeStamp zwischenspeichern
       this.mediatimestamp = new Date(file.lastModified);
@@ -156,8 +142,8 @@ export class LandingpageComponent implements OnInit{
       
       
       
-      this.imgToSave = file;
-      console.log(this.imgToSave.name)
+      // // // // // // this.imgToSave = file;
+      // // // // // // console.log(this.imgToSave.name)
       
       
 
@@ -178,13 +164,21 @@ export class LandingpageComponent implements OnInit{
           this.base64 = imgreader.result as string;
           
           this.dialogRef = this.dialog.open(EditImageComponent, {
-            height: '90vh',
-            width: '100vvw',
+            height: '100vh',
+            maxWidth: '100vw',
             disableClose: true,
             data: {
               dataUrl: this.base64
             }
           });
+
+          this.dialogRef.afterClosed().subscribe(
+            data => {
+              this.imgURL = data.dataurl;
+              this.base64 = data.dataurl;
+            }
+          );
+
         }
       // }
       // let dialogRef = this.dialog.open(EditImageComponent, {
@@ -199,10 +193,6 @@ export class LandingpageComponent implements OnInit{
       //   }
       // });
 
-//TODO: After  close save edited img
-      // this.dialogRef.afterClosed().subscribe(
-      //   data => this.imgURL = data
-      // );
 
       const formData = new FormData();
       formData.append("photo", file);
@@ -223,12 +213,12 @@ export class LandingpageComponent implements OnInit{
         // });
 
         
-      var reader = new FileReader();
-      reader.readAsDataURL(files[0]); 
-      reader.onload = (_event) => { 
-        this.imgURL = reader.result;
-        const imageData = reader.result!.toString();
-      }
+      // var reader = new FileReader();
+      // reader.readAsDataURL(files[0]); 
+      // reader.onload = (_event) => { 
+      //   this.imgURL = reader.result;
+      //   const imageData = reader.result!.toString();
+      // }
     }
   }
 

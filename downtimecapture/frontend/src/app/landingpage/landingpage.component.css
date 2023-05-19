@@ -115,7 +115,8 @@
     #imgpreview{                                /*Überarbeiten, Foto ist gestreckt sollte lieber in einen Festen Foto halter gehen*/
         float: left;
         height: 100%;
-        width: 75%;
+        /* width: 75%; */
+        width: auto;
         border-radius: 5px;
         border: 2px solid #000000;
         /*border: 1px solid #ed0000;          /*Zum testen*/
