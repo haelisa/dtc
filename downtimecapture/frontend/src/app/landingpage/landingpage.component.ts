@@ -15,12 +15,13 @@ import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
 })
 export class LandingpageComponent implements OnInit{
 
-  //Daten aus QR-Code
+  //Data from QR-Code
   equipmentno: string;
   eventid: string;
   timestamp: string;
   name: string;
   surname: string;
+
   //Image
   imgToSave: File;
   imgURL: any;
@@ -36,7 +37,6 @@ export class LandingpageComponent implements OnInit{
   dialogRef: MatDialogRef<EditImageComponent>;
   compressedImgURL = '';
   imgResultAfterCompression: string = '';
-  
 
   // Routing + Modal
   constructor(
@@ -45,6 +45,7 @@ export class LandingpageComponent implements OnInit{
     private dialog : MatDialog,
     private imageCompress: NgxImageCompressService
     ) {}
+
 
   //On Init -> 
   ngOnInit() {
@@ -56,13 +57,10 @@ export class LandingpageComponent implements OnInit{
   }  
 
 
-
   //Compress Image with Size larger than 5 MB
   async compressImage(dataUrl: string){
     alert(dataUrl);
     console.log(this.imageCompress.byteCount(dataUrl));
-    // const MAX_MEGABYTE = 2;
-    // await this.imageCompress.compressFile(dataUrl, 1, 50, 50,  0, 0).then(result => this.compressedImgURL = result);
     await this.imageCompress
     .compressFile(dataUrl, 1, 50, 50) // 50% ratio, 50% quality
     .then(compressedImage => {
@@ -72,21 +70,20 @@ export class LandingpageComponent implements OnInit{
   }
 
 
-
- //Foto aufnehmen, Foto Zeitstempel sowie Name übergeben
+ //Take photo, pass photo time stamp as well as name
   preview(files:any) {
     preview: {
       if (files.length === 0)
         return;
   
-      //Prüfen ob Datei in Variable abgespeichert wurde und es ein Bild ist 
+      //Check if file was saved in variable and it is an image
       var mimeType = files[0].type;
       if (mimeType.match(/image\/*/) == null) {
         alert("Only images are supported.");
         break preview;  
       }    
 
-      //HTML-Input-Elemente aufrufen
+      //Call HTML-Input-Elements 
       const captureImgInput = document.getElementById("captureimg") as HTMLInputElement;
       const galleryImgInput = document.getElementById("galleryimg") as HTMLInputElement;
       
@@ -104,28 +101,25 @@ export class LandingpageComponent implements OnInit{
         break preview;
       }
       
-      //Nur gängige Formate erlaubt
+      //Only common formats allowed
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
         alert("Only common photo formats (jpeg, png and jpg) are allowed.");
         break preview;
       }
         
-      //Foto kleiner als 5MB
+      //Photo larger than 5MB
       if (file.size > 5 * 1024 * 1024) {
-        // alert("The photo must not be larger than 5 MB.");
-        // break preview;      
 
         const compressreader = new FileReader();
         compressreader.readAsDataURL(files[0]);
         compressreader.onloadend = () => {
           this.base64 = compressreader.result as string;
-          // alert(this.base64);
           this.compressImage(this.base64);
         }
         
       }
 
-      //Foto nicht älter als 12 Stunden
+      //Photo older than 12 hours
       const ageInMs = Date.now() - file.lastModified;
       const ageInHours = ageInMs / (1000 * 60 * 60);
       if (ageInHours > 12) {
@@ -133,20 +127,16 @@ export class LandingpageComponent implements OnInit{
         return;
       }
 
-      //TimeStamp zwischenspeichern
+      //Cache TimeStamp
       this.mediatimestamp = new Date(file.lastModified);
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
 
-      
-      
-      
       
       
       // // // // // // this.imgToSave = file;
       // // // // // // console.log(this.imgToSave.name)
       
       
-
 
       // Call Popup to edit img
       // if(this.imgResultAfterCompression != ''){
@@ -158,6 +148,7 @@ export class LandingpageComponent implements OnInit{
       //     }
       //   });
       // }else{
+
         const imgreader = new FileReader();
         imgreader.readAsDataURL(files[0]);
         imgreader.onloadend = () => {
@@ -222,12 +213,11 @@ export class LandingpageComponent implements OnInit{
     }
   }
 
-  // Löschen Button: Foto Preview, Foto Zeitstempel, Kommentarinhalt
+  // Delete Button: Photo preview, photo timestamp, comment content
   deleteImage() {
-    
     this.imgURL = null;
 
-    //Foto löschen
+    //Delete photo
     const inputs = ["captureimg", "galleryimg"];
     inputs.forEach((input) => {
       const element = document.getElementById(input) as HTMLInputElement;
@@ -236,15 +226,15 @@ export class LandingpageComponent implements OnInit{
       }
     });
 
-    this.comment = '';        //Kommentar löschen
-    this.charCount = 0;       //Kommentarzeichen Anzahl Zähler auf '0'
-    this.mediatimestamp=  null as unknown as Date;  //Foto Zeitstempel löschen
+    this.comment = '';        //Delete comment
+    this.charCount = 0;       //Comment character Number of counters set to '0
+    this.mediatimestamp=  null as unknown as Date;  //FDelete photo Timestamp
     
     console.log('Media deleted successfully.')
     //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
   }
 
-  //Kommentar Maximale Zeichenanzahl und Popup
+  //Comment maximum number of characters and popup
   charCount: number = 0;
   
   updateCharCount(event: any) {
@@ -268,8 +258,8 @@ export class LandingpageComponent implements OnInit{
   // }
   
   async onSubmit(){
-      
-    //File wird als ArrayBuffer ausgelesen, Blob-Objekt wird erstellt
+
+    //File is read out as ArrayBuffer, Blob object is created
     const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsArrayBuffer(this.imgToSave);
@@ -288,16 +278,8 @@ export class LandingpageComponent implements OnInit{
 
       const ip = window.location.hostname;
 
-      // Nicht mehr notwendig, da Post-Methode createDtm nun das Media abspeichert
 
-      //Post-Methode um das Media ins Backend zu schicken
-      // this.client.post(`http://${ip}:3000/media/setMedia`, requestDataMedia).subscribe(() => {
-      // console.log('Media saved successfully.' + '\n' + this.imgToSave.name + ',\n' + this.mediatimestamp + '\n');
-      // }, (error) => {
-      // console.error('Error while saving media:', error);
-      // });
-
-      //Media-Objekt erstellen, um es in die Post-Methode der Downtime-Message zu übergeben
+      //Create media object to pass into the post method of the downtime message
       this.mediaObject = new Media();
       this.mediaObject.mediaName = this.imgToSave.name;
       this.mediaObject.mediaTimeStamp = this.mediatimestamp;
@@ -317,10 +299,10 @@ export class LandingpageComponent implements OnInit{
         mediaObject: this.mediaObject
       };
 
-      //Unix-Epoch Number zu Date parsen, Beispiel: von 1620980318 zu 2021-05-14T10:05:18.000Z
+      //Parse Unix epoch number to date, example: from 1620980318 to 2021-05-14T10:05:18.000Z
       //const dtcDate = new Date(parseInt(this.timestamp) * 1000)
 
-      //Post-Methode um die Downtime-Message ins Backend zu schicken
+      //Post method to send the downtime message to the backend
       this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
 
         //Open Modal for send successful
@@ -330,8 +312,5 @@ export class LandingpageComponent implements OnInit{
       }, (error) => {
         console.error('Error while saving Downtime-Message:', error);
       });
-        
-
-  }
-
+    }
 }
