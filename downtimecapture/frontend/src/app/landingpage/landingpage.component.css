@@ -1,8 +1,12 @@
+/* div{                                     
+    border: 1px solid #ed0000;
+} */                                                /*Zum testen*/
+
+
 /* Styling Smartphones & Tablets */
 
     /* Page layout */
-    .layout{                                        /*TODO: media Queries für Tablet, Horizontale Ansicht, Photo area*/
-        position: relative;
+    .layout{                                        /*TODO: media Queries für Tablet, Horizontale Ansicht*/
         height: 90vh;
         margin: 0 10px 0 10px;
         display: grid;
@@ -11,7 +15,6 @@
             "header"
             "photo"
             "footer";
-        /*border: 1px solid #ed0000;              /*Zum testen*/
     }
 
 
@@ -22,7 +25,6 @@
         grid-template-areas: 
             "heading"
             "data";
-        /*border: 1px solid #ed0000;          /*Zum testen*/
     }
 
     /* Title */
@@ -78,14 +80,46 @@
     
     
     /* ----------Photo area----------*/
-    .photoarea{                                     /*Überarbeiten, imgprevie passt ist noch nicht in Ordnung*/
+    .photoarea{
         grid-area: photo;
-        margin: 15px 0 15px 0;
+        margin: 0 0 15px 0;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: 
+            "uploadbutton uploadbutton uploadbutton uploadbutton"
+            "imageholder imageholder imageholder imagebutton";
+    }
+    .uploadbutton{
+        grid-area: uploadbutton;
+        z-index: 1;
         text-align: center;
         grid-template-areas: 
             "openCamera"
             "openGalery";
-        /*border: 1px solid #ed0000;      /*Zum testen*/
+    }
+    .imageholder{
+        grid-area: imageholder;
+        text-align: center;
+        grid-row: 1/3;
+        grid-column: 1/4;
+    }
+    .imagebutton{
+        grid-area: imagebutton;
+        display: grid;
+        align-items: flex-end;
+        align-items: center;
+        justify-items: center;
+        grid-column: 4/5;
+    }
+
+    #imgpreview {
+        max-height: 99%;
+        width: auto;
+        object-fit: contain;
+        border-radius: 13px;
+        border: 2px solid #ffffff;
+        box-shadow: 4px 7px 7px 0px #403f3f42;
     }
 
     input[type="file"] {
@@ -104,42 +138,28 @@
         color: white;
         background-color: #373d40;
         border-radius: 5px;
-        /*border: 1px solid #ed0000;      /*Zum testen*/
+        box-shadow: 4px 7px 7px 0px #00000042;
     }
-
     .custom-file-upload:hover {
         background-color: #494f53;
+        filter: grayscale(1);
+        transform: scale(1.03);
     }
 
-    /*Photo preview*/
-    #imgpreview{                                /*Überarbeiten, Foto ist gestreckt sollte lieber in einen Festen Foto halter gehen*/
-        float: left;
-        max-height: 100%;
-        /* width: 75%; */
-        width: auto;
-        max-width: 75%;
-        border-radius: 5px;
-        border: 2px solid #000000;
-        /*border: 1px solid #ed0000;          /*Zum testen*/
-    }
-
-    /* Delete Button */
-    .delete{                            /*Überarbeiten, ist zurzeit ganz rechts oben in der ecke*/
-        /* position: absolute;
-        bottom: 15px;                           
-        right: 15px; */                         
-        
-        float: right;                   /*Damit es erstmals rechts angezeigt wird*/
+    /* Delete button */
+    .delete{
         width: 50px;
         height: 50px;
+        margin: 5px;
         color: #fff;
         background-color: white;
         border: 1px solid #090909;
         border-radius: 5px;
+        box-shadow: 4px 7px 7px 0px #908f8f42;
     } 
-
     .delete:hover {
         background-color: #cc4545;
+        transform: scale(1.03);
     }
 
     /* Delete button icon */
@@ -148,21 +168,40 @@
         height: 25px;
     }
 
+    /* Edit button */
+    .edit{
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        color: #fff;
+        background-color: white;
+        border: 1px solid #090909;
+        border-radius: 5px;
+        box-shadow: 4px 7px 7px 0px #908f8f42;
+    } 
+
+    .edit:hover {
+        background-color: #9e9e9e;
+        transform: scale(1.03);
+    }
+
+    /* Edit button icon */
+    #editIcon {
+        width: 25px;
+        height: 25px;
+    }
 
     /* ----------Footer area----------*/
     .footerarea{
         grid-area: footer;
         text-align: center;
         display: grid;
-        grid-template-rows: auto;
         grid-template-areas: 
             "textarea"
-            "buttons";
-        grid-template-rows: auto min-content;
-        /*border: 1px solid #ed0000;                      /*Zum testen*/
+            "footerbuttons";
     }
-    .buttons{
-        grid-area: buttons;
+    .footerbuttons{
+        grid-area: footerbuttons;
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
@@ -206,28 +245,31 @@
 
     /*Send button*/
     .send-button{
-        display: inline-block;
         padding: 10px 10px;
         text-align: center;
-        width: 120px;
+        width: 140px;
         font-size: 12px;
         font-weight: bold;
         color: white;
         background-color: #456f81;
         border-radius: 5px;
         border: 1px solid #333;
+        box-shadow: 4px 7px 7px 0px #00000042;
     }
-
     .send-button:hover {
         background-color: #5a7d8d;
+        transform: scale(1.03);
+    }
+    .send-button.disabled {
+        opacity: 0.5;
+        pointer-events: none;
     }
 
     /*Get help button*/
     .help-button{
-        display: inline-block;
         padding: 10px 10px;
         text-align: center;
-        width: 50px;
+        width: 70px;
         font-size: 12px;
         font-weight: bold;
         color: #000000;
@@ -235,7 +277,7 @@
         border-radius: 5px;
         border: 1px solid #333;
     }
-
     .help-button:hover {
         background-color: #b7bcbd;
+        transform: scale(1.03);
     }

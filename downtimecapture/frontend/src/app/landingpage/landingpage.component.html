@@ -28,27 +28,38 @@
 
     <!-- Photo area-->
     <div class="photoarea">
-        
-        <!-- Open Camera Button -->
-        <div class="openCamera">
-            <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
-            <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
-        </div>
+        <div class="uploadbutton">
+            <!-- Open Camera Button -->
+            <div class="openCamera">
+                <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
+                <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
+            </div>
 
-        <!-- Open Gallery Button-->
-        <div class="openGalery">
-            <label for="galleryimg" class="custom-file-upload" *ngIf="!imgURL">Open Galery</label>
-            <input #galleryImgInput type="file" accept='image/*' (change)="preview(galleryImgInput.files)" id="galleryimg">
+            <!-- Open Gallery Button-->
+            <div class="openGalery">
+                <label for="galleryimg" class="custom-file-upload" *ngIf="!imgURL">Open Galery</label>
+                <input #galleryImgInput type="file" accept='image/*' (change)="preview(galleryImgInput.files)" id="galleryimg">
+            </div>
         </div>
 
         <!-- Photo preview -->
-        <img [src]="imgURL" class="imgpreview" *ngIf="imgURL" id="imgpreview">
-        
-        <!-- Delete button -->
-        <button class="delete" *ngIf="imgURL" (click)="deleteImage()" id="delete">
-            <!-- Delete button Icon -->
-            <img src="../../assets/Icons/PapierkorbIcon.png" class="deleteIcon "alt="Delete" [border]="0" id="deleteIcon"/>
-        </button> 
+        <div class="imageholder">
+            <img [src]="imgURL" class="imgpreview" *ngIf="imgURL" id="imgpreview">
+        </div>
+
+        <div class="imagebutton">
+            <!-- Edit button -->
+            <button class="edit" *ngIf="imgURL" id="edit">
+                <!-- Edit button Icon -->
+                <img src="../../assets/Icons/editIcon.png" class="editIcon "alt="Edit" [border]="0" id="editIcon"/>
+            </button>
+
+            <!-- Delete button -->
+            <button class="delete" *ngIf="imgURL" (click)="deleteImage()" id="delete">
+                <!-- Delete button Icon -->
+                <img src="../../assets/Icons/deleteIcon.png" class="deleteIcon "alt="Delete" [border]="0" id="deleteIcon"/>
+            </button>
+        </div>
     </div>
 
     <!-- Footer area -->
@@ -71,14 +82,14 @@
         </div>
 
         <!-- buttons -->
-        <div class="buttons">
+        <div class="footerbuttons">
             <!-- Get help button -->
-            <label id="send" class="help-button" >Get help</label>
+            <button id="send" class="help-button" >Get help</button>
             
             <!-- Send button -->
-            <label id="send" class="send-button" (click)="onSubmit()">Send<br>downtime Message</label>
+            <button id="send" class="send-button" [ngClass]="{'send-button': true, 'disabled': !imgURL}" (click)="onSubmit()">Send<br>downtime Message</button>
         </div>
 
     </div>
 
-<div>       
+<div>
