@@ -6,7 +6,7 @@
 /* Styling Smartphones & Tablets */
 
     /* Page layout */
-    .layout{                                        /*TODO: media Queries für Tablet, Horizontale Ansicht*/
+    .layout{                                        /*TODO: media Queries für Tablet*/
         height: 90vh;
         margin: 0 10px 0 10px;
         display: grid;
@@ -82,7 +82,7 @@
     /* ----------Photo area----------*/
     .photoarea{
         grid-area: photo;
-        margin: 0 0 15px 0;
+        margin: 15px 0 15px 0;
         display: grid;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -110,15 +110,15 @@
     .imagebutton{
         grid-area: imagebutton;
         display: grid;
-        align-items: flex-end;
         align-items: center;
         justify-items: center;
+        flex-direction: column;
         grid-column: 4/5;
     }
 
     #imgpreview {
         max-height: 250px;
-        max-width: 250px;
+        max-width: 220px;
         object-fit: contain;
         border-radius: 13px;
         border: 2px solid #ffffff;
@@ -149,12 +149,19 @@
         transform: scale(1.03);
     }
 
+    .toolbar{
+        display: inline-block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     /* Delete button */
     .delete{
         width: 50px;
         height: 50px;
         margin: 5px;
-        color: #fff;
+        color: #000000;
         background-color: white;
         border: 1px solid #090909;
         border-radius: 5px;
@@ -176,7 +183,7 @@
         width: 50px;
         height: 50px;
         margin: 5px;
-        color: #fff;
+        color: #000000;
         background-color: white;
         border: 1px solid #090909;
         border-radius: 5px;
@@ -237,8 +244,9 @@
     #commentfield {
         resize: none;
         overflow: auto;
-        margin: 7px 0 -5px 0;
+        margin: 8px 0 -4px 0;
         width: 98%;
+        border: 1px solid #6a6a6a;
     }
 
     /* Comment counter */
@@ -284,3 +292,31 @@
         background-color: #b7bcbd;
         transform: scale(1.03);
     }
+
+/*Smartphones portrait mode*/
+@media (orientation: portrait) {
+    .layout{
+        height: 90vh;
+        margin: 0 10px 0 10px;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "header"
+            "photo"
+            "footer";
+    }
+}
+
+/*Smartphones landscape mode*/
+@media (orientation: landscape) {
+    .layout{
+        height: 90vh;
+        margin: 0 10px 0 10px;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "header"
+            "photo"
+            "footer";
+    }
+}

@@ -48,17 +48,19 @@
         </div>
 
         <div class="imagebutton">
-            <!-- Edit button -->
-            <button class="edit" *ngIf="imgURL" id="edit">
-                <!-- Edit button Icon -->
-                <img src="../../assets/Icons/editIcon.png" class="editIcon "alt="Edit" [border]="0" id="editIcon"/>
-            </button>
+            <div class="toolbar">
+                <!-- Edit button -->
+                <button class="edit" *ngIf="imgURL" id="edit">
+                    <!-- Edit button Icon -->
+                    <img src="../../assets/Icons/editIcon.png" class="editIcon "alt="Edit" [border]="0" id="editIcon"/>
+                </button>
 
-            <!-- Delete button -->
-            <button class="delete" *ngIf="imgURL" (click)="deleteImage()" id="delete">
-                <!-- Delete button Icon -->
-                <img src="../../assets/Icons/deleteIcon.png" class="deleteIcon "alt="Delete" [border]="0" id="deleteIcon"/>
-            </button>
+                <!-- Delete button -->
+                <button class="delete" *ngIf="imgURL" (click)="deleteImage()" id="delete">
+                    <!-- Delete button Icon -->
+                    <img src="../../assets/Icons/deleteIcon.png" class="deleteIcon "alt="Delete" [border]="0" id="deleteIcon"/>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -89,7 +91,5 @@
             <!-- Send button -->
             <button id="send" class="send-button" [ngClass]="{'send-button': true, 'disabled': !imgURL}" (click)="onSubmit()">Send<br>downtime Message</button>
         </div>
-
     </div>
-
 <div>
