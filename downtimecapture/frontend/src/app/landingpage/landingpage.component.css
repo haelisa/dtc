@@ -266,6 +266,7 @@
         border-radius: 5px;
         border: 1px solid #333;
         box-shadow: 4px 7px 7px 0px #00000042;
+        position: right;
     }
     .send-button:hover {
         background-color: #5a7d8d;
@@ -274,23 +275,6 @@
     .send-button.disabled {
         opacity: 0.5;
         pointer-events: none;
-    }
-
-    /*Get help button*/
-    .help-button{
-        padding: 10px 10px;
-        text-align: center;
-        width: 70px;
-        font-size: 12px;
-        font-weight: bold;
-        color: #000000;
-        background-color: #fefefe;
-        border-radius: 5px;
-        border: 1px solid #333;
-    }
-    .help-button:hover {
-        background-color: #b7bcbd;
-        transform: scale(1.03);
     }
 
 /*Smartphones portrait mode*/
