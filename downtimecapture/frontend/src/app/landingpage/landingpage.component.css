@@ -213,8 +213,8 @@
     .footerbuttons{
         grid-area: footerbuttons;
         display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
+        align-self: flex-end;
+        justify-content: flex-end;
     }
 
     /*Commentblock: Commenttext, Commentfiel, Commentcounter*/
@@ -266,7 +266,6 @@
         border-radius: 5px;
         border: 1px solid #333;
         box-shadow: 4px 7px 7px 0px #00000042;
-        position: right;
     }
     .send-button:hover {
         background-color: #5a7d8d;
@@ -277,6 +276,7 @@
         pointer-events: none;
     }
 
+    
 /*Smartphones portrait mode*/
 @media (orientation: portrait) {
     .layout{
