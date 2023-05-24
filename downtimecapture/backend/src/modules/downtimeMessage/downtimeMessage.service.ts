@@ -13,7 +13,7 @@ export class DowntimeMessageService {
 
   getDowntimeMessageByEventId(eventId: string): Promise<DowntimeMessage> {
     return this.dtmRepository.findOne({ where: { eventID: eventId } });
-    }
+  }
 
 
   createDowntimeMessage(dtmObject: DowntimeMessage): Promise<DowntimeMessage>{
@@ -32,7 +32,7 @@ export class DowntimeMessageService {
 
   // async getAllMedia(): Promise<DowntimeMessage[]> {
   //   return await this.mediaRepository.find();
-  // }
+  // }  
 
 
      

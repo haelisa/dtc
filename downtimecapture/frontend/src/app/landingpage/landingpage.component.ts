@@ -374,7 +374,7 @@ export class LandingpageComponent implements OnInit{
                
             }
             
-        
+
       } catch (error) {
         // Fehlerbehandlung, falls die EventID nicht gefunden wurde
         console.error('Fehler beim Abrufen der Downtime-Nachricht:', error);
