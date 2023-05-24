@@ -133,8 +133,8 @@ export class LandingpageComponent implements OnInit{
 
       
       
-      // // // // // // this.imgToSave = file;
-      // // // // // // console.log(this.imgToSave.name)
+      this.imgToSave = file;
+      console.log(this.imgToSave.name)
       
       
 
