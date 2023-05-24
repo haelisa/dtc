@@ -19,3 +19,4 @@ export enum MediaTypeEnum {
     GALERIE = 'galerie',
     STANDARD = 'standard'
 }
+
