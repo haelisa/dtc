@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpClientJsonpModule, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { buffer } from 'rxjs';
@@ -9,6 +9,7 @@ import { EditImageComponent } from './edit-image-modal/edit-image.component';
 import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import axios from 'axios';
+import { CanceldtmComponent } from '../canceldtm/canceldtm.component';
 
 @Component({
   selector: 'app-landingpage',
@@ -65,7 +66,14 @@ export class LandingpageComponent implements OnInit{
     //Get method to check if the eventID already exisits in database   
     axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
       console.log('Response from Backend, EventID already exists: ' , response.data);
-      response.data = this.checkEventId; // this.checkEventId oben initialisiert als boolean, damit man in der ganzen Klasse damit arbeiten kann
+      if(response.data){
+        let dialogRef = this.dialog.open(CanceldtmComponent,  { disableClose: true });
+
+
+      }
+
+      this.checkEventId = response.data
+      console.log(this.checkEventId); // this.checkEventId oben initialisiert als boolean, damit man in der ganzen Klasse damit arbeiten kann
     });
   }  
 
@@ -271,35 +279,6 @@ export class LandingpageComponent implements OnInit{
   // }
 
   
-
-
-      /* const eventIds = downtimeMessageArray.map((element) => element.eventId);      
-
-      var check : boolean;
-
-      for (let i = 0; i < downtimeMessageArray.length; i++) {
-        const element = downtimeMessageArray[i].getEventID();
-
-        if (element == eventId) {
-          // eventID does already exist in the database
-        console.log('Event ID exists:', response);
-        const sendButton = document.querySelector('#send') as HTMLButtonElement;
-        sendButton.disabled = true;
-        alert("This eventID already exists in the database. The dowtimecapture-Message can not be saved.");
-      }
-      else {
-        // eventID does not exist in the database
-        console.log('Event ID does not exist:', response);
-      }
-      }
-
-
-    } catch (error) {
-      // Hier kannst du die Fehlerbehandlung durchführen, falls die EventID nicht gefunden wurde
-      console.error('Fehler beim Abrufen der Downtime-Nachricht:', error);
-    }
-  }; */
-  
   async onSubmit(){
 
     //File is read out as ArrayBuffer, Blob object is created
@@ -319,8 +298,8 @@ export class LandingpageComponent implements OnInit{
       mediaFile: mediablob
     };
 
-      const ip = window.location.hostname;
 
+      const ip = window.location.hostname;
 
       //Create media object to pass into the post method of the downtime message
       this.mediaObject = new Media();
@@ -331,94 +310,13 @@ export class LandingpageComponent implements OnInit{
       // this.mediaObject.mediaFile = mediablob;
       this.mediaObject.mediaFile = this.base64;
 
-      
-      //Get method to get the eventID from backend
-        try {
-          /* const response = await axios.get(`http://localhost:3000/dtm/event/${this.eventid}`);
-          const downtimeMessage = response.data;
-          const downtimeMessageArray: any[] = response.data; */
-
-          //eventIdExists = false because of the following if-loops
-          let eventIdExists = false;
-      /* 
-          for (let i = 0; i < downtimeMessageArray.length; i++) {
-            const element = downtimeMessageArray[i];
-
-      
-            if (element.eventID == this.eventid) {
-              eventIdExists = true;
-            }
-          }
- */
-
-          /* if (eventIdExists==true){
-                  const sendButton = document.querySelector('#send') as HTMLButtonElement;
-                  sendButton.disabled = true;
-                  alert("This eventID already exists in the database. The downtime capture message cannot be saved.");} */
-                
-
-           if (eventIdExists == false) {
-                    // EventID existiert nicht in der Datenbank
-                    // Post method to send the downtime message to the backend
-                    const requestDataDtm = {
-                      dtmEquipmentNo: this.equipmentno,
-                      dtmEventid: this.eventid,
-                      dtmName: this.name,
-                      dtmSurname: this.surname,
-                      dtmComment: this.comment,
-                      dtmTimeStamp: this.timestamp,
-                      mediaObject: this.mediaObject
-                    }
-
-                    this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
-
-                      //Open Modal for send successful
-                      console.log('Downtime-Message saved successfully.');
-                      // alert('Downtime-Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
-                      let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
-                    }, (error) => {
-                      const sendButton = document.querySelector('#send') as HTMLButtonElement;
-                      sendButton.disabled = true;
-                      alert("This eventID already exists in the database. The downtime capture message cannot be saved.");
-                
-                      console.error('Error while saving Downtime-Message:', error);
-                    });
-               
-            }
-            
-
-      } catch (error) {
-        // Fehlerbehandlung, falls die EventID nicht gefunden wurde
-        console.error('Fehler beim Abrufen der Downtime-Nachricht:', error);
-      }
-    
-
-
-       
-
-        /*  this.client.get(`http://${ip}:3000/dtm/event/:eventId`).subscribe(
-           (response: any) => {
-            if (this.eventid = response){
-
-             // eventID does already exist in the database
-             console.log('Event ID exists:', response);
-             const sendButton = document.querySelector('#send') as HTMLButtonElement;
-             sendButton.disabled = true;
-             alert("This eventID already exists in the database. The dowtimecapture-Message can not be saved.");
-           }
-           else {
-             // eventID does not exist in the database
-             console.log('Event ID does not exist:', response);
-           }
-          },
-         ); */
-
 
       //Parse Unix epoch number to date, example: from 1620980318 to 2021-05-14T10:05:18.000Z
       //const dtcDate = new Date(parseInt(this.timestamp) * 1000)
 
       //Post method to send the downtime message to the backend
-    /*   const requestDataDtm = {
+       const requestDataDtm = {
+
         //dtmComment: this.sanitizer.bypassSecurityTrustHtml(this.commentInput),
         dtmComment: this.comment,
         dtmTimeStamp: this.timestamp,
@@ -437,23 +335,6 @@ export class LandingpageComponent implements OnInit{
         let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
       }, (error) => {
         console.error('Error while saving Downtime-Message:', error);
-      }); */
-
-      //Get method to get the eventID from backend
-//       const getEventID = {
-//         dtmEventid: this.eventid  
-//       }
-//       this.client.get(`http://${ip}:3000/dtm/eventID`).subscribe((response: any) => {
-//         var dtmObject = new DowntimeMessage();
-//         dtmObject[] = response;
-//         if( = this.eventid)
-//         alert()
-//       },
-//       (error: any) => {
-//         console.error(error);() => {
-// ;
-//       };} )
-
+      }); 
     }
-    
 }

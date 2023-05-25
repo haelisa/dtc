@@ -1,0 +1,21 @@
+.successheader{
+    color: red;
+    text-align: center;
+}
+
+.primary{
+    color: #fff;
+    background-color: #385a68;
+    border-color: #335260;
+    margin: 10px;
+    font-size: 18px;
+    height: 50px;
+    width: 250px; 
+}
+
+.wrapperbtns{
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    justify-content: space-between;
+}
