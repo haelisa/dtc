@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { buffer } from 'rxjs';
@@ -7,6 +7,8 @@ import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dial
 import { ModalComponent } from './modalsuccess/modal.component';
 import { EditImageComponent } from './edit-image-modal/edit-image.component';
 import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import axios from 'axios';
 
 @Component({
   selector: 'app-landingpage',
@@ -21,6 +23,9 @@ export class LandingpageComponent implements OnInit{
   timestamp: string;
   name: string;
   surname: string;
+
+  //Check EventId to prevent duplicate
+  checkEventId: boolean;
 
   //Image
   imgToSave: File;
@@ -53,7 +58,69 @@ export class LandingpageComponent implements OnInit{
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
     this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
     this.name = this.route.snapshot.paramMap.get('name')!;
-    this.surname = this.route.snapshot.paramMap.get('surname')!;    
+    this.surname = this.route.snapshot.paramMap.get('surname')!;
+    
+    const ip = window.location.hostname;
+    const checkEventID = { eventid: this.eventid}
+
+    /* this.client.get(`http://localhost:3000/dtm/checkEventID`, {params: checkEventID}).subscribe((response) => {
+
+        // Erfolgreiche Antwort verarbeiten
+            console.log(response);
+          },
+          (error) => {
+            // Fehlerbehandlung
+            console.error(error);
+          }
+        ); */
+
+
+        //Get method to get the eventID from backend
+        
+          axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
+          //const downtimeMessageArray: any[] = response.data; 
+          console.log('Response from Backend ' , response.data);
+          response.data = this.checkEventId;
+
+          //eventIdExists = false because of the following if-loops
+          // let eventIdExists = false;
+       
+          // for (let i = 0; i < downtimeMessageArray.length; i++) {
+          //   const element = downtimeMessageArray[i];
+
+      
+          //   if (element.eventID == this.eventid) {
+          //     eventIdExists = true;
+          //   }
+          // }
+
+
+          });
+          
+ 
+
+    // const params = new HttpParams().set('eventid', this.eventid);
+    // this.client.get('http://${id}:3000/dtm/checkEventID', {params: params, responseType: 'text'}).subscribe(
+    //   (response) => {
+    //       const eventIDExists = response === 'true'
+    //       console.log(eventIDExists)
+    //   },
+    //   (error) => {
+    //     // Fehlerbehandlung
+    //     console.error(error);
+    //   }
+    // )
+
+
+    // axios.get<boolean>('http://${id}:3000/dtm/checkEventID?parameter=${this.eventid}').then(response =>
+    //   {
+    //     const result = response.data;
+    //     console.log('Ergebnis: ', result);
+    //   })
+    // .catch(error => {
+    //   console.error('Fehler:', error);
+    //   // Fehlerbehandlung
+    // });
   }  
 
 
@@ -133,8 +200,8 @@ export class LandingpageComponent implements OnInit{
 
       
       
-      // // // // // // this.imgToSave = file;
-      // // // // // // console.log(this.imgToSave.name)
+      this.imgToSave = file;
+      console.log(this.imgToSave.name)
       
       
 
@@ -288,8 +355,9 @@ export class LandingpageComponent implements OnInit{
       // this.mediaObject.mediaFile = mediablob;
       this.mediaObject.mediaFile = this.base64;
 
-
+      
       const requestDataDtm = {
+        //dtmComment: this.sanitizer.bypassSecurityTrustHtml(this.commentInput),
         dtmComment: this.comment,
         dtmTimeStamp: this.timestamp,
         dtmEquipmentNo: this.equipmentno,
