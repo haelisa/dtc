@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Param, Get } from '@nestjs/common';
+import { Body, Controller, Post, Param, Get, Query } from '@nestjs/common';
 import { DowntimeMessage } from './downtimeMessage.entity';
 import { DowntimeMessageService } from './downtimeMessage.service';
 import { MediaService } from '../media/media.service';
@@ -12,6 +12,12 @@ export class DowntimeMessageController {
       private dtmServices: DowntimeMessageService,
       private mediaServices: MediaService,
     ){}
+
+
+  @Get('checkEventID/:eventid')
+  async getEventID(@Param('eventid') eventid: string) {
+    return this.dtmServices.checkEventID(eventid);
+  }  
     
   
 

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { buffer } from 'rxjs';
@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dial
 import { ModalComponent } from './modalsuccess/modal.component';
 import { EditImageComponent } from './edit-image-modal/edit-image.component';
 import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import axios from 'axios';
 
 @Component({
@@ -22,6 +23,9 @@ export class LandingpageComponent implements OnInit{
   timestamp: string;
   name: string;
   surname: string;
+
+  //Check EventId to prevent duplicates
+  checkEventId: boolean;
 
   //Image
   imgToSave: File;
@@ -54,7 +58,15 @@ export class LandingpageComponent implements OnInit{
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
     this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
     this.name = this.route.snapshot.paramMap.get('name')!;
-    this.surname = this.route.snapshot.paramMap.get('surname')!;    
+    this.surname = this.route.snapshot.paramMap.get('surname')!;
+    
+    const ip = window.location.hostname;
+
+    //Get method to check if the eventID already exisits in database   
+    axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
+      console.log('Response from Backend, EventID already exists: ' , response.data);
+      response.data = this.checkEventId; // this.checkEventId oben initialisiert als boolean, damit man in der ganzen Klasse damit arbeiten kann
+    });
   }  
 
 
@@ -319,7 +331,7 @@ export class LandingpageComponent implements OnInit{
       // this.mediaObject.mediaFile = mediablob;
       this.mediaObject.mediaFile = this.base64;
 
-
+      
       //Get method to get the eventID from backend
         try {
           /* const response = await axios.get(`http://localhost:3000/dtm/event/${this.eventid}`);
@@ -407,6 +419,7 @@ export class LandingpageComponent implements OnInit{
 
       //Post method to send the downtime message to the backend
     /*   const requestDataDtm = {
+        //dtmComment: this.sanitizer.bypassSecurityTrustHtml(this.commentInput),
         dtmComment: this.comment,
         dtmTimeStamp: this.timestamp,
         dtmEquipmentNo: this.equipmentno,
