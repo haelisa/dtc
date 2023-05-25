@@ -11,12 +11,11 @@ export class DowntimeMessageService {
   private readonly dtmRepository: Repository<DowntimeMessage>
   ){}
   
-  // async getDowntimeMessage(_id: number): Promise<DowntimeMessage[]> {
-  //   return await this.dtmRepository.find({
-  //       select: ["eventID", "equipmentNo", "dtcTimeStampUnixEpoch", "name", "surname", "comment"],
-  //       where: [{ "mediaId": _id }]
-  //   });
-  // }
+
+  getDowntimeMessageByEventId(eventId: string): Promise<DowntimeMessage> {
+    return this.dtmRepository.findOne({ where: { eventID: eventId } });
+  }
+
 
   createDowntimeMessage(dtmObject: DowntimeMessage): Promise<DowntimeMessage>{
     console.log('Dtm Service funktioniert.');
@@ -46,7 +45,7 @@ export class DowntimeMessageService {
 
   // async getAllMedia(): Promise<DowntimeMessage[]> {
   //   return await this.mediaRepository.find();
-  // }
+  // }  
 
 
      

@@ -25,10 +25,13 @@ export class DowntimeMessageController {
 
   }  
     
-  // @Get(':id')
-  // get(@Param() params) {
-  //   return this.dtmServices.getDowntimeMessage(params.id);
-  // }
+  
+
+   @Get('event/:eventId')
+  getDowntimeMessageByEventId(@Param('eventId') eventId: string) {
+    return this.dtmServices.getDowntimeMessageByEventId(eventId);
+  }
+
 
   @Post('createDtm')
   async createDowntimeMessage(
@@ -47,8 +50,8 @@ export class DowntimeMessageController {
       dtmObject.name = downtimeName;
       dtmObject.surname = downtimeSurname;
 
-      const timezone = 'Europe/Berlin'; // Die gewünschte Zeitzone
-      // Konventiere den übergebenen MediaTimeStamp zur gewünschten Zeitzone
+      const timezone = 'Europe/Berlin'; // The desired time zone
+      //  Convent the passed MediaTimeStamp to the desired time zone
       const momentObj = moment(mediaObject.mediaTimeStamp);
       const parsedMediaTimeStamp = momentObj.tz(timezone).toDate();
 

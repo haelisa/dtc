@@ -9,7 +9,7 @@ export class DowntimeMessage {
     @PrimaryGeneratedColumn()
     dtmId: number
 
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', unique: true})
     eventID: string
 
     @Column({type: 'varchar'})
