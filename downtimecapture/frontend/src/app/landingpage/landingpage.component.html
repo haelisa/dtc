@@ -12,15 +12,15 @@
         <!-- Machinedate table -->
         <div class="data">
             <div class="machinedata">
-                <div class="machinedata-table">
-                    <div class="item eqlabel">EquipmentNo: </div>
-                    <div class="content eqcontent">{{equipmentno}}</div>
-                    <div class="item evlabel">EventID: </div>
-                    <div class="content evcontent">{{eventid}}</div>
-                    <div class="item tslabel">TimeStamp: </div>
-                    <div class="content tscontent">{{timestamp}}</div>
-                    <div class="item nalabel">Name: </div>
-                    <div class="content nacontent">{{name}} {{surname}}</div>
+                <div class="machinedataTable">
+                    <div class="labelEq">EquipmentNo: </div>
+                    <div class="eqContent">{{equipmentno}}</div>
+                    <div class="labelEventid">EventID: </div>
+                    <div class="eventidContent">{{eventid}}</div>
+                    <div class="labelTimestamp">TimeStamp: </div>
+                    <div class="timestampContent">{{timestamp}}</div>
+                    <div class="labelName">Name: </div>
+                    <div class="nameContent">{{name}} {{surname}}</div>
                 </div>
             </div>
         </div>
@@ -28,26 +28,26 @@
 
     <!-- Photo area-->
     <div class="photoarea">
-        <div class="uploadbutton">
+        <div class="uploadButton">
             <!-- Open Camera Button -->
             <div class="openCamera">
-                <label for="captureimg" class="custom-file-upload" *ngIf="!imgURL">Open Camera</label>
+                <label for="captureimg" class="customFileUpload" *ngIf="!imgURL">Open Camera</label>
                 <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
             </div>
 
             <!-- Open Gallery Button-->
             <div class="openGalery">
-                <label for="galleryimg" class="custom-file-upload" *ngIf="!imgURL">Open Gallery</label>
+                <label for="galleryimg" class="customFileUpload" *ngIf="!imgURL">Open Galery</label>
                 <input #galleryImgInput type="file" accept='image/*' (change)="preview(galleryImgInput.files)" id="galleryimg">
             </div>
         </div>
 
         <!-- Photo preview -->
-        <div class="imageholder">
-            <img [src]="imgURL" class="imgpreview" *ngIf="imgURL" id="imgpreview">
+        <div class="imageHolder">
+            <img [src]="imgURL" class="imgPreview" *ngIf="imgURL" id="imgPreview">
         </div>
 
-        <div class="imagebutton">
+        <div class="imageButton">
             <div class="toolbar">
                 <!-- Edit button -->
                 <button class="edit" *ngIf="imgURL" id="edit">
@@ -65,28 +65,31 @@
     </div>
 
     <!-- Footer area -->
-    <div class="footerarea">
-        <!-- Comment -->
-        <div class="textarea">
-            <div class="commentblock">
-                <!-- Comment-->
-                <div class ="commenttext">
-                    <span class="commentheading">Comment </span>
-                    <span class="optional">(optional):</span>
-                </div>
-
-                <!-- Comment field -->
-                <textarea rows="5" [(ngModel)]="comment" placeholder="Add a comment..." (input)="updateCharCount($event)" id="commentfield"></textarea>     
-
-                <!-- Comment counter -->
-                <span class="limit">{{charCount}}/300</span>
-            </div>
+    <!-- Comment -->
+    <div class="commentblock">
+        <!-- Comment-->
+        <div class ="commenttext">
+            <span class="commentheading">Comment </span>
+            <span class="optional">(optional):</span>
         </div>
 
-        <!-- buttons -->
-        <div class="footerbuttons"> 
-            <!-- Send button -->
-            <button id="send" class="send-button" [ngClass]="{'send-button': true, 'disabled': !imgURL}" (click)="onSubmit()">Send<br>downtime Message</button>
-        </div>
+        <!-- Comment field -->
+        <textarea rows="5" [(ngModel)]="comment" placeholder="Add a comment..." (input)="updateCharCount($event)" id="commentfield"></textarea>     
+
+        <!-- Comment counter -->
+        <span class="limit">{{charCount}}/300</span>
     </div>
+       
+    <!-- buttons -->
+    <div class="footerButtons">
+        <div class="scan">
+            <!-- Scan another QR-Code button -->
+            <button id="scan" class="scanButton" >Scan another<br>QR-Code</button>
+        </div>
+
+        <div class="send">
+            <!-- Send button -->
+            <button id="send" class="sendButton" [ngClass]="{'send-button': true, 'disabled': !imgURL}" (click)="onSubmit()">Send<br>downtime Message</button>
+        </div>
+    </div> 
 <div>
