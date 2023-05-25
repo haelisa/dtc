@@ -24,7 +24,6 @@ export class DowntimeMessageService {
 
 
   async checkEventID(eventID : string): Promise<boolean>{
-  
     const downtimeMessage = await this.dtmRepository.findBy({ eventID });
 
     if (downtimeMessage.length != 0) {
@@ -34,20 +33,5 @@ export class DowntimeMessageService {
     }
   }
 
-  // async createMedia(data: Partial<DowntimeMessage>): Promise<DowntimeMessage> {
-  //   const media = await this.mediaRepository.create(data);
-  //   return await this.mediaRepository.save(media);
-  // }
-
-  // findAll(): Promise<DowntimeMessage[]> {
-  //   return this.mediaRepository.find();
-  // }
-
-  // async getAllMedia(): Promise<DowntimeMessage[]> {
-  //   return await this.mediaRepository.find();
-  // }  
-
-
-     
-
+   
 }

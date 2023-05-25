@@ -24,7 +24,7 @@ export class LandingpageComponent implements OnInit{
   name: string;
   surname: string;
 
-  //Check EventId to prevent duplicate
+  //Check EventId to prevent duplicates
   checkEventId: boolean;
 
   //Image
@@ -61,66 +61,12 @@ export class LandingpageComponent implements OnInit{
     this.surname = this.route.snapshot.paramMap.get('surname')!;
     
     const ip = window.location.hostname;
-    const checkEventID = { eventid: this.eventid}
 
-    /* this.client.get(`http://localhost:3000/dtm/checkEventID`, {params: checkEventID}).subscribe((response) => {
-
-        // Erfolgreiche Antwort verarbeiten
-            console.log(response);
-          },
-          (error) => {
-            // Fehlerbehandlung
-            console.error(error);
-          }
-        ); */
-
-
-        //Get method to get the eventID from backend
-        
-          axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
-          //const downtimeMessageArray: any[] = response.data; 
-          console.log('Response from Backend ' , response.data);
-          response.data = this.checkEventId;
-
-          //eventIdExists = false because of the following if-loops
-          // let eventIdExists = false;
-       
-          // for (let i = 0; i < downtimeMessageArray.length; i++) {
-          //   const element = downtimeMessageArray[i];
-
-      
-          //   if (element.eventID == this.eventid) {
-          //     eventIdExists = true;
-          //   }
-          // }
-
-
-          });
-          
- 
-
-    // const params = new HttpParams().set('eventid', this.eventid);
-    // this.client.get('http://${id}:3000/dtm/checkEventID', {params: params, responseType: 'text'}).subscribe(
-    //   (response) => {
-    //       const eventIDExists = response === 'true'
-    //       console.log(eventIDExists)
-    //   },
-    //   (error) => {
-    //     // Fehlerbehandlung
-    //     console.error(error);
-    //   }
-    // )
-
-
-    // axios.get<boolean>('http://${id}:3000/dtm/checkEventID?parameter=${this.eventid}').then(response =>
-    //   {
-    //     const result = response.data;
-    //     console.log('Ergebnis: ', result);
-    //   })
-    // .catch(error => {
-    //   console.error('Fehler:', error);
-    //   // Fehlerbehandlung
-    // });
+    //Get method to check if the eventID already exisits in database   
+    axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
+      console.log('Response from Backend, EventID already exists: ' , response.data);
+      response.data = this.checkEventId; // this.checkEventId oben initialisiert als boolean, damit man in der ganzen Klasse damit arbeiten kann
+    });
   }  
 
 

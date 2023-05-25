@@ -16,13 +16,7 @@ export class DowntimeMessageController {
 
   @Get('checkEventID/:eventid')
   async getEventID(@Param('eventid') eventid: string) {
-    
-    //return await this.dtmServices.checkEventID(eventid);
-    //const check = '002d9403-185c-4328-8640-02681be5275e';
-    console.log(eventid);
     return this.dtmServices.checkEventID(eventid);
-   
-
   }  
     
   
