@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scan-new-qrcode',
@@ -14,7 +15,7 @@ export class ScanNewQRCodeComponent {
   qrResultString!: string;
 
   
-  constructor() { }
+  constructor(private _router: Router) { }
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
@@ -32,5 +33,10 @@ export class ScanNewQRCodeComponent {
 
   onHasPermission(has: boolean) {
     this.hasPermission = has;
+  }
+
+  btnGoBack(){
+    //ToDO: go to waiting Page
+    // this._router.navigateByUrl('/scan');
   }
 }
