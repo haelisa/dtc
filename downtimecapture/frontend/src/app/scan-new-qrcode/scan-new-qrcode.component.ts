@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,6 +16,9 @@ export class ScanNewQRCodeComponent {
 
   
   constructor(private _router: Router) { }
+
+
+
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
