@@ -1,0 +1,120 @@
+.canvasWrapper{
+    max-height: 400px;
+    max-width: 350px;
+    border: 1px solid;
+    align-items: center;
+}
+#canvas{
+    object-fit: contain;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+:host .toolbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+:host .tools {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 10px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .4);
+}
+:host .row {
+    display: flex;
+    width: 300px;
+    justify-content: space-around;
+    align-items: center;
+}
+:host .row:first-child {
+    margin-bottom: 10px;
+}
+:host .btn {
+    cursor: pointer;
+}
+:host .btn.selected {
+    color: #bdbdbd;
+}
+:host .btn.disabled {
+    cursor: initial;
+    color: #bdbdbd;
+}
+:host .size {
+    background-color: #000;
+}
+:host .size.selected {
+    background-color: #bdbdbd;
+}
+:host .color {
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+:host .color.selected::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #000;
+    display: flex;
+    border-radius: 5px;
+}
+:host .color.black {
+    background-color: #000;
+}
+:host .color.black.selected::after {
+    background: #fff;
+}
+:host .color.white {
+    border: 1px solid #a7a7a7;
+}
+:host .buttons {
+    margin: 10px;
+    display: flex;
+    /* flex-direction: column; */
+    flex-direction: row;
+}
+:host .button {
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 3px 16px;
+    border-radius: 4px;
+    overflow: visible;
+    transition: background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 10px;
+}
+:host .button:hover {
+    text-decoration: none !important;
+}
+:host .button.btn-primary {
+    background-color: #456f81;
+    color: #fff;
+}
+:host .button.btn-primary:hover {
+    background-color: 456f81;
+}
+:host .button.btn-light {
+    color: #456f81 ;
+}
+:host .button.btn-light:hover {
+    background-color: rgba(239, 95, 39, 0.1);
+}

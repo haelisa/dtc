@@ -12,7 +12,10 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "options": {
+            "options": {
+              "allowedCommonJsDependencies": [
+                "fabric"
+            ],
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",

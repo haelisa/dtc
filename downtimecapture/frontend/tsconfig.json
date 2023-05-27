@@ -3,6 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     //Zeile hinzufügen
+    "noImplicitAny": false,
     "strictPropertyInitialization": false,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
