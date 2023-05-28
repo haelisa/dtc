@@ -18,16 +18,13 @@ import { switchMap } from 'rxjs/operators';
 })
 export class EditImageComponent implements OnInit, OnChanges {
 
-imageUrl = '';
-editedImgUrl = '';
+    // editedImgUrl = '';
 
   constructor(
     public dialogRef: MatDialogRef<EditImageComponent>,
     @Inject(MAT_DIALOG_DATA) data: any,
   ) {
-    this.imageUrl = data.dataUrl;
     this.src = data.dataUrl;
-    // this.importPhotoFromSrc(data.dataUrl);
   }
 
   // saveImage(editedImage: Blob) {
@@ -50,7 +47,7 @@ editedImgUrl = '';
 
 
 
-  @Input() public src?: string;// = this.imageUrl;
+  @Input() public src?: string;
   @Input() public width?= 350;
   @Input() public height?= 400;
 
@@ -78,8 +75,6 @@ editedImgUrl = '';
 
   outputMimeType = 'image/jpeg';
   outputQuality = 0.8;
-
-  // borderCss: string = '1px solid';
 
   drawingSizes: { [name: string]: number } = {
       small: 5,
@@ -122,12 +117,6 @@ editedImgUrl = '';
 
 
   public ngOnInit(): void {
-
-//     document.addEventListener('wheel', (e:Event) => {
-//       e.preventDefault();   // does nothing since the listener is passive  
-//       // some code here...
-//    }, {passive: true});
-
 
       this.colorsName = Object.keys(this.colors);
       this.drawingSizesName = Object.keys(this.drawingSizes);
@@ -175,6 +164,7 @@ editedImgUrl = '';
       if (this.errorText) {
           this.i18n.loadError = this.errorText;
       }
+
   }
 
   // Tools
@@ -225,6 +215,7 @@ editedImgUrl = '';
       }
   }
 
+  //Button Save
   public saveImage() {
       // if (!this.forceSizeExport || (this.forceSizeExport && this.width && this.height)) {
       //     const canvasScaledElement: HTMLCanvasElement = document.createElement('canvas');
@@ -315,41 +306,13 @@ editedImgUrl = '';
       //         );
       //     });
       // } else {
-
-        this.canvas.getElement().toBlob(
-          (data) => {
-
-            var reader = new FileReader();
-            reader.readAsDataURL(data as Blob); 
-            reader.onload = (_event) => { 
-              this.editedImgUrl = reader.result!.toString();
-              this.dialogRef.close({dataurl: this.editedImgUrl});
-              
-            }
-
-            // this.save.emit(data as Blob);
-          },
-          this.outputMimeType,
-          this.outputQuality
-          );
-
-
-
-        // var reader = new FileReader();
-        // reader.readAsDataURL(editedImage); 
-        // reader.onload = (_event) => { 
-        //   this.editedImgUrl = reader.result!.toString();
-        //   this.dialogRef.close({dataurl: this.editedImgUrl});
-          
-        // }
-      // }
-
-      
+        const canvasNew = this.canvas.getElement() as HTMLCanvasElement;
+        const dataurlbase64 = canvasNew.toDataURL("image/jpeg");
+        this.dialogRef.close({dataurl: dataurlbase64});
   }
 
+  //Button Cancel
   public cancelAction() {
-    //   this.cancel.emit();
-      // alert('Canceld');
       this.dialogRef.close({dataurl: ''});
   }
 

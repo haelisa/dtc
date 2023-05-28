@@ -186,8 +186,13 @@ export class LandingpageComponent implements OnInit{
 
           this.dialogRef.afterClosed().subscribe(
             data => {
-              this.imgURL = data.dataurl;
-              this.base64 = data.dataurl;
+              if(data.dataurl != ''){
+                this.imgURL = data.dataurl;
+                this.base64 = data.dataurl;
+              }else{
+                galleryImgInput.value = '';
+              }
+                
             }
           );
 
