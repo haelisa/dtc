@@ -46,7 +46,7 @@ export class EditImageComponent implements OnInit, OnChanges {
 
 
 
-
+  borderCss: string = 'none';
   @Input() public src?: string;
   @Input() public width?= 350;
   @Input() public height?= 400;
@@ -455,6 +455,7 @@ export class EditImageComponent implements OnInit, OnChanges {
                   originX: 'left',
                   originY: 'top'
               });
+              this.borderCss = '1px solid';
           });
       };
   }

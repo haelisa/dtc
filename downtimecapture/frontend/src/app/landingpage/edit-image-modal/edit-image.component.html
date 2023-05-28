@@ -20,7 +20,7 @@
 <ng-template #defaultLoading><p>Loading ...</p></ng-template>
 <ng-template #defaultError> <p>{{ errorMessage }}</p> </ng-template>
 
-<div class="canvasWrapper" >
+<div class="canvasWrapper" [ngStyle]="{ border: borderCss }">
     <canvas id="canvas"></canvas>
 </div>
 <div class="toolbar" *ngIf="!isLoading">

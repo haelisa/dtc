@@ -80,7 +80,6 @@ export class LandingpageComponent implements OnInit{
 
   //Compress Image with Size larger than 5 MB
   async compressImage(dataUrl: string){
-    alert(dataUrl);
     console.log(this.imageCompress.byteCount(dataUrl));
     await this.imageCompress
     .compressFile(dataUrl, 1, 50, 50) // 50% ratio, 50% quality
