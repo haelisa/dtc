@@ -7,7 +7,7 @@
     (save)="saveImage($event)"
     (cancel)="cancelImage()">
 </image-drawing> -->
-<script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
+<!-- <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script> -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
 <div class="loading" *ngIf="isLoading">
@@ -20,7 +20,7 @@
 <ng-template #defaultLoading><p>Loading ...</p></ng-template>
 <ng-template #defaultError> <p>{{ errorMessage }}</p> </ng-template>
 
-<div class="canvasWrapper" >
+<div class="canvasWrapper" [ngStyle]="{ border: borderCss }">
     <canvas id="canvas"></canvas>
 </div>
 <div class="toolbar" *ngIf="!isLoading">

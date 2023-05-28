@@ -10,7 +10,7 @@ const routes: Routes = [
 
   { path: ':equipmentno/:eventid/:timestamp/:name/:surname', component: LandingpageComponent },
   { path: 'scan', component: ScanNewQRCodeComponent },
-  // { path: ':equipmentno/:eventid/:timestamp/:name/:surname/img/show/:imgid', component: ShowimgComponent },
+  // { path: 'start', component:  },    Waiting page
   { path: '', component: HelloworldComponent },
   { path: '**', component: PagenotfoundComponent }];
 
