@@ -73,7 +73,7 @@ export class LandingpageComponent implements OnInit{
       }
 
       this.checkEventId = response.data
-      console.log(this.checkEventId); // this.checkEventId oben initialisiert als boolean, damit man in der ganzen Klasse damit arbeiten kann
+      console.log(this.checkEventId); // this.checkEventId above initialized as boolean, so you can work with it in the whole class
     });
   }  
 
@@ -252,7 +252,7 @@ export class LandingpageComponent implements OnInit{
     this.mediatimestamp=  null as unknown as Date;  //FDelete photo Timestamp
     
     console.log('Media deleted successfully.')
-    //alert(this.mediatimestamp); //Bei MediaTimeStamp auch auskommentieren zum testen
+    //alert(this.mediatimestamp); //With MediaTimeStamp also comment out to test
   }
 
   //Comment maximum number of characters and popup

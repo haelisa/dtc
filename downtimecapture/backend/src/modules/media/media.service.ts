@@ -12,7 +12,6 @@ export class MediaService {
     private readonly mediaRepository: Repository<Media>,
   ) {}
 
-  //mediaFormat : Foto oder Video müssen noch als Parameter hinzugefügt werden
   createMedia(medianame: string, mediatimestamp:Date, mediaType: MediaTypeEnum, mediafile: Blob): Promise<Media> {
     const media = new Media();
     media.mediaName = medianame;
@@ -30,12 +29,5 @@ export class MediaService {
   getMediaTypeEnum(){
     return MediaTypeEnum;
   }
-
-  // async getMediabyId(id: number): Promise<Media> {
-  //   return await this.mediaRepository.findOne(id);
-  // }
-
- 
-
 }
 

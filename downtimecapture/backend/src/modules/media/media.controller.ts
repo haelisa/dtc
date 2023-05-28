@@ -28,11 +28,4 @@ export class MediaController {
   getMediaFormatEnum(){
     return this.mediaServices.getMediaFormatEnum();
   }
-
-  // @Get()
-  // findAll(): Promise<Media[]> {
-  //   return this.mediaServices.findAll();
-  // }
-
-  
 }

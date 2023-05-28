@@ -13,7 +13,7 @@ async function bootstrap() {
   //   origin: ['from', 'to']
   // })
 
-  // Setze die Zeitzone
+  // Set the timezone
   moment.tz.setDefault('Europe/Berlin');
   app.use(bodyParser.json({ limit: '100mb' }));
   app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
