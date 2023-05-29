@@ -1,8 +1,5 @@
 import { Component, Inject, Input, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { ImageDrawingComponent, ImageDrawingModule } from 'ngx-image-drawing';
-
-
 import { EventEmitter, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { fabric } from 'fabric';
 import { I18nEn, I18nInterface, i18nLanguages } from './i18n';

@@ -13,18 +13,18 @@ import { FormsModule } from '@angular/forms';
 import { ModalComponent } from './landingpage/modalsuccess/modal.component';
 import { EditImageComponent } from './landingpage/edit-image-modal/edit-image.component';
 import { ScanNewQRCodeComponent } from './scan-new-qrcode/scan-new-qrcode.component';
+import { CanceldtmComponent } from './canceldtm/canceldtm.component';
 
 //Popup
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 
-//Edit Image
-import { ImageDrawingModule  } from 'ngx-image-drawing';
+//Edit Image & Compress
+// import { ImageDrawingModule  } from 'ngx-image-drawing';
 import { NgxImageCompressService } from 'ngx-image-compress';
 
 //QR-Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { CanceldtmComponent } from './canceldtm/canceldtm.component';
 
 
 @NgModule({
@@ -46,7 +46,7 @@ import { CanceldtmComponent } from './canceldtm/canceldtm.component';
     FormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    ImageDrawingModule,
+    // ImageDrawingModule,
     ZXingScannerModule
   ],
   providers: [NgxImageCompressService],
