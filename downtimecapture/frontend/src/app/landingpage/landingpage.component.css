@@ -298,16 +298,12 @@
 
     /* Scan another QR-Code button */
     .scanButton{
-        padding: 10px 10px;
         width: 100px;
-        font-size: 12px;
     }
 
     /* Send button */
     .sendButton{
-        padding: 10px 10px;
         width: 140px;
-        font-size: 12px;
     }
 }
 
