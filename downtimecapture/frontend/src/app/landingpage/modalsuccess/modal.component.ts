@@ -25,4 +25,9 @@ export class ModalComponent  {
     //ToDo: Route to Waiting Page
     // this._router.navigateByUrl('/newpage');
   }
+
+  //Close Browser Tab (Smartphone only)
+  closeWebApp(): void {
+    window.close();
+  }
 }
