@@ -42,7 +42,7 @@
     .machinedataTable{
         display: grid;
         text-align: left;
-        grid-template-columns: 25% 75%;
+        grid-template-columns: 27% 73%;
         grid-template-areas: 
             "labelEq eqContent"
             "labelEventid eventidContent"
@@ -53,7 +53,6 @@
         color: #7C7E80;
         font-size: 12px;
     }
-    
     
     /* ----------Photo area---------- */
     .photoarea{
@@ -281,6 +280,7 @@
     /* ----------Header area---------- */
     /* Machinedata table */
     .machinedataTable{
+        grid-template-columns: 34% 66%;
         max-width: 325;
         column-gap: 20px;
     }

@@ -483,12 +483,4 @@ export class EditImageComponent implements OnInit, OnChanges {
           }
       }
   }
-
-
-
-
-
 }
-
-
-
