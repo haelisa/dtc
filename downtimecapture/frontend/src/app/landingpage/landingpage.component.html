@@ -36,10 +36,10 @@
                 <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
             </div>
 
-            <!-- Open Gallery Button-->
+            <!-- Open Galery Button-->
             <div class="openGalery">
-                <label for="galleryimg" class="customFileUpload" *ngIf="!imgURL">Open Gallery</label>
-                <input #galleryImgInput type="file" accept='image/*' (change)="preview(galleryImgInput.files)" id="galleryimg">
+                <label for="galeryimg" class="customFileUpload" *ngIf="!imgURL">Open Galery</label>
+                <input #galeryImgInput type="file" accept='image/*' (change)="preview(galeryImgInput.files)" id="galeryimg">
             </div>
         </div>
 
@@ -70,15 +70,14 @@
     <div class="commentblock">
         <!-- Comment-->
         <div class ="commenttext">
-            <span class="commentheading">Comment </span>
+            <span class="commentheading">Comment&nbsp;</span>
             <span class="optional">(optional):</span>
+            <!-- Comment counter -->
+            <span class="limit">{{charCount}}/300</span>
         </div>
 
         <!-- Comment field -->
-        <textarea rows="5" [(ngModel)]="comment" placeholder="Add a comment..." (input)="updateCharCount($event)" id="commentfield"></textarea>     
-
-        <!-- Comment counter -->
-        <span class="limit">{{charCount}}/300</span>
+        <textarea rows="5" [(ngModel)]="comment" placeholder="Add a comment..." (input)="updateCharCount($event)" id="commentfield"></textarea>
     </div>
        
     <!-- buttons -->
