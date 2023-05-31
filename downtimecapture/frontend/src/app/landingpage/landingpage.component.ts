@@ -265,22 +265,26 @@ export class LandingpageComponent implements OnInit{
 
   // Delete Button: Photo preview, photo timestamp, comment content
   deleteImage() {
-    this.imgURL = null;
+    const confirmation = confirm("Do you want to delete the photo?");
 
-    //Delete photo
-    const inputs = ["captureimg", "galleryimg"];
-    inputs.forEach((input) => {
-      const element = document.getElementById(input) as HTMLInputElement;
-      if (element) {
-        element.value = "";
-      }
-    });
+    if (confirmation) {
+      this.imgURL = null;
 
-    this.mediatimestamp=  null as unknown as Date;  //FDelete photo Timestamp
+      //Delete photo
+      const inputs = ["captureimg", "galleryimg"];
+      inputs.forEach((input) => {
+        const element = document.getElementById(input) as HTMLInputElement;
+        if (element) {
+          element.value = "";
+        }
+      });
+
+      this.mediatimestamp=  null as unknown as Date;  //Delete photo Timestamp
     
-    console.log('Media deleted successfully.')
-    //alert(this.mediatimestamp); //With MediaTimeStamp also comment out to test
+      console.log('Media deleted successfully.')
+    }
   }
+
 
   //Comment maximum number of characters and popup
   charCount: number = 0;
@@ -295,7 +299,7 @@ export class LandingpageComponent implements OnInit{
       textarea.scrollTop = 0;
       textarea.selectionStart = 0;
       textarea.selectionEnd = 0;
-      
+
     } else {
       this.charCount = input.length;
     }
