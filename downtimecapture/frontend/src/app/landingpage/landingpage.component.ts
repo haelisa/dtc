@@ -71,15 +71,27 @@ export class LandingpageComponent implements OnInit{
       console.log('Response from Backend, EventID already exists: ' , response.data);
       if(response.data){
         let dialogRef = this.dialog.open(CanceldtmComponent,  { disableClose: true });
-
-
       }
 
       this.checkEventId = response.data
       console.log(this.checkEventId); // this.checkEventId above initialized as boolean, so you can work with it in the whole class
     });
+
+    //Local Storage comment
+    const savedComment = localStorage.getItem("landingPageComment");
+    this.comment = savedComment ? savedComment : "";
+
+    this.subscribeToCommentChanges();
   }  
 
+  //Method to keep the comment when refreshing the page
+  subscribeToCommentChanges() {
+    setInterval(() => {
+      if (this.comment) {
+        localStorage.setItem("landingPageComment", this.comment);
+      }
+    }, 1000);
+  }
 
   //Compress Image with Size larger than 5 MB
   async compressImage(dataUrl: string){
