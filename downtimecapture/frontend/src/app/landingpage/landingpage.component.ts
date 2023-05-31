@@ -287,13 +287,19 @@ export class LandingpageComponent implements OnInit{
   
   updateCharCount(event: any) {
     const input = event.target.value;
-    if (input.length > 300) {
+    const textarea = document.getElementById('commentfield') as HTMLTextAreaElement;
+      if (input.length > 300) {
       event.target.value = input.substring(0, 300);
       this.charCount = 300;
       alert('Limit of 300 characters has been exceeded');
+      textarea.scrollTop = 0;
+      textarea.selectionStart = 0;
+      textarea.selectionEnd = 0;
+      
     } else {
       this.charCount = input.length;
     }
+  
   }
 
 
