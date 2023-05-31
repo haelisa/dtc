@@ -26,8 +26,4 @@ export class ModalComponent  {
     // this._router.navigateByUrl('/newpage');
   }
 
-  //Close Browser Tab (Smartphone only)
-  closeWebApp(): void {
-    window.close();
-  }
 }

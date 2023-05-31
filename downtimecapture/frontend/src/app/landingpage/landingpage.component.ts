@@ -16,6 +16,7 @@ import { CanceldtmComponent } from '../canceldtm/canceldtm.component';
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.css'],
 })
+
 export class LandingpageComponent implements OnInit{
 
   //Data from QR-Code
@@ -40,6 +41,7 @@ export class LandingpageComponent implements OnInit{
   //Data Url to compress
   dataUrl: DataUrl;
   base64 = '';
+  originalBase64 = '';
   dialogRef: MatDialogRef<EditImageComponent>;
   compressedImgURL = '';
   imgResultAfterCompression: string = '';
@@ -174,6 +176,7 @@ export class LandingpageComponent implements OnInit{
         imgreader.readAsDataURL(files[0]);
         imgreader.onloadend = () => {
           this.base64 = imgreader.result as string;
+          this.originalBase64 = this.base64;
           
           this.dialogRef = this.dialog.open(EditImageComponent, {
             height: '100vh',
@@ -239,6 +242,27 @@ export class LandingpageComponent implements OnInit{
     }
   }
 
+
+  //Edit Button: edit original photo again 
+  editImage() {
+    const dialogRef = this.dialog.open(EditImageComponent, {
+      height: '100vh',
+      maxWidth: '100vw',
+      disableClose: true,
+      data: {
+        dataUrl: this.originalBase64
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data && data.dataurl !== '') {
+          this.imgURL = data.dataurl;
+          this.base64 = data.dataurl;
+      }
+    });
+  }
+
+
   // Delete Button: Photo preview, photo timestamp, comment content
   deleteImage() {
     this.imgURL = null;
@@ -252,8 +276,6 @@ export class LandingpageComponent implements OnInit{
       }
     });
 
-    this.comment = '';        //Delete comment
-    this.charCount = 0;       //Comment character Number of counters set to '0
     this.mediatimestamp=  null as unknown as Date;  //FDelete photo Timestamp
     
     console.log('Media deleted successfully.')

@@ -51,7 +51,7 @@
         <div class="imageButton">
             <div class="toolbar">
                 <!-- Edit button -->
-                <button class="edit" *ngIf="imgURL" id="edit">
+                <button class="edit" *ngIf="imgURL" (click)="editImage()" id="edit">
                     <!-- Edit button Icon -->
                     <img src="../../assets/Icons/editIcon.png" class="editIcon "alt="Edit" [border]="0" id="editIcon"/>
                 </button>
@@ -90,7 +90,7 @@
 
         <div class="send">
             <!-- Send button -->
-            <button id="send" class="sendButton" [ngClass]="{'send-button': true, 'disabled': !imgURL}" (click)="onSubmit()">Send<br> Message</button>
+            <button id="send" class="sendButton" [ngClass]="{'send-button': true, 'disabled': !imgURL}" (click)="onSubmit()">Send<br>Message</button>
         </div>
     </div> 
 <div>
