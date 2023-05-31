@@ -6,25 +6,26 @@
 
         <!-- Title -->
         <div class="heading">
-            <h2 class="title">Capture Downtime-Message</h2>
+            <h2 class="title">Capture Downtime Message</h2>
         </div>
         
         <!-- Machinedate table -->
         <div class="data">
             <div class="machinedata">
                 <div class="machinedataTable">
-                    <div class="labelEq">EquipmentNo: </div>
+                    <div class="labelEq">Equipment No: </div>
                     <div class="eqContent">{{equipmentno}}</div>
-                    <div class="labelEventid">EventID: </div>
+                    <div class="labelEventid">Event ID: </div>
                     <div class="eventidContent">{{eventid}}</div>
-                    <div class="labelTimestamp">TimeStamp: </div>
-                    <div class="timestampContent">{{timestamp}}</div>
+                    <div class="labelTimestamp">Time Stamp: </div>
+                    <div id="timestamp" class="timestampContent">{{timestamp}}</div>
                     <div class="labelName">Name: </div>
                     <div class="nameContent">{{name}} {{surname}}</div>
                 </div>
             </div>
         </div>
-    </div>
+        
+   
 
     <!-- Photo area-->
     <div class="photoarea">
@@ -89,7 +90,7 @@
 
         <div class="send">
             <!-- Send button -->
-            <button id="send" class="sendButton" [ngClass]="{'send-button': true, 'disabled': !imgURL}" (click)="onSubmit()">Send<br>downtime Message</button>
+            <button id="send" class="sendButton" [ngClass]="{'send-button': true, 'disabled': !imgURL}" (click)="onSubmit()">Send<br> Message</button>
         </div>
     </div> 
 <div>

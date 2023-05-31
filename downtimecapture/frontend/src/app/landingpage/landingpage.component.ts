@@ -58,6 +58,7 @@ export class LandingpageComponent implements OnInit{
     this.equipmentno = this.route.snapshot.paramMap.get('equipmentno')!;
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
     this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
+
     this.name = this.route.snapshot.paramMap.get('name')!;
     this.surname = this.route.snapshot.paramMap.get('surname')!;
     
@@ -99,7 +100,7 @@ export class LandingpageComponent implements OnInit{
       //Check if file was saved in variable and it is an image
       var mimeType = files[0].type;
       if (mimeType.match(/image\/*/) == null) {
-        alert("Only images are supported.");
+        alert("Only the image formats jpeg, png and jpg are allowed.");
         break preview;  
       }    
 
@@ -123,7 +124,7 @@ export class LandingpageComponent implements OnInit{
       
       //Only common formats allowed
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
-        alert("Only common photo formats (jpeg, png and jpg) are allowed.");
+        alert("Only the image formats jpeg, png and jpg are allowed.");
         break preview;
       }
         
@@ -334,11 +335,11 @@ export class LandingpageComponent implements OnInit{
       this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
 
         //Open Modal for send successful
-        console.log('Downtime-Message saved successfully.');
-        // alert('Downtime-Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
+        console.log('Downtime Message saved successfully.');
+        // alert('Downtime Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
         let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
       }, (error) => {
-        console.error('Error while saving Downtime-Message:', error);
+        console.error('Error while saving Downtime Message:', error);
       }); 
     }
 }
