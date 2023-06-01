@@ -77,14 +77,24 @@ export class LandingpageComponent implements OnInit{
       console.log(this.checkEventId); // this.checkEventId above initialized as boolean, so you can work with it in the whole class
     });
 
+    //this.clearLocalStorage();
+
     //Local Storage comment
     const savedComment = localStorage.getItem("landingPageComment");
     this.comment = savedComment ? savedComment : "";
 
     this.subscribeToCommentChanges();
+
+    localStorage.setItem("currentPage", "start");
+
+    //Local Storage
+    const storedImgURL = localStorage.getItem("previewImgURL");
+    if (storedImgURL) {
+      this.imgURL = storedImgURL;
+    }
   }  
 
-  //Method to keep the comment when refreshing the page
+  //Keep the comment when refreshing the page
   subscribeToCommentChanges() {
     setInterval(() => {
       if (this.comment) {
@@ -92,6 +102,12 @@ export class LandingpageComponent implements OnInit{
       }
     }, 1000);
   }
+
+  clearLocalStorage() {
+    localStorage.removeItem("landingPageComment");
+    localStorage.removeItem("previewImgURL");
+  }
+  
 
   //Compress Image with Size larger than 5 MB
   async compressImage(dataUrl: string){
@@ -111,6 +127,7 @@ export class LandingpageComponent implements OnInit{
       if (files.length === 0)
         return;
   
+
       //Check if file was saved in variable and it is an image
       var mimeType = files[0].type;
       if (mimeType.match(/image\/*/) == null) {
@@ -123,6 +140,7 @@ export class LandingpageComponent implements OnInit{
       const galleryImgInput = document.getElementById("galleryimg") as HTMLInputElement;
       
       let file: File | null = null;
+      let mediaType: MediaTypeEnum | null = null;
 
       if (captureImgInput.files && captureImgInput.files[0]) {
         file = captureImgInput.files[0];
@@ -135,6 +153,15 @@ export class LandingpageComponent implements OnInit{
       if (!file) {
         break preview;
       }
+      
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imgURL = reader.result as string;
+        localStorage.setItem("previewImgURL", imgURL);
+        this.imgURL = imgURL;
+      };
+
+  reader.readAsDataURL(file);
       
       //Only common formats allowed
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
@@ -385,5 +412,6 @@ export class LandingpageComponent implements OnInit{
       }, (error) => {
         console.error('Error while saving Downtime Message:', error);
       }); 
+      this.clearLocalStorage();
     }
 }
