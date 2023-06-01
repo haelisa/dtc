@@ -30,6 +30,7 @@
         grid-area: heading;
         display: inline-block;
         font-size: 24px;
+        color: #373D40;
         font-family: Arial, sans-serif;
     }
 
@@ -226,10 +227,12 @@
     /* Comment field */
     #commentfield {
         font-size: 16px;
+        color: #373D40;
         font-family: Arial, sans-serif;
         margin: 5px 0 0 0;
         width: 98%;
-        border: 1px solid #6a6a6a;
+        border-radius: 5px;
+        border: 1px solid #373D40;
         resize: none;
         overflow: auto;
     }
@@ -237,12 +240,13 @@
     /* Comment counter */
     .limit {
         margin-left: auto;
+        color: #373D40;
     }
 
     /* Scan another QR-Code button */
     .scanButton{
         text-align: center;
-        padding: 10px 10px;
+        padding: 10px;
         width: 140px;
         font-size: 16px;
         font-weight: bold;
@@ -260,7 +264,7 @@
     /* Send button */
     .sendButton{
         text-align: center;
-        padding: 10px 10px;
+        padding: 10px;
         width: 140px;
         font-size: 16px;
         font-weight: bold;
@@ -414,14 +418,14 @@
 
     /* Scan another QR-Code button */
     .scanButton{
-        padding: 15px 15px;
+        padding: 15px;
         width: 170px;
         font-size: 20px;
     }
 
     /* Send button */
     .sendButton{
-        padding: 15px 15px;
+        padding: 15px;
         width: 170px;
         font-size: 20px;
     }
@@ -513,14 +517,14 @@
 
     /* Scan another QR-Code button */
     .scanButton{
-        padding: 20px 20px;
+        padding: 20px;
         width: 220px;
         font-size: 24px;
     }
 
     /* Send button */
     .sendButton{
-        padding: 20px 20px;
+        padding: 20px;
         width: 220px;
         font-size: 24px;
     }

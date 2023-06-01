@@ -1,7 +1,15 @@
-<h3 class="successheader">Issue successfully send!</h3>
+<div class="layout">
+  <!-- Header area -->
+  <div class="header">
+    <h2 class="successmessage">Issue successfully send!</h2>
+  </div>
 
+  <!-- Buttons area -->
+  <div mat-dialog-actions class="buttonsarea">
+    <!-- Scan another QR-Code button -->
+      <button mat-raised-button mat-dialog-close class="scan" (click)="openQRCodeScanner()">Scan another<br>QR-Code</button>
 
-<div mat-dialog-actions class="wrapperbtns">
-  <button mat-raised-button mat-dialog-close class="secondary" (click)="openQRCodeScanner()">Scan another QR-Code</button>
-  <button mat-raised-button mat-dialog-close class="primary" (click)="openQRCodeScanner()">Ok</button> <!-- openQRCodeScanner Fehler bis Waiting Page eingerichtet ist -->
+    <!-- Okay button -->
+      <button mat-raised-button mat-dialog-close class="okay" (click)="routeToWaiting()">OK</button>
+  </div>
 </div>
