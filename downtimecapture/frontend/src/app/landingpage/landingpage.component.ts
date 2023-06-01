@@ -76,37 +76,7 @@ export class LandingpageComponent implements OnInit{
       this.checkEventId = response.data
       console.log(this.checkEventId); // this.checkEventId above initialized as boolean, so you can work with it in the whole class
     });
-
-    //this.clearLocalStorage();
-
-    //Local Storage comment
-    const savedComment = localStorage.getItem("landingPageComment");
-    this.comment = savedComment ? savedComment : "";
-
-    this.subscribeToCommentChanges();
-
-    localStorage.setItem("currentPage", "start");
-
-    //Local Storage
-    const storedImgURL = localStorage.getItem("previewImgURL");
-    if (storedImgURL) {
-      this.imgURL = storedImgURL;
-    }
-  }  
-
-  //Keep the comment when refreshing the page
-  subscribeToCommentChanges() {
-    setInterval(() => {
-      if (this.comment) {
-        localStorage.setItem("landingPageComment", this.comment);
-      }
-    }, 1000);
-  }
-
-  clearLocalStorage() {
-    localStorage.removeItem("landingPageComment");
-    localStorage.removeItem("previewImgURL");
-  }
+  } 
   
 
   //Compress Image with Size larger than 5 MB
@@ -412,6 +382,5 @@ export class LandingpageComponent implements OnInit{
       }, (error) => {
         console.error('Error while saving Downtime Message:', error);
       }); 
-      this.clearLocalStorage();
     }
 }
