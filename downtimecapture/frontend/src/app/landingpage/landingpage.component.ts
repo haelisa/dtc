@@ -137,7 +137,7 @@ export class LandingpageComponent implements OnInit{
 
       //Call HTML-Input-Elements 
       const captureImgInput = document.getElementById("captureimg") as HTMLInputElement;
-      const galleryImgInput = document.getElementById("galleryimg") as HTMLInputElement;
+      const galeryImgInput = document.getElementById("galeryimg") as HTMLInputElement;
       
       let file: File | null = null;
       let mediaType: MediaTypeEnum | null = null;
@@ -145,8 +145,8 @@ export class LandingpageComponent implements OnInit{
       if (captureImgInput.files && captureImgInput.files[0]) {
         file = captureImgInput.files[0];
         this.mediaType = MediaTypeEnum.AUFNAHME;
-      } else if (galleryImgInput.files && galleryImgInput.files[0]) {
-        file = galleryImgInput.files[0];
+      } else if (galeryImgInput.files && galeryImgInput.files[0]) {
+        file = galeryImgInput.files[0];
         this.mediaType = MediaTypeEnum.GALERIE;  
       }
       
@@ -232,7 +232,7 @@ export class LandingpageComponent implements OnInit{
                 this.imgURL = data.dataurl;
                 this.base64 = data.dataurl;
               }else{
-                galleryImgInput.value = '';
+                galeryImgInput.value = '';
               }
                 
             }
@@ -310,7 +310,7 @@ export class LandingpageComponent implements OnInit{
       this.imgURL = null;
 
       //Delete photo
-      const inputs = ["captureimg", "galleryimg"];
+      const inputs = ["captureimg", "galeryimg"];
       inputs.forEach((input) => {
         const element = document.getElementById(input) as HTMLInputElement;
         if (element) {
