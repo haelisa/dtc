@@ -76,8 +76,58 @@ export class LandingpageComponent implements OnInit{
       this.checkEventId = response.data
       console.log(this.checkEventId); // this.checkEventId above initialized as boolean, so you can work with it in the whole class
     });
-  } 
-  
+
+    //Local Storage comment
+    const savedComment = localStorage.getItem("landingPageComment");
+    this.comment = savedComment ? savedComment : "";
+
+    this.subscribeToCommentChanges();
+
+    window.addEventListener('touchmove', function(event) {
+      const threshold = 5; // Adjust this value to control the sensitivity of scrolling
+      const touch = event.touches[0];
+      const startY = touch.clientY;
+      const startX = touch.clientX;
+    
+      function handleTouchMoveY(event: TouchEvent) {
+        const currentY = event.touches[0].clientY;
+        const deltaY = currentY - startY;
+    
+        if (Math.abs(deltaY) >= threshold) {
+          event.preventDefault();
+        }
+      }
+
+      function handleTouchMoveX(event) {
+        const currentX = event.touches[0].clientX;
+        const deltaX = currentX - startX;
+    
+        if (Math.abs(deltaX) >= threshold || currentX < window.innerWidth / 3) {
+          event.preventDefault();
+        }
+      }
+    
+      window.addEventListener('touchmove', handleTouchMoveY, { passive: false });
+      window.addEventListener('touchmove', handleTouchMoveX, { passive: false });
+    
+      function handleTouchEnd() {
+        window.removeEventListener('touchmove', handleTouchMoveY);
+        window.removeEventListener('touchmove', handleTouchMoveX);
+        window.removeEventListener('touchend', handleTouchEnd);
+      }
+    
+      window.addEventListener('touchend', handleTouchEnd);
+    }, { passive: false });
+  }  
+
+  //Method to keep the comment when refreshing the page
+  subscribeToCommentChanges() {
+    setInterval(() => {
+      if (this.comment) {
+        localStorage.setItem("landingPageComment", this.comment);
+      }
+    }, 1000);
+  }
 
   //Compress Image with Size larger than 5 MB
   async compressImage(dataUrl: string){
