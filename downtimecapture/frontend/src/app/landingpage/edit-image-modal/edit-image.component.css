@@ -1,120 +1,117 @@
-.canvasWrapper{
-    max-height: 400px;
-    max-width: 350px;
-    /* border: 1px solid; */
+/* ----------Responsive Edit Popup---------- */
+.layout{
+    display: flex;
+    flex-direction: column;
     align-items: center;
-}
-#canvas{
-    object-fit: contain;
 }
 
-:host {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Image holder */
+.canvasholder{
+    margin-bottom: 20px;
 }
-:host .toolbar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+/* Image */
+#canvas{
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px 0px #ACAFB2;
 }
-:host .tools {
-    display: inline-flex;
-    flex-direction: column;
-    padding: 20px;
+
+/* Edit toolbar*/
+.toolbar {
+    padding: 20px 5px 20px 5px;
     margin: 10px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, .4);
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px 0px #ACAFB2;
 }
-:host .row {
-    display: flex;
+/* Edit Icons rows */
+.row {
     width: 300px;
+    display: flex;
     justify-content: space-around;
     align-items: center;
 }
-:host .row:first-child {
+/* Edit Icon first row */
+.row:first-child {
     margin-bottom: 10px;
 }
-:host .btn {
-    cursor: pointer;
+/* Edit arrows, trash can */
+.btn {
+    color: black;
 }
-:host .btn.selected {
-    color: #bdbdbd;
+.btn.disabled {
+    color: #ACAFB2;
 }
-:host .btn.disabled {
-    cursor: initial;
-    color: #bdbdbd;
-}
+/* Edit size dots */
 :host .size {
-    background-color: #000;
+    background-color: black;
 }
-:host .size.selected {
-    background-color: #bdbdbd;
+.size.selected {
+    background-color: #ACAFB2;
 }
-:host .color {
+/* Color dots */
+.color {
     width: 28px;
     height: 28px;
     border-radius: 14px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-:host .color.selected::after {
+/* Color inner dots */
+.color.selected::after {
     content: "";
     width: 10px;
     height: 10px;
-    background: #000;
-    display: flex;
+    background: black;
     border-radius: 5px;
 }
-:host .color.black {
-    background-color: #000;
+/* Color dot White */
+.color.white {
+    border: 1px solid #ACAFB2;
 }
-:host .color.black.selected::after {
-    background: #fff;
+/* Color dot Black */
+.color.black {
+    background-color: black;
 }
-:host .color.white {
-    border: 1px solid #a7a7a7;
+/* Color dot Black inner dot */
+.color.black.selected::after {
+    background: white;
 }
-:host .buttons {
+
+/* Buttons: Save, Cancel */
+.buttons {
     margin: 10px;
     display: flex;
-    /* flex-direction: column; */
     flex-direction: row;
 }
-:host .button {
-    cursor: pointer;
+/* Buttons design */
+.button {
     outline: 0;
-    border: none;
-    white-space: nowrap;
     text-decoration: none;
-    vertical-align: baseline;
     text-align: center;
-    min-width: 64px;
-    line-height: 36px;
-    padding: 3px 16px;
-    border-radius: 4px;
-    overflow: visible;
-    transition: background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 15px;
     margin: 10px;
+    width: 140px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px 0px #ACAFB2;
+    font-family: Arial, sans-serif;
 }
-:host .button:hover {
-    text-decoration: none !important;
+/* Save button */
+.button.btn-primary {
+    background-color: #456F81;
+    border: 1px solid #456F81;
 }
-:host .button.btn-primary {
-    background-color: #456f81;
-    color: #fff;
+.button.btn-primary:hover {
+    transform: scale(1.03);
 }
-:host .button.btn-primary:hover {
-    background-color: 456f81;
+/* Cancel button */
+.button.btn-light {
+    background-color: #373D40;
+    border: 1px solid #373D40;
 }
-:host .button.btn-light {
-    color: #456f81 ;
-}
-:host .button.btn-light:hover {
-    background-color: rgba(239, 95, 39, 0.1);
+.button.btn-light:hover {
+    transform: scale(1.03);
 }

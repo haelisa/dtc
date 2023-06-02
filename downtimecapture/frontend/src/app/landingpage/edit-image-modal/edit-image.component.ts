@@ -45,8 +45,8 @@ export class EditImageComponent implements OnInit, OnChanges {
 
   borderCss: string = 'none';
   @Input() public src?: string;
-  @Input() public width?= 350;
-  @Input() public height?= 400;
+  @Input() public width?= 310;
+  @Input() public height?= 375;
 
   @Input() public forceSizeCanvas = false;
   @Input() public forceSizeExport = false;
