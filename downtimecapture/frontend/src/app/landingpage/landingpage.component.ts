@@ -59,7 +59,20 @@ export class LandingpageComponent implements OnInit{
   ngOnInit() {
     this.equipmentno = this.route.snapshot.paramMap.get('equipmentno')!;
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
-    this.timestamp = this.route.snapshot.paramMap.get('timestamp')!;
+
+    //Convert UnixTimeStamp to Date
+    const unixTimestamp = parseInt(this.route.snapshot.paramMap.get('timestamp')!);
+    if (!isNaN(unixTimestamp)) {
+      const dateObj = new Date(unixTimestamp * 1000); // Convert Unix timestamp to milliseconds
+      const day = dateObj.getDate().toString().padStart(2, '0');
+      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+      const year = dateObj.getFullYear();
+      const hours = dateObj.getHours().toString().padStart(2, '0');
+      const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+      const seconds = dateObj.getSeconds().toString().padStart(2, '0');
+      const formattedDate = `${day}.${month}.${year}`;
+      const formattedTime = `${hours}:${minutes}:${seconds}`;
+      this.timestamp = `${formattedDate} ${formattedTime}`;
 
     this.name = this.route.snapshot.paramMap.get('name')!;
     this.surname = this.route.snapshot.paramMap.get('surname')!;
@@ -76,12 +89,6 @@ export class LandingpageComponent implements OnInit{
       this.checkEventId = response.data
       console.log(this.checkEventId); // this.checkEventId above initialized as boolean, so you can work with it in the whole class
     });
-
-    //Local Storage comment
-    const savedComment = localStorage.getItem("landingPageComment");
-    this.comment = savedComment ? savedComment : "";
-
-    this.subscribeToCommentChanges();
 
     window.addEventListener('touchmove', function(event) {
       const threshold = 5; // Adjust this value to control the sensitivity of scrolling
@@ -118,16 +125,8 @@ export class LandingpageComponent implements OnInit{
     
       window.addEventListener('touchend', handleTouchEnd);
     }, { passive: false });
-  }  
+  }}
 
-  //Method to keep the comment when refreshing the page
-  subscribeToCommentChanges() {
-    setInterval(() => {
-      if (this.comment) {
-        localStorage.setItem("landingPageComment", this.comment);
-      }
-    }, 1000);
-  }
 
   //Compress Image with Size larger than 5 MB
   async compressImage(dataUrl: string){
@@ -146,7 +145,6 @@ export class LandingpageComponent implements OnInit{
     preview: {
       if (files.length === 0)
         return;
-  
 
       //Check if file was saved in variable and it is an image
       var mimeType = files[0].type;
@@ -407,15 +405,18 @@ export class LandingpageComponent implements OnInit{
       this.mediaObject.mediaFile = this.base64;
 
 
-      //Parse Unix epoch number to date, example: from 1620980318 to 2021-05-14T10:05:18.000Z
-      //const dtcDate = new Date(parseInt(this.timestamp) * 1000)
+      //Convert Date back to UnixTimeStamp for storage in database
+      const [day, month, year, hours, minutes, seconds] = this.timestamp.split(/[.: ]/).map(Number);
+      const dateObj = new Date(year, month - 1, day, hours, minutes, seconds);
+      const unixTimestamp = Math.floor(dateObj.getTime() / 1000);
+      console.log(unixTimestamp);
 
       //Post method to send the downtime message to the backend
        const requestDataDtm = {
 
         //dtmComment: this.sanitizer.bypassSecurityTrustHtml(this.commentInput),
         dtmComment: this.comment,
-        dtmTimeStamp: this.timestamp,
+        dtmTimeStamp: unixTimestamp,
         dtmEquipmentNo: this.equipmentno,
         dtmEventid: this.eventid,
         dtmName: this.name,
