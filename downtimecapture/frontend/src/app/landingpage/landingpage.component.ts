@@ -10,7 +10,7 @@ import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import axios from 'axios';
 import { CanceldtmComponent } from '../canceldtm/canceldtm.component';
-
+import xss, { FilterXSS } from 'xss';
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
@@ -33,7 +33,6 @@ export class LandingpageComponent implements OnInit{
   imgToSave: File;
   imgURL: any;
   mediatimestamp: Date;
-  comment: string = '';
   mediaType: MediaTypeEnum;
   mediaFormat: MediaFormatEnum;
   mediaObject: Media;
@@ -45,6 +44,10 @@ export class LandingpageComponent implements OnInit{
   dialogRef: MatDialogRef<EditImageComponent>;
   compressedImgURL = '';
   imgResultAfterCompression: string = '';
+
+  //Comment
+  sanitizedUserInput : string;
+  comment: string = '';
 
   // Routing + Modal
   constructor(
@@ -363,6 +366,12 @@ export class LandingpageComponent implements OnInit{
     }
   
   }
+  //Protection against XSS
+  sanitizeInput(comment) {
+    const sanitizedInput = xss(comment);
+    return sanitizedInput;
+  }
+
 
 
   // openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -375,6 +384,9 @@ export class LandingpageComponent implements OnInit{
 
   
   async onSubmit(){
+
+    //Sanitize Comment
+    this.sanitizedUserInput = this.sanitizeInput(this.comment);
 
     //File is read out as ArrayBuffer, Blob object is created
     const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
@@ -416,7 +428,7 @@ export class LandingpageComponent implements OnInit{
        const requestDataDtm = {
 
         //dtmComment: this.sanitizer.bypassSecurityTrustHtml(this.commentInput),
-        dtmComment: this.comment,
+        dtmComment: this.sanitizedUserInput,
         dtmTimeStamp: unixTimestamp,
         dtmEquipmentNo: this.equipmentno,
         dtmEventid: this.eventid,
