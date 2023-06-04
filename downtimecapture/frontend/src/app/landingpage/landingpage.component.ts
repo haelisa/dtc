@@ -37,6 +37,7 @@ export class LandingpageComponent implements OnInit{
   mediaType: MediaTypeEnum;
   mediaFormat: MediaFormatEnum;
   mediaObject: Media;
+  mediaName: string
   
   //Data Url to compress
   dataUrl: DataUrl;
@@ -298,7 +299,9 @@ export class LandingpageComponent implements OnInit{
       this.mediatimestamp = new Date(file.lastModified);
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
 
+
       this.imgToSave = file;
+      this.mediaName = this.imgToSave.name;
       console.log(this.imgToSave.name)
 
       const imgreader = new FileReader();
