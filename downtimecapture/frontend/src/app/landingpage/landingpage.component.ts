@@ -96,15 +96,15 @@ export class LandingpageComponent implements OnInit{
     // Load stored base64URL from localStorage
     const storedbase64URL = localStorage.getItem('previewbase64URL');
     if (storedbase64URL) {
-      this.base64 = storedbase64URL;
+      this.base64 = storedbase64URL as string;
     }
 
     // Load stored image from localStorage
-    var storedimgFile = localStorage.getItem('previewImgFile');
+   /*  var storedimgFile = localStorage.getItem('previewImgFile');
     if (storedimgFile) {
       storedimgFile = this.imgToSave.name;
       //this.imgToSave.name = storedimgFile;
-    }
+    } */
 
 
     // Load stored comment from localStorage
@@ -200,7 +200,7 @@ export class LandingpageComponent implements OnInit{
     });
   }
 
-  //Method to keep the comment when refreshing the page
+  //Keep the comment when refreshing the page
   subscribeToCommentChanges() {
     setInterval(() => {
       if (this.comment) {
@@ -253,10 +253,10 @@ export class LandingpageComponent implements OnInit{
         localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
         this.base64 = base64URL;
 
-        var imageToSave = reader.result as string;
+        /* var imageToSave = reader.result as string;
         localStorage.setItem('previewImgFile', imageToSave);
         imageToSave = this.imgToSave.name;
-        //this.imgToSave.name = imageToSave;
+        //this.imgToSave.name = imageToSave; */
 
         const commentpreview = this.reader.result as string;
         localStorage.setItem('comment', commentpreview); // Store comment in localStorage
@@ -264,9 +264,6 @@ export class LandingpageComponent implements OnInit{
 
 
       };
-
-      
-
       reader.readAsDataURL(file);
       
       //Only common formats allowed
@@ -480,11 +477,13 @@ export class LandingpageComponent implements OnInit{
       console.log('Downtime Message saved successfully.');
       // alert('Downtime Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
       let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
+
     }, (error) => {
       console.error('Error while saving Downtime Message:', error);
     }); 
-    localStorage.removeItem('previewImgURL'); // Remove stored image URL
-      localStorage.removeItem('comment'); // Remove stored comment
+      localStorage.removeItem('previewImgURL'); // Remove stored image URL
+      this.imgURL = null;
+      localStorage.removeItem('sanitizedUserInput'); // Remove stored comment
       this.comment = ''; //Reset the current comment to an empty String or null
 
   }
