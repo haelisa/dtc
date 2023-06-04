@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientJsonpModule, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { buffer } from 'rxjs';
 import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class';
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
@@ -59,7 +59,8 @@ export class LandingpageComponent implements OnInit{
     private route: ActivatedRoute, 
     private client: HttpClient, 
     private dialog : MatDialog,
-    private imageCompress: NgxImageCompressService
+    private imageCompress: NgxImageCompressService,
+    private _router: Router
     ) {}
 
 
@@ -492,4 +493,12 @@ export class LandingpageComponent implements OnInit{
     this.comment = ''; //Reset the current comment to an empty String or null
 
   }
+
+
+
+
+  scanAnotherQRCode(){
+    this._router.navigateByUrl('/scan');
+  }
+
 }
