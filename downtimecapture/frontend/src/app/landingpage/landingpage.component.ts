@@ -10,7 +10,7 @@ import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import axios from 'axios';
 import { CanceldtmComponent } from '../canceldtm/canceldtm.component';
-
+import xss, { FilterXSS } from 'xss';
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
@@ -33,7 +33,6 @@ export class LandingpageComponent implements OnInit{
   imgToSave: File;
   imgURL: any;
   mediatimestamp: Date;
-  comment: string = '';
   mediaType: MediaTypeEnum;
   mediaFormat: MediaFormatEnum;
   mediaObject: Media;
@@ -45,6 +44,10 @@ export class LandingpageComponent implements OnInit{
   dialogRef: MatDialogRef<EditImageComponent>;
   compressedImgURL = '';
   imgResultAfterCompression: string = '';
+
+  //Comment
+  sanitizedUserInput : string;
+  comment: string = '';
 
   // Routing + Modal
   constructor(
@@ -90,7 +93,7 @@ export class LandingpageComponent implements OnInit{
       console.log(this.checkEventId); // this.checkEventId above initialized as boolean, so you can work with it in the whole class
     });
 
-    //Chrome disable scroll refresh
+    //Disable scroll refresh and "Go back" gesture (Chrome for Android)
     window.addEventListener('touchmove', function(event) {
       const threshold = 5; // Adjust this value to control the sensitivity of scrolling
       const touch = event.touches[0];
@@ -212,91 +215,39 @@ export class LandingpageComponent implements OnInit{
       this.mediatimestamp = new Date(file.lastModified);
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
 
-      
-      
       this.imgToSave = file;
       console.log(this.imgToSave.name)
-      
-      
 
-      // Call Popup to edit img
-      // if(this.imgResultAfterCompression != ''){
-      //   this.dialogRef = this.dialog.open(EditImageComponent, {
-      //     height: '90vh',
-      //     width: '100vvw',
-      //     data: {
-      //       dataUrl: this.imgResultAfterCompression
-      //     }
-      //   });
-      // }else{
-
-        const imgreader = new FileReader();
-        imgreader.readAsDataURL(files[0]);
-        imgreader.onloadend = () => {
-          this.base64 = imgreader.result as string;
-          this.originalBase64 = this.base64;
+      const imgreader = new FileReader();
+      imgreader.readAsDataURL(files[0]);
+      imgreader.onloadend = () => {
+        this.base64 = imgreader.result as string;
+        this.originalBase64 = this.base64;
           
-          this.dialogRef = this.dialog.open(EditImageComponent, {
-            height: '100vh',
-            maxWidth: '100vw',
-            disableClose: true,
-            data: {
-              dataUrl: this.base64
-            }
-          });
+        this.dialogRef = this.dialog.open(EditImageComponent, {
+          height: '100vh',
+          maxWidth: '100vw',
+          disableClose: true,
+          data: {
+            dataUrl: this.base64
+          }
+        });
 
-          this.dialogRef.afterClosed().subscribe(
-            data => {
-              if(data.dataurl != ''){
-                this.imgURL = data.dataurl;
-                this.base64 = data.dataurl;
-              }else{
-                galeryImgInput.value = '';
-              }
+        this.dialogRef.afterClosed().subscribe(
+          data => {
+            if(data.dataurl != ''){
+              this.imgURL = data.dataurl;
+              this.base64 = data.dataurl;
+            }else{
+              galeryImgInput.value = '';
+            }
                 
-            }
-          );
-
-        }
-      // }
-      // let dialogRef = this.dialog.open(EditImageComponent, {
-      //   height: '90vh',
-      //   width: '100vvw',
-      //   data: {
-
-      //     //image as DataURl Base64 string
-      //     // imgURL: this.imgURL
-      //     // data: 
-      //     dataUrl: this.base64
-      //   }
-      // });
-
+          }
+        );
+      }
 
       const formData = new FormData();
       formData.append("photo", file);
-      
-      // fetch("/upload", {
-        //   method: "POST",
-        //   body: formData
-        // })
-        // .then(response => {
-        //   if (response.ok) {
-        //     alert("Das Foto wurde erfolgreich hochgeladen.");
-        //   } else {
-        //     alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
-        //   }
-        // })
-        // .catch(error => {
-        //   alert("Beim Hochladen des Fotos ist ein Fehler aufgetreten.");
-        // });
-
-        
-      // var reader = new FileReader();
-      // reader.readAsDataURL(files[0]); 
-      // reader.onload = (_event) => { 
-      //   this.imgURL = reader.result;
-      //   const imageData = reader.result!.toString();
-      // }
     }
   }
 
@@ -363,18 +314,16 @@ export class LandingpageComponent implements OnInit{
     }
   
   }
-
-
-  // openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-  //   this.dialog.open(ModalComponent, {
-  //     width: '250px',
-  //     enterAnimationDuration,
-  //     exitAnimationDuration,
-  //   });
-  // }
-
+  //Protection against XSS
+  sanitizeInput(comment) {
+    const sanitizedInput = xss(comment);
+    return sanitizedInput;
+  }
   
   async onSubmit(){
+
+    //Sanitize Comment
+    this.sanitizedUserInput = this.sanitizeInput(this.comment);
 
     //File is read out as ArrayBuffer, Blob object is created
     const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
@@ -394,45 +343,45 @@ export class LandingpageComponent implements OnInit{
     };
 
 
-      const ip = window.location.hostname;
+    const ip = window.location.hostname;
 
-      //Create media object to pass into the post method of the downtime message
-      this.mediaObject = new Media();
-      this.mediaObject.mediaName = this.imgToSave.name;
-      this.mediaObject.mediaTimeStamp = this.mediatimestamp;
-      this.mediaObject.MediaType = this.mediaType;
-      this.mediaObject.MediaFormat = this.mediaFormat;
-      // this.mediaObject.mediaFile = mediablob;
-      this.mediaObject.mediaFile = this.base64;
+    //Create media object to pass into the post method of the downtime message
+    this.mediaObject = new Media();
+    this.mediaObject.mediaName = this.imgToSave.name;
+    this.mediaObject.mediaTimeStamp = this.mediatimestamp;
+    this.mediaObject.MediaType = this.mediaType;
+    this.mediaObject.MediaFormat = this.mediaFormat;
+    // this.mediaObject.mediaFile = mediablob;
+    this.mediaObject.mediaFile = this.base64;
 
 
-      //Convert Date back to UnixTimeStamp for storage in database
-      const [day, month, year, hours, minutes, seconds] = this.timestamp.split(/[.: ]/).map(Number);
-      const dateObj = new Date(year, month - 1, day, hours, minutes, seconds);
-      const unixTimestamp = Math.floor(dateObj.getTime() / 1000);
-      console.log(unixTimestamp);
+    //Convert Date back to UnixTimeStamp for storage in database
+    const [day, month, year, hours, minutes, seconds] = this.timestamp.split(/[.: ]/).map(Number);
+    const dateObj = new Date(year, month - 1, day, hours, minutes, seconds);
+    const unixTimestamp = Math.floor(dateObj.getTime() / 1000);
+    console.log(unixTimestamp);
 
-      //Post method to send the downtime message to the backend
-       const requestDataDtm = {
+    //Post method to send the downtime message to the backend
+    const requestDataDtm = {
 
-        //dtmComment: this.sanitizer.bypassSecurityTrustHtml(this.commentInput),
-        dtmComment: this.comment,
-        dtmTimeStamp: unixTimestamp,
-        dtmEquipmentNo: this.equipmentno,
-        dtmEventid: this.eventid,
-        dtmName: this.name,
-        dtmSurname: this.surname,
-        mediaObject: this.mediaObject
-      }
-
-      this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
-
-        //Open Modal for send successful
-        console.log('Downtime Message saved successfully.');
-        // alert('Downtime Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
-        let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
-      }, (error) => {
-        console.error('Error while saving Downtime Message:', error);
-      }); 
+      //dtmComment: this.sanitizer.bypassSecurityTrustHtml(this.commentInput),
+      dtmComment: this.sanitizedUserInput,
+      dtmTimeStamp: unixTimestamp,
+      dtmEquipmentNo: this.equipmentno,
+      dtmEventid: this.eventid,
+      dtmName: this.name,
+      dtmSurname: this.surname,
+      mediaObject: this.mediaObject
     }
+
+    this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
+
+      //Open Modal for send successful
+      console.log('Downtime Message saved successfully.');
+      // alert('Downtime Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
+      let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
+    }, (error) => {
+      console.error('Error while saving Downtime Message:', error);
+    }); 
+  }
 }
