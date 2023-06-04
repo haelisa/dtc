@@ -65,6 +65,7 @@ export class LandingpageComponent implements OnInit{
 
   //On Init -> 
   ngOnInit() {
+    // localStorage.clear();
     this.equipmentno = this.route.snapshot.paramMap.get('equipmentno')!;
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
 
@@ -221,7 +222,7 @@ export class LandingpageComponent implements OnInit{
       var mimeType = files[0].type;
       if (mimeType.match(/image\/*/) == null) {
         alert("Only the image formats jpeg, png and jpg are allowed.");
-        break preview;  
+        return;
       }    
 
       //Call HTML-Input-Elements 
@@ -240,36 +241,36 @@ export class LandingpageComponent implements OnInit{
       }
       
       if (!file) {
-        break preview;
+        return;
       }
       
-      const reader = new FileReader();
-      reader.onload = () => {
-        const imgURL = reader.result as string;
-        localStorage.setItem("previewImgURL", imgURL);
-        this.imgURL = imgURL;
+      // const reader = new FileReader();
+      // reader.onload = () => {
+      //   const imgURL = reader.result as string;
+      //   localStorage.setItem("previewImgURL", imgURL);
+      //   this.imgURL = imgURL;
 
-        const base64URL = this.reader.result as string;
-        localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
-        this.base64 = base64URL;
+      //   const base64URL = this.reader.result as string;
+      //   localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
+      //   this.base64 = base64URL;
 
-        /* var imageToSave = reader.result as string;
-        localStorage.setItem('previewImgFile', imageToSave);
-        imageToSave = this.imgToSave.name;
-        //this.imgToSave.name = imageToSave; */
+      //   /* var imageToSave = reader.result as string;
+      //   localStorage.setItem('previewImgFile', imageToSave);
+      //   imageToSave = this.imgToSave.name;
+      //   //this.imgToSave.name = imageToSave; */
 
-        const commentpreview = this.reader.result as string;
-        localStorage.setItem('comment', commentpreview); // Store comment in localStorage
-        this.comment = commentpreview;
+      //   const commentpreview = this.reader.result as string;
+      //   localStorage.setItem('comment', commentpreview); // Store comment in localStorage
+      //   this.comment = commentpreview;
 
 
-      };
-      reader.readAsDataURL(file);
+      // };
+      // reader.readAsDataURL(file);
       
       //Only common formats allowed
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
         alert("Only the image formats jpeg, png and jpg are allowed.");
-        break preview;
+        return;
       }
         
       //Photo larger than 5MB
@@ -481,10 +482,10 @@ export class LandingpageComponent implements OnInit{
     }, (error) => {
       console.error('Error while saving Downtime Message:', error);
     }); 
-      localStorage.removeItem('previewImgURL'); // Remove stored image URL
-      this.imgURL = null;
-      localStorage.removeItem('sanitizedUserInput'); // Remove stored comment
-      this.comment = ''; //Reset the current comment to an empty String or null
+    localStorage.removeItem('previewImgURL'); // Remove stored image URL
+    this.imgURL = null;
+    localStorage.removeItem('sanitizedUserInput'); // Remove stored comment
+    this.comment = ''; //Reset the current comment to an empty String or null
 
   }
 }
