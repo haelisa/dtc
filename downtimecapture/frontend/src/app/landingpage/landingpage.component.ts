@@ -11,6 +11,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import axios from 'axios';
 import { CanceldtmComponent } from '../canceldtm/canceldtm.component';
 import xss, { FilterXSS } from 'xss';
+
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
@@ -49,6 +50,9 @@ export class LandingpageComponent implements OnInit{
   sanitizedUserInput : string;
   comment: string = '';
 
+  //refresh page safe
+  reader: FileReader
+
   // Routing + Modal
   constructor(
     private route: ActivatedRoute, 
@@ -81,6 +85,58 @@ export class LandingpageComponent implements OnInit{
     this.surname = this.route.snapshot.paramMap.get('surname')!;
     
     const ip = window.location.hostname;
+
+    // Load stored image URL from localStorage
+    const storedImgURL = localStorage.getItem('previewImgURL');
+    if (storedImgURL) {
+      this.imgURL = storedImgURL;
+    }
+
+    // Load stored base64URL from localStorage
+    const storedbase64URL = localStorage.getItem('previewbase64URL');
+    if (storedbase64URL) {
+      this.base64 = storedbase64URL;
+    }
+
+    // Load stored image from localStorage
+    var storedimgFile = localStorage.getItem('previewImgFile');
+    if (storedimgFile) {
+      storedimgFile = this.imgToSave.name;
+      //this.imgToSave.name = storedimgFile;
+    }
+
+
+    // Load stored comment from localStorage
+    /* const storedComment = localStorage.getItem('comment');
+    if (storedComment) {
+      this.comment = storedComment;
+    } */
+
+    //Local Storage comment
+    const savedComment = localStorage.getItem("landingPageComment");
+    this.comment = savedComment ? savedComment : "";
+
+    this.subscribeToCommentChanges();
+
+    
+    const imageData = sessionStorage.getItem('ImageData');
+  if (imageData) {
+    // Clear the stored image data
+    const imageData = sessionStorage.getItem('ImageData');
+  if (imageData) {
+    // Clear the stored image data
+    sessionStorage.removeItem('ImageData');
+  }
+
+  // Register the event handler for window close
+  window.onbeforeunload = () => {
+    // Clear stored image URL and comment
+    localStorage.removeItem('previewImgURL');
+    localStorage.removeItem('comment');
+    this.comment = '';
+  };
+}
+
 
     //Get method to check if the eventID already exisits in database   
     axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
@@ -143,6 +199,16 @@ export class LandingpageComponent implements OnInit{
     });
   }
 
+  //Method to keep the comment when refreshing the page
+  subscribeToCommentChanges() {
+    setInterval(() => {
+      if (this.comment) {
+        localStorage.setItem("landingPageComment", this.comment);
+      }
+    }, 1000);
+  }
+
+
 
  //Take photo, pass photo time stamp as well as name
   preview(files:any) {
@@ -181,7 +247,24 @@ export class LandingpageComponent implements OnInit{
         const imgURL = reader.result as string;
         localStorage.setItem("previewImgURL", imgURL);
         this.imgURL = imgURL;
+
+        const base64URL = this.reader.result as string;
+        localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
+        this.base64 = base64URL;
+
+        var imageToSave = reader.result as string;
+        localStorage.setItem('previewImgFile', imageToSave);
+        imageToSave = this.imgToSave.name;
+        //this.imgToSave.name = imageToSave;
+
+        const commentpreview = this.reader.result as string;
+        localStorage.setItem('comment', commentpreview); // Store comment in localStorage
+        this.comment = commentpreview;
+
+
       };
+
+      
 
       reader.readAsDataURL(file);
       
@@ -249,6 +332,20 @@ export class LandingpageComponent implements OnInit{
       const formData = new FormData();
       formData.append("photo", file);
     }
+    /* this.reader.onload = () => {
+      const imgURL = this.reader.result as string;
+      localStorage.setItem('previewImgURL', imgURL); // Store image URL in localStorage
+      this.imgURL = imgURL;
+
+      const base64URL = this.reader.result as string;
+      localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
+      this.base64 = base64URL;
+
+      const commentpreview = this.reader.result as string;
+      localStorage.setItem('comment', commentpreview); // Store comment in localStorage
+      this.comment = commentpreview;
+    }; */
+
   }
 
 
@@ -326,7 +423,7 @@ export class LandingpageComponent implements OnInit{
     this.sanitizedUserInput = this.sanitizeInput(this.comment);
 
     //File is read out as ArrayBuffer, Blob object is created
-    const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
+    /* const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsArrayBuffer(this.imgToSave);
       reader.onload = () => resolve(reader.result as ArrayBuffer);
@@ -341,7 +438,7 @@ export class LandingpageComponent implements OnInit{
       //mediaFormat: this.mediaFormat,
       mediaFile: mediablob
     };
-
+ */
 
     const ip = window.location.hostname;
 
@@ -383,5 +480,9 @@ export class LandingpageComponent implements OnInit{
     }, (error) => {
       console.error('Error while saving Downtime Message:', error);
     }); 
+    localStorage.removeItem('previewImgURL'); // Remove stored image URL
+      localStorage.removeItem('comment'); // Remove stored comment
+      this.comment = ''; //Reset the current comment to an empty String or null
+
   }
 }
