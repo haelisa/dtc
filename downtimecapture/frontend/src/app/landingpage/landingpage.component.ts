@@ -484,7 +484,9 @@ export class LandingpageComponent implements OnInit{
       localStorage.removeItem('previewImgURL'); // Remove stored image URL
       this.imgURL = null;
       localStorage.removeItem('sanitizedUserInput'); // Remove stored comment
+      localStorage.removeItem('comment');
       this.comment = ''; //Reset the current comment to an empty String or null
+      this.sanitizedUserInput = '';
 
   }
 }
