@@ -21,7 +21,7 @@
 ## Frontend
 - Für Backend-Funktionalitäten in den jeweiligen Frontenddateien die eigene IPv4-Adresse angeben bspw. in 'helloworld.components.ts' (siehe unten) 
 - `cd ./downtimecapture/frontend`
-- `ng serve -o --host 0.0.0.0`
+- `ng serve -o --host 0.0.0.0 --ssl true`
 - Browser öffnet sich automatisch auf 'localhost:4200'
 - `--host` öffnet den internen Angular Server
 
