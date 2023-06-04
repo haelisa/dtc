@@ -65,7 +65,6 @@ export class LandingpageComponent implements OnInit{
 
   //On Init -> 
   ngOnInit() {
-    // localStorage.clear();
     this.equipmentno = this.route.snapshot.paramMap.get('equipmentno')!;
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
 
@@ -243,29 +242,7 @@ export class LandingpageComponent implements OnInit{
       if (!file) {
         return;
       }
-      
-      // const reader = new FileReader();
-      // reader.onload = () => {
-      //   const imgURL = reader.result as string;
-      //   localStorage.setItem("previewImgURL", imgURL);
-      //   this.imgURL = imgURL;
-
-      //   const base64URL = this.reader.result as string;
-      //   localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
-      //   this.base64 = base64URL;
-
-      //   /* var imageToSave = reader.result as string;
-      //   localStorage.setItem('previewImgFile', imageToSave);
-      //   imageToSave = this.imgToSave.name;
-      //   //this.imgToSave.name = imageToSave; */
-
-      //   const commentpreview = this.reader.result as string;
-      //   localStorage.setItem('comment', commentpreview); // Store comment in localStorage
-      //   this.comment = commentpreview;
-
-
-      // };
-      // reader.readAsDataURL(file);
+    
       
       //Only common formats allowed
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
@@ -301,6 +278,33 @@ export class LandingpageComponent implements OnInit{
       this.imgToSave = file;
       this.mediaName = this.imgToSave.name;
       console.log(this.imgToSave.name)
+
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imgURL = reader.result as string;
+        localStorage.setItem("previewImgURL", imgURL);
+        this.imgURL = imgURL;
+
+        const base64URL = this.reader.result as string;
+        localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
+        this.base64 = base64URL;
+
+        /* var imageToSave = reader.result as string;
+        localStorage.setItem('previewImgFile', imageToSave);
+        imageToSave = this.imgToSave.name;
+        //this.imgToSave.name = imageToSave; */
+
+        const commentpreview = this.reader.result as string;
+        localStorage.setItem('comment', commentpreview); // Store comment in localStorage
+        this.comment = commentpreview;
+
+
+      };
+      reader.readAsDataURL(file);
+
+
+
 
       const imgreader = new FileReader();
       imgreader.readAsDataURL(files[0]);
