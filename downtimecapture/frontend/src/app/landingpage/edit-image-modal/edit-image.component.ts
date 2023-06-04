@@ -15,33 +15,12 @@ import { switchMap } from 'rxjs/operators';
 })
 export class EditImageComponent implements OnInit, OnChanges {
 
-    // editedImgUrl = '';
-
   constructor(
     public dialogRef: MatDialogRef<EditImageComponent>,
     @Inject(MAT_DIALOG_DATA) data: any,
   ) {
     this.src = data.dataUrl;
   }
-
-  // saveImage(editedImage: Blob) {
-  //   // Handle the edited image here
-  //   var reader = new FileReader();
-  //   reader.readAsDataURL(editedImage); 
-  //   reader.onload = (_event) => { 
-  //     this.editedImgUrl = reader.result!.toString();
-  //     this.dialogRef.close({dataurl: this.editedImgUrl});
-  //   }
-    
-  // }
-
-  // cancelImage() {
-  //   // Clear the image URL and file
-  //   this.dialogRef.close({dataurl: ''});
-  // }
-
-
-
 
   borderCss: string = 'none';
   @Input() public src?: string;
@@ -89,9 +68,6 @@ export class EditImageComponent implements OnInit, OnChanges {
       purple: '#7a08af',
   };
 
-//   @Output() public save: EventEmitter<Blob> = new EventEmitter<Blob>();
-//   @Output() public cancel: EventEmitter<void> = new EventEmitter<void>();
-
   public currentTool = 'brush';
   public currentSize = 'medium';
   public currentColor = 'black';
@@ -123,17 +99,8 @@ export class EditImageComponent implements OnInit, OnChanges {
           isDrawingMode: true,
       });
       this.canvas.backgroundColor = 'white';
-
-      // if (this.src) {
-          this.importPhotoFromSrc(this.src as string);
-      // } else {
-      //     if (!this.width || !this.height) {
-      //         throw new Error('No width or hight given !');
-      //     }
-
-      //     this.canvas.setWidth(this.width);
-      //     this.canvas.setHeight(this.height);
-      // }
+      
+      this.importPhotoFromSrc(this.src as string);
 
       this.canvas.on('path:created', () => {
           this.stack = [];
@@ -184,7 +151,6 @@ export class EditImageComponent implements OnInit, OnChanges {
   }
 
   // Actions
-
   public undo() {
       if (this.canUndo) {
           const lastId = this.canvas.getObjects().length - 1;
@@ -214,95 +180,6 @@ export class EditImageComponent implements OnInit, OnChanges {
 
   //Button Save
   public saveImage() {
-      // if (!this.forceSizeExport || (this.forceSizeExport && this.width && this.height)) {
-      //     const canvasScaledElement: HTMLCanvasElement = document.createElement('canvas');
-      //     const canvasScaled = new fabric.Canvas(canvasScaledElement);
-      //     canvasScaled.backgroundColor = 'white';
-
-      //     new Observable<fabric.Canvas>(observer => {
-      //         if (this.imageUsed) {
-      //             if (this.forceSizeExport) {
-      //                 canvasScaled.setWidth(this.width as number);
-      //                 canvasScaled.setHeight(this.height as number);
-
-      //                 this.imageUsed.cloneAsImage(imageCloned => {
-      //                     imageCloned.scaleToWidth(this.width, false);
-      //                     imageCloned.scaleToHeight(this.height, false);
-
-      //                     canvasScaled.setBackgroundImage(imageCloned, (img: HTMLImageElement) => {
-      //                         if (!img) {
-      //                             observer.error(new Error('Impossible to draw the image on the temporary canvas'));
-      //                         }
-
-      //                         observer.next(canvasScaled);
-      //                         observer.complete();
-      //                     }, {
-      //                         crossOrigin: 'anonymous',
-      //                         originX: 'left',
-      //                         originY: 'top'
-      //                     });
-      //                 });
-      //             } else {
-      //                 canvasScaled.setBackgroundImage(this.imageUsed, (img: HTMLImageElement) => {
-      //                     if (!img) {
-      //                         observer.error(new Error('Impossible to draw the image on the temporary canvas'));
-      //                     }
-
-      //                     canvasScaled.setWidth(img.width);
-      //                     canvasScaled.setHeight(img.height);
-
-      //                     observer.next(canvasScaled);
-      //                     observer.complete();
-      //                 }, {
-      //                     crossOrigin: 'anonymous',
-      //                     originX: 'left',
-      //                     originY: 'top'
-      //                 });
-      //             }
-      //         } else {
-      //             canvasScaled.setWidth(this.width as number);
-      //             canvasScaled.setHeight(this.height as number);
-      //         }
-      //     }).pipe(
-      //         switchMap(() => {
-      //             let process = of(canvasScaled);
-
-      //             if (this.canvas.getObjects().length > 0) {
-      //                 const ratioX = canvasScaled.getWidth() / this.canvas.getWidth();
-      //                 const ratioY = canvasScaled.getHeight() / this.canvas.getHeight();
-
-      //                 this.canvas.getObjects().forEach((originalObject: fabric.Object, i: number) => {
-      //                     process = process.pipe(switchMap(() => {
-      //                         return new Observable<fabric.Canvas>(observerObject => {
-      //                             originalObject.clone((clonedObject: fabric.Object) => {
-      //                                 clonedObject.set('left', originalObject.left! * ratioX);
-      //                                 clonedObject.set('top', originalObject.top! * ratioY);
-      //                                 clonedObject.scaleToWidth(originalObject.width! * ratioX);
-      //                                 clonedObject.scaleToHeight(originalObject.height! * ratioY);
-
-      //                                 canvasScaled.insertAt(clonedObject, i, false);
-      //                                 canvasScaled.renderAll();
-
-      //                                 observerObject.next(canvasScaled);
-      //                                 observerObject.complete();
-      //                             });
-      //                         });
-      //                     }));
-      //                 });
-      //             }
-      //             return process;
-      //         }),
-      //     ).subscribe(() => {
-      //         canvasScaled.renderAll();
-      //         canvasScaled.getElement().toBlob(
-      //             (data) => {
-      //                 this.save.emit(data as Blob);
-      //             },
-      //             this.outputMimeType,
-      //             this.outputQuality
-      //         );
-      //     });
-      // } else {
         const canvasNew = this.canvas.getElement() as HTMLCanvasElement;
         const dataurlbase64 = canvasNew.toDataURL("image/jpeg");
         this.dialogRef.close({dataurl: dataurlbase64});
@@ -423,36 +300,19 @@ export class EditImageComponent implements OnInit, OnChanges {
               image.scaleToWidth(this.width, false);
               image.scaleToHeight(this.height, false);
             }
-            //dddd
 
-              
-
-              // if (this.width) {
-              //     width = this.width;
-              // }
-              // if (this.height) {
-              //     height = this.height;
-              // }
-
-              // image.scaleToWidth(this.width, false);
-              // image.scaleToHeight(this.height, false);
-
-              this.canvas.setBackgroundImage(image, ((img: HTMLImageElement) => {
-                  if (img) {
-                      // if (this.forceSizeCanvas) {
-                      //     this.canvas.setHeight(350);
-                      //     this.canvas.setWidth(350);
-                      // } else {
-                          this.canvas.setHeight(image.getScaledHeight());
-                          this.canvas.setWidth(image.getScaledWidth());
-                      // }
-                  }
-              }), {
-                  crossOrigin: 'anonymous',
-                  originX: 'left',
-                  originY: 'top'
-              });
-              this.borderCss = '1px solid';
+            this.canvas.setBackgroundImage(image, ((img: HTMLImageElement) => {
+                if (img) {
+                        this.canvas.setHeight(image.getScaledHeight());
+                        this.canvas.setWidth(image.getScaledWidth());
+                }
+            }), {
+                crossOrigin: 'anonymous',
+                originX: 'left',
+                originY: 'top'
+            });
+            
+            this.borderCss = '1px solid';
           });
       };
   }
