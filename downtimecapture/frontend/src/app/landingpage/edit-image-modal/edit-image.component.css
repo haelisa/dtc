@@ -107,6 +107,10 @@
 .button.btn-primary:hover {
     transform: scale(1.03);
 }
+.button.btn-primary.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
 /* Cancel button */
 .button.btn-light {
     background-color: #373D40;

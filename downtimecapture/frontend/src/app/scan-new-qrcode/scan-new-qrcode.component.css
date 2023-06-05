@@ -1,28 +1,82 @@
-zxing-scanner {
-    max-width: 100%;
+/* ----------Portrait mode---------- */
+@media (orientation: portrait), (orientation: landscape) {
+    .layout{
+        height: 90vh;
+        display: grid;
+        grid-template-rows: 15% 50% 20% 15%;
+        grid-template-areas:
+            "device"
+            "scanner"
+            "results"
+            "back";
+        justify-items: center;
+        align-items: center;
+    }
 }
 
-.results {
-    position: sticky;
-    bottom: 0;
+/* QR-Code Scanner holder */
+.scannerholder{
+    width: 300px;
+    height: 300px;
+}
+
+/* QR-Code Link */
+.resultsLink {
+    width: 85%;
+    margin: 0 auto;
     padding: 15px;
     background: #456F81;
-    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px 0px #ACAFB2;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-wrap: wrap;
 }
-.results a {
-   color: #fff;
+.resultsLink a {
+   color: white;
    text-decoration: none;
+   font-size: 16px;
+   font-family: Arial, sans-serif;
+   word-break: break-all;
 }
-.results button {
-    background: none;
-    border: none;
-    line-height: 1;
-    font-weight: bolder;
-    font-size: 120%;
-    float: right;
-    color: #fff;
-    margin: -8px -8px -8px 8px;
+
+/* Go back button */
+.backButton{
+    text-align: center;
+    padding: 15px;
+    width: 140px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #456F81;
+    border-radius: 5px;
+    border: 1px solid #456F81;
+    box-shadow: 0px 4px 10px 0px #ACAFB2;
+    font-family: Arial, sans-serif;
+}
+.backButton:hover {
+    transform: scale(1.03);
+}
+.backButton.linkDisplayed {
+    background-color: #373D40;
+    border-color: #373D40;
+}
+
+/* device cameras button */
+.deviceButton{
+    text-align: center;
+    outline: 0;
+    text-decoration: none;
+    padding: 15px;
+    width: 250px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #373D40;
+    border-radius: 5px;
+    border: 1px solid #373D40;
+    box-shadow: 0px 4px 10px 0px #ACAFB2;
+    font-family: Arial, sans-serif;
+}
+.deviceButton:hover {
+    transform: scale(1.03);
 }

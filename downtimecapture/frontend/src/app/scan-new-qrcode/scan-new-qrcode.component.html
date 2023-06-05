@@ -1,28 +1,3 @@
-<div class="scanner-shell" [hidden]="!hasDevices">
-    <header>
-        <select (change)="onDeviceSelectChange($any($event.target).value)">
-            <option value="" [selected]="!currentDevice">NoDevice</option>
-            <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{ device.label }}</option>
-    
-        </select>
-    </header>
-
-    <zxing-scanner 
-      [(device)]="currentDevice" 
-      (scanSuccess)="onCodeResult($event)"
-      (permissionResponse)="onHasPermission($event)"
-      (camerasFound)="onCamerasFound($event)"></zxing-scanner>
-
- 
-    <section class="results" *ngIf="qrResultString">
-        <a href="http://{{ qrResultString }}"> {{ qrResultString }}</a>
-    </section>
-
-
-    <button (click)="btnGoBack()">Go Back</button>
-</div>
-
-
 <ng-container *ngIf="hasPermission === undefined">
   <h2>Waiting for permissions.</h2>
   <blockquote>
@@ -48,5 +23,37 @@
   </blockquote>
 </ng-container>
 
+<div class="layout">
 
+  <!-- Select device camera button -->
+  <div class="device" [hidden]="!hasDevices">
+    <select class="deviceButton" (change)="onDeviceSelectChange($any($event.target).value)">
+        <option value="" [selected]="!currentDevice">No Device</option>
+        <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{ device.label }}</option>
+    </select>
+  </div>
 
+  <!-- QR-Code Scanner -->
+  <div class="scanner" [hidden]="!hasDevices">
+    <div class="scannerholder">
+      <zxing-scanner 
+        [(device)]="currentDevice" 
+        (scanSuccess)="onCodeResult($event)"
+        (permissionResponse)="onHasPermission($event)"
+        (camerasFound)="onCamerasFound($event)">
+      </zxing-scanner>
+    </div>
+  </div>
+
+  <!-- QR-Code Link -->
+  <div class="results" [hidden]="!hasDevices">
+    <div class="resultsLink" *ngIf="qrResultString">
+        <a href="https://{{ qrResultString }}"> Click here:<br>{{ qrResultString }}</a>
+    </div>
+  </div>
+
+  <!-- Go back button -->
+  <div class="back" [hidden]="!hasDevices" >
+    <button class="backButton" [class.linkDisplayed]="qrResultString" (click)="btnGoBack()">Go Back</button>
+  </div>
+</div>
