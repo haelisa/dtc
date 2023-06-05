@@ -22,6 +22,7 @@
 
 /* QR-Code Link */
 .resultsLink {
+    position: sticky;
     width: 85%;
     margin: 0 auto;
     padding: 15px;
@@ -32,11 +33,11 @@
     flex-wrap: wrap;
 }
 .resultsLink a {
-   color: white;
-   text-decoration: none;
-   font-size: 16px;
-   font-family: Arial, sans-serif;
-   word-break: break-all;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    word-break: break-all;
 }
 
 /* Go back button */

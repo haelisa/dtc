@@ -47,9 +47,9 @@
 
   <!-- QR-Code Link -->
   <div class="results" [hidden]="!hasDevices">
-    <div class="resultsLink" *ngIf="qrResultString">
-        <a href="https://{{ qrResultString }}"> Click here:<br>{{ qrResultString }}</a>
-    </div>
+    <section class="resultsLink" *ngIf="qrResultString">
+      <a href="https://{{ qrResultString }}"> Click here:<br>{{ qrResultString }}</a>
+    </section>
   </div>
 
   <!-- Go back button -->
