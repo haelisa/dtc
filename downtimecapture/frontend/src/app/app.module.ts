@@ -25,6 +25,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 
 //QR-Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { WaitingpageComponent } from './waitingpage/waitingpage.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ModalComponent,
     EditImageComponent,
     ScanNewQRCodeComponent,
-    CanceldtmComponent
+    CanceldtmComponent,
+    WaitingpageComponent
   ],
   imports: [
     BrowserModule,

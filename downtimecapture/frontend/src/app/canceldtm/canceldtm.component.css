@@ -41,7 +41,7 @@
     box-shadow: 0px 4px 10px 0px #ACAFB2;
     font-family: Arial, sans-serif;
 }
-.sendButton:hover {
+.scan:hover {
     transform: scale(1.03);
 }
 

@@ -1,0 +1,75 @@
+/* ----------Portrait mode---------- */
+@media (orientation: portrait) {
+    .layout{
+        height: 90vh;
+        margin: 0 10px 0 10px;
+    }
+}
+ 
+/* ----------Landscape mode---------- */
+@media (orientation: landscape) {
+    .layout{
+        height: 90vh;
+        margin: 0 10px 0 10px;
+    }
+}
+ 
+
+/* ----------Responsive Design Smartphone---------- */
+ 
+    /* ----------Header area---------- */
+    .headerarea{
+        text-align: center;
+        grid-template-areas:
+            "heading"
+            "data";
+    }
+ 
+    /* Title */
+    .title{
+        grid-area: heading;
+        display: inline-block;
+        font-size: 24px;
+        color: #373D40;
+        font-family: Arial, sans-serif;
+    }
+ 
+    .actions{
+        margin-top: 80px;
+ 
+    }
+ 
+     /* Scan Button */
+     
+      .footerButtons {
+        position: absolute;
+        bottom: 60%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        width: 220px; /* Adjust the width as needed */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+     
+      .customFileUpload {
+        display: inline-block;
+        text-align: center;
+        padding: 20px 40px;
+        margin: 5px;
+        width: 100%;
+        max-width: 220px; /* Adjust the max-width as needed */
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        background-color: #456F81;
+        border-color: #456F81;
+        border-radius: 5px;
+        border-style: solid;
+        box-shadow: 0px 4px 10px 0px #ACAFB2;
+        font-family: Arial, sans-serif;
+      }
+     
+      .customFileUpload:hover {
+        transform: scale(1.03);
+      }
