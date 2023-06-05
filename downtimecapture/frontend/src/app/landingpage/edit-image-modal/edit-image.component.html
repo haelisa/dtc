@@ -17,7 +17,7 @@
 
 <div class="layout">
     <!-- Image holder-->
-    <div class="canvasholder">
+    <div class="canvasholder" *ngIf="!isLoading && !hasError">
         <!-- Image -->
         <canvas id="canvas"></canvas>
     </div>
@@ -59,7 +59,7 @@
             <button id="cancel" class="button btn-light" (click)="cancelAction()">Cancel</button>
 
             <!-- Save button -->
-            <button id="save" class="button btn-primary" (click)="saveImage()">Save</button>
+            <button id="save" class="button btn-primary" [ngClass]="{'button btn-primary': true, 'disabled': isLoading || hasError}" (click)="saveImage()">Save</button>
         </div>
     </div>
 </div>

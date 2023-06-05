@@ -22,7 +22,13 @@ export class ScanNewQRCodeComponent {
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
-    this.hasDevices = Boolean(devices && devices.length);
+  this.hasDevices = Boolean(devices && devices.length);
+
+  // Automatisch die hintere Kamera auswählen
+  const rearCamera = devices.find(device => device.label.toLowerCase().includes('rear'));
+  if (rearCamera) {
+    this.currentDevice = rearCamera;
+  }
   }
 
   onCodeResult(resultString: string) {

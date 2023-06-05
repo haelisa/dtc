@@ -1,13 +1,5 @@
-/* ----------Portrait mode---------- */
-@media (orientation: portrait) {
-    .layout{
-        height: 90vh;
-        margin: 0 10px 0 10px;
-    }
-}
-
-/* ----------Landscape mode---------- */
-@media (orientation: landscape) {
+/* ----------Portrait, landscape mode---------- */
+@media (orientation: portrait), (orientation: landscape){
     .layout{
         height: 90vh;
         margin: 0 10px 0 10px;
