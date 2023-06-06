@@ -73,8 +73,8 @@ export class EditImageComponent implements OnInit, OnChanges {
   public currentColor = 'black';
   public i18n: I18nInterface = I18nEn;
 
-  public canUndo = true;
-  public canRedo = true;
+  public canUndo = false;
+  public canRedo = false;
 
   public isLoading = false;
   public hasError = false;
