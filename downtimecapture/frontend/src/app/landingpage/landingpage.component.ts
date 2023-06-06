@@ -167,7 +167,12 @@ export class LandingpageComponent implements OnInit{
 
   //Button ScanAnotherQRCode
   scanAnotherQRCode(){
-    this._router.navigateByUrl('/scan')
+    const confirmation = confirm("Do you want to scan another QR-Code? All your changes will be deleted.");
+
+    if (confirmation) {
+      sessionStorage.clear();
+      this._router.navigateByUrl('/scan');
+    }
   }
 
 
