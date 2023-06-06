@@ -205,7 +205,7 @@ export class LandingpageComponent implements OnInit{
         file = galeryImgInput.files[0];
         this.mediaType = MediaTypeEnum.GALERIE;  
       }
-      
+      this.mediaFormat = MediaFormatEnum.FOTO;
       if (!file) {
         return;
       }
@@ -245,7 +245,7 @@ export class LandingpageComponent implements OnInit{
 
       this.imgToSave = file;
       this.mediaName = this.imgToSave.name;
-      console.log(this.imgToSave.name)
+      console.log(this.imgToSave.name);
 
 
 
