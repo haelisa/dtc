@@ -251,6 +251,7 @@ export class LandingpageComponent implements OnInit{
         this.imgURL = imgreader.result as string;
         this.originalBase64 = this.imgURL;
         sessionStorage.setItem('OriginalBase64', this.originalBase64);
+        sessionStorage.setItem('MediaBase64', this.imgURL);
           
         this.dialogRef = this.dialog.open(EditImageComponent, {
           height: '100vh',
