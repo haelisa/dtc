@@ -1,16 +1,14 @@
-import { HttpClient, HttpClientJsonpModule, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { buffer } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
+import axios from 'axios';
+import xss from 'xss';
 import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class';
-import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './modalsuccess/modal.component';
 import { EditImageComponent } from './edit-image-modal/edit-image.component';
-import { DataUrl, NgxImageCompressService } from 'ngx-image-compress';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import axios from 'axios';
 import { CanceldtmComponent } from '../canceldtm/canceldtm.component';
-import xss, { FilterXSS } from 'xss';
 
 @Component({
   selector: 'app-landingpage',
@@ -37,14 +35,13 @@ export class LandingpageComponent implements OnInit{
   mediaType: MediaTypeEnum;
   mediaFormat: MediaFormatEnum;
   mediaObject: Media;
-  mediaName: string
+  mediaName: string;
   
   //Data Url to compress
   dataUrl: DataUrl;
-  base64 = '';
-  originalBase64 = '';
+  originalBase64: string;
   dialogRef: MatDialogRef<EditImageComponent>;
-  compressedImgURL = '';
+  compressedImgURL: string;
   imgResultAfterCompression: string = '';
 
   //Comment
@@ -52,22 +49,28 @@ export class LandingpageComponent implements OnInit{
   comment: string = '';
 
   //refresh page safe
-  reader: FileReader
+  reader: FileReader;
 
-  // Routing + Modal
+  //Comment maximum number of characters and popup
+  charCount: number = 0;
+
+
   constructor(
     private route: ActivatedRoute, 
     private client: HttpClient, 
     private dialog : MatDialog,
     private imageCompress: NgxImageCompressService,
     private _router: Router
-    ) {}
+  ) {}
 
 
-  //On Init -> 
+
   ngOnInit() {
+    //Data from QR-Code
     this.equipmentno = this.route.snapshot.paramMap.get('equipmentno')!;
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
+    this.name = this.route.snapshot.paramMap.get('name')!;
+    this.surname = this.route.snapshot.paramMap.get('surname')!;
 
     //Convert UnixTimeStamp to Date
     const unixTimestamp = parseInt(this.route.snapshot.paramMap.get('timestamp')!);
@@ -82,65 +85,25 @@ export class LandingpageComponent implements OnInit{
       const formattedDate = `${day}.${month}.${year}`;
       const formattedTime = `${hours}:${minutes}:${seconds}`;
       this.timestamp = `${formattedDate} ${formattedTime}`;
-
-    this.name = this.route.snapshot.paramMap.get('name')!;
-    this.surname = this.route.snapshot.paramMap.get('surname')!;
+    }
     
-    const ip = window.location.hostname;
-
-//     // Load stored image URL from localStorage
-//     const storedImgURL = localStorage.getItem('previewImgURL');
-//     if (storedImgURL) {
-//       this.imgURL = storedImgURL;
-//     }
-
-//     // Load stored base64URL from localStorage
-//     const storedbase64URL = localStorage.getItem('previewbase64URL');
-//     if (storedbase64URL) {
-//       this.base64 = storedbase64URL as string;
-//     }
-
-//     // Load stored image from localStorage
-//    /*  var storedimgFile = localStorage.getItem('previewImgFile');
-//     if (storedimgFile) {
-//       storedimgFile = this.imgToSave.name;
-//       //this.imgToSave.name = storedimgFile;
-//     } */
-
-
-//     // Load stored comment from localStorage
-//     /* const storedComment = localStorage.getItem('comment');
-//     if (storedComment) {
-//       this.comment = storedComment;
-//     } */
-
-//     //Local Storage comment
-//     const savedComment = localStorage.getItem("landingPageComment");
-//     this.comment = savedComment ? savedComment : "";
-
-//     this.subscribeToCommentChanges();
-
-    
-//     const imageData = sessionStorage.getItem('ImageData');
-//   if (imageData) {
-//     // Clear the stored image data
-//     const imageData = sessionStorage.getItem('ImageData');
-//   if (imageData) {
-//     // Clear the stored image data
-//     sessionStorage.removeItem('ImageData');
-//   }
-
-//   // Register the event handler for window close
-//   window.onbeforeunload = () => {
-//     // Clear stored image URL and comment
-//     localStorage.removeItem('previewImgURL');
-//     localStorage.removeItem('comment');
-//     this.comment = '';
-//   };
-// }
-
+    //Refresh Page -> if Data in Session Storage, display it
+    if(sessionStorage.getItem('MediaName') && sessionStorage.getItem('MediaTimeStamp') && sessionStorage.getItem('MediaType') && sessionStorage.getItem('MediaFormat') && sessionStorage.getItem('MediaBase64')){
+      this.mediaName = sessionStorage.getItem('MediaName')!;
+      this.mediatimestamp = new Date(sessionStorage.getItem('MediaTimeStamp')!);
+      this.mediaType = MediaTypeEnum[sessionStorage.getItem('MediaType')!];
+      this.mediaFormat = MediaFormatEnum[sessionStorage.getItem('MediaFormat')!];
+      this.imgURL = sessionStorage.getItem('MediaBase64')!;
+      this.originalBase64 = sessionStorage.getItem('OriginalBase64')!;
+    }
+    if(sessionStorage.getItem('landingPageComment')){
+      this.comment = sessionStorage.getItem('landingPageComment')!;
+      this.charCount = this.comment.length;
+    }
+  
 
     //Get method to check if the eventID already exisits in database   
+    const ip = window.location.hostname;
     axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
       console.log('Response from Backend, EventID already exists: ' , response.data);
       if(response.data){
@@ -187,7 +150,7 @@ export class LandingpageComponent implements OnInit{
     
       window.addEventListener('touchend', handleTouchEnd);
     }, { passive: false });
-  }}
+  }
 
 
   //Compress Image with Size larger than 5 MB
@@ -201,30 +164,26 @@ export class LandingpageComponent implements OnInit{
     });
   }
 
-  //Keep the comment when refreshing the page
-  subscribeToCommentChanges() {
-    setInterval(() => {
-      if (this.comment) {
-        localStorage.setItem("landingPageComment", this.comment);
-      }
-    }, 1000);
+
+  //Button ScanAnotherQRCode
+  scanAnotherQRCode(){
+    this._router.navigateByUrl('/scan')
   }
 
-scanAnotherQRCode(){
-  this._router.navigateByUrl('/scan')
-}
 
- //Take photo, pass photo time stamp as well as name
+
+  //Take photo, pass photo time stamp as well as name
   preview(files:any) {
-    preview: {
-      if (files.length === 0)
+    if(!sessionStorage.getItem('MediaName') && !sessionStorage.getItem('MediaTimeStamp') && !sessionStorage.getItem('MediaType') && !sessionStorage.getItem('MediaFormat') && !sessionStorage.getItem('MediaBase64')){
+      if (files.length === 0){
         return;
+      }
 
       //Check if file was saved in variable and it is an image
       var mimeType = files[0].type;
       if (mimeType.match(/image\/*/) == null) {
         alert("Only the image formats jpeg, png and jpg are allowed.");
-        break preview;  
+        return;  
       }    
 
       //Call HTML-Input-Elements 
@@ -232,7 +191,7 @@ scanAnotherQRCode(){
       const galeryImgInput = document.getElementById("galeryimg") as HTMLInputElement;
       
       let file: File | null = null;
-      let mediaType: MediaTypeEnum | null = null;
+      // let mediaType: MediaTypeEnum | null = null;
 
       if (captureImgInput.files && captureImgInput.files[0]) {
         file = captureImgInput.files[0];
@@ -243,46 +202,22 @@ scanAnotherQRCode(){
       }
       
       if (!file) {
-        break preview;
+        return;
       }
-      
-      const reader = new FileReader();
-      reader.onload = () => {
-        // const imgURL = reader.result as string;
-        // localStorage.setItem("previewImgURL", imgURL);
-        // this.imgURL = imgURL;
-
-        // const base64URL = this.reader.result as string;
-        // localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
-        // this.base64 = base64URL;
-
-        /* var imageToSave = reader.result as string;
-        localStorage.setItem('previewImgFile', imageToSave);
-        imageToSave = this.imgToSave.name;
-        //this.imgToSave.name = imageToSave; */
-
-        const commentpreview = this.reader.result as string;
-        localStorage.setItem('comment', commentpreview); // Store comment in localStorage
-        this.comment = commentpreview;
-
-
-      };
-      reader.readAsDataURL(file);
-      
+            
       //Only common formats allowed
       if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
         alert("Only the image formats jpeg, png and jpg are allowed.");
-        break preview;
+        return;
       }
         
       //Photo larger than 5MB
       if (file.size > 5 * 1024 * 1024) {
-
         const compressreader = new FileReader();
         compressreader.readAsDataURL(files[0]);
         compressreader.onloadend = () => {
-          this.base64 = compressreader.result as string;
-          this.compressImage(this.base64);
+          this.imgURL = compressreader.result as string;
+          this.compressImage(this.imgURL);
         }
         
       }
@@ -300,22 +235,29 @@ scanAnotherQRCode(){
       //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
 
 
+
+    
+
       this.imgToSave = file;
       this.mediaName = this.imgToSave.name;
       console.log(this.imgToSave.name)
 
+
+
+      //Open Image Editor Popup, after close get 
       const imgreader = new FileReader();
       imgreader.readAsDataURL(files[0]);
       imgreader.onloadend = () => {
-        this.base64 = imgreader.result as string;
-        this.originalBase64 = this.base64;
+        this.imgURL = imgreader.result as string;
+        this.originalBase64 = this.imgURL;
+        sessionStorage.setItem('OriginalBase64', this.originalBase64);
           
         this.dialogRef = this.dialog.open(EditImageComponent, {
           height: '100vh',
           maxWidth: '100vw',
           disableClose: true,
           data: {
-            dataUrl: this.base64
+            dataUrl: this.imgURL
           }
         });
 
@@ -323,32 +265,25 @@ scanAnotherQRCode(){
           data => {
             if(data.dataurl != ''){
               this.imgURL = data.dataurl;
-              this.base64 = data.dataurl;
+              sessionStorage.setItem('MediaBase64', this.imgURL);
+              
             }else{
               galeryImgInput.value = '';
             }
-                
           }
         );
       }
 
+
       const formData = new FormData();
       formData.append("photo", file);
+      
+      //Save data in SessionStorage
+      sessionStorage.setItem('MediaName', this.mediaName );
+      sessionStorage.setItem('MediaTimeStamp', this.mediatimestamp.toString());
+      sessionStorage.setItem('MediaType', this.mediaType);
+      sessionStorage.setItem('MediaFormat', this.mediaFormat);
     }
-    /* this.reader.onload = () => {
-      const imgURL = this.reader.result as string;
-      localStorage.setItem('previewImgURL', imgURL); // Store image URL in localStorage
-      this.imgURL = imgURL;
-
-      const base64URL = this.reader.result as string;
-      localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
-      this.base64 = base64URL;
-
-      const commentpreview = this.reader.result as string;
-      localStorage.setItem('comment', commentpreview); // Store comment in localStorage
-      this.comment = commentpreview;
-    }; */
-
   }
 
 
@@ -366,7 +301,7 @@ scanAnotherQRCode(){
     dialogRef.afterClosed().subscribe(data => {
       if (data && data.dataurl !== '') {
           this.imgURL = data.dataurl;
-          this.base64 = data.dataurl;
+          sessionStorage.setItem('MediaBase64', this.imgURL)
       }
     });
   }
@@ -390,14 +325,20 @@ scanAnotherQRCode(){
 
       this.mediatimestamp=  null as unknown as Date;  //Delete photo Timestamp
     
-      console.log('Media deleted successfully.')
+      console.log('Media deleted successfully.');
+
+      //Remove Image from SessionStorage
+      sessionStorage.removeItem('MediaName');
+      sessionStorage.removeItem('MediaTimeStamp');
+      sessionStorage.removeItem('MediaType');
+      sessionStorage.removeItem('MediaFormat');
+      sessionStorage.removeItem('MediaBase64');
+      sessionStorage.removeItem('OriginalBase64')!;
     }
   }
 
 
-  //Comment maximum number of characters and popup
-  charCount: number = 0;
-  
+
   updateCharCount(event: any) {
     const input = event.target.value;
     const textarea = document.getElementById('commentfield') as HTMLTextAreaElement;
@@ -408,22 +349,14 @@ scanAnotherQRCode(){
       textarea.scrollTop = 0;
       textarea.selectionStart = 0;
       textarea.selectionEnd = 0;
-
     } else {
       this.charCount = input.length;
-    }
-  
-  }
-  //Protection against XSS
-  sanitizeInput(comment) {
-    const sanitizedInput = xss(comment);
-    return sanitizedInput;
+      //Save Comment in SessionStorage on change
+      sessionStorage.setItem("landingPageComment", this.comment);
+    }  
   }
   
   async onSubmit(){
-
-    //Sanitize Comment
-    this.sanitizedUserInput = this.sanitizeInput(this.comment);
 
     //File is read out as ArrayBuffer, Blob object is created
     /* const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
@@ -447,12 +380,11 @@ scanAnotherQRCode(){
 
     //Create media object to pass into the post method of the downtime message
     this.mediaObject = new Media();
-    this.mediaObject.mediaName = this.imgToSave.name;
+    this.mediaObject.mediaName = this.mediaName;
     this.mediaObject.mediaTimeStamp = this.mediatimestamp;
     this.mediaObject.MediaType = this.mediaType;
     this.mediaObject.MediaFormat = this.mediaFormat;
-    // this.mediaObject.mediaFile = mediablob;
-    this.mediaObject.mediaFile = this.base64;
+    this.mediaObject.mediaFile = this.imgURL;
 
 
     //Convert Date back to UnixTimeStamp for storage in database
@@ -463,9 +395,7 @@ scanAnotherQRCode(){
 
     //Post method to send the downtime message to the backend
     const requestDataDtm = {
-
-      //dtmComment: this.sanitizer.bypassSecurityTrustHtml(this.commentInput),
-      dtmComment: this.sanitizedUserInput,
+      dtmComment: xss(this.comment), //XSS sanitized Comment
       dtmTimeStamp: unixTimestamp,
       dtmEquipmentNo: this.equipmentno,
       dtmEventid: this.eventid,
@@ -484,12 +414,16 @@ scanAnotherQRCode(){
     }, (error) => {
       console.error('Error while saving Downtime Message:', error);
     }); 
-      localStorage.removeItem('previewImgURL'); // Remove stored image URL
-      this.imgURL = null;
-      localStorage.removeItem('sanitizedUserInput'); // Remove stored comment
-      localStorage.removeItem('comment');
-      this.comment = ''; //Reset the current comment to an empty String or null
-      this.sanitizedUserInput = '';
 
+    //Remove Item from SessionStorage
+    sessionStorage.removeItem('MediaName');
+    sessionStorage.removeItem('MediaTimeStamp');
+    sessionStorage.removeItem('MediaType');
+    sessionStorage.removeItem('MediaFormat');
+    sessionStorage.removeItem('MediaBase64');
+    sessionStorage.removeItem('OriginalBase64')!;
+    sessionStorage.removeItem('landingPageComment');
+    this.comment = '';
   }
+
 }
