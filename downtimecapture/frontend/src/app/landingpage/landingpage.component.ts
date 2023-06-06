@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientJsonpModule, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { buffer } from 'rxjs';
 import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class';
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
@@ -59,7 +59,8 @@ export class LandingpageComponent implements OnInit{
     private route: ActivatedRoute, 
     private client: HttpClient, 
     private dialog : MatDialog,
-    private imageCompress: NgxImageCompressService
+    private imageCompress: NgxImageCompressService,
+    private _router: Router
     ) {}
 
 
@@ -87,56 +88,56 @@ export class LandingpageComponent implements OnInit{
     
     const ip = window.location.hostname;
 
-    // Load stored image URL from localStorage
-    const storedImgURL = localStorage.getItem('previewImgURL');
-    if (storedImgURL) {
-      this.imgURL = storedImgURL;
-    }
+//     // Load stored image URL from localStorage
+//     const storedImgURL = localStorage.getItem('previewImgURL');
+//     if (storedImgURL) {
+//       this.imgURL = storedImgURL;
+//     }
 
-    // Load stored base64URL from localStorage
-    const storedbase64URL = localStorage.getItem('previewbase64URL');
-    if (storedbase64URL) {
-      this.base64 = storedbase64URL as string;
-    }
+//     // Load stored base64URL from localStorage
+//     const storedbase64URL = localStorage.getItem('previewbase64URL');
+//     if (storedbase64URL) {
+//       this.base64 = storedbase64URL as string;
+//     }
 
-    // Load stored image from localStorage
-   /*  var storedimgFile = localStorage.getItem('previewImgFile');
-    if (storedimgFile) {
-      storedimgFile = this.imgToSave.name;
-      //this.imgToSave.name = storedimgFile;
-    } */
+//     // Load stored image from localStorage
+//    /*  var storedimgFile = localStorage.getItem('previewImgFile');
+//     if (storedimgFile) {
+//       storedimgFile = this.imgToSave.name;
+//       //this.imgToSave.name = storedimgFile;
+//     } */
 
 
-    // Load stored comment from localStorage
-    /* const storedComment = localStorage.getItem('comment');
-    if (storedComment) {
-      this.comment = storedComment;
-    } */
+//     // Load stored comment from localStorage
+//     /* const storedComment = localStorage.getItem('comment');
+//     if (storedComment) {
+//       this.comment = storedComment;
+//     } */
 
-    //Local Storage comment
-    const savedComment = localStorage.getItem("landingPageComment");
-    this.comment = savedComment ? savedComment : "";
+//     //Local Storage comment
+//     const savedComment = localStorage.getItem("landingPageComment");
+//     this.comment = savedComment ? savedComment : "";
 
-    this.subscribeToCommentChanges();
+//     this.subscribeToCommentChanges();
 
     
-    const imageData = sessionStorage.getItem('ImageData');
-  if (imageData) {
-    // Clear the stored image data
-    const imageData = sessionStorage.getItem('ImageData');
-  if (imageData) {
-    // Clear the stored image data
-    sessionStorage.removeItem('ImageData');
-  }
+//     const imageData = sessionStorage.getItem('ImageData');
+//   if (imageData) {
+//     // Clear the stored image data
+//     const imageData = sessionStorage.getItem('ImageData');
+//   if (imageData) {
+//     // Clear the stored image data
+//     sessionStorage.removeItem('ImageData');
+//   }
 
-  // Register the event handler for window close
-  window.onbeforeunload = () => {
-    // Clear stored image URL and comment
-    localStorage.removeItem('previewImgURL');
-    localStorage.removeItem('comment');
-    this.comment = '';
-  };
-}
+//   // Register the event handler for window close
+//   window.onbeforeunload = () => {
+//     // Clear stored image URL and comment
+//     localStorage.removeItem('previewImgURL');
+//     localStorage.removeItem('comment');
+//     this.comment = '';
+//   };
+// }
 
 
     //Get method to check if the eventID already exisits in database   
@@ -209,7 +210,9 @@ export class LandingpageComponent implements OnInit{
     }, 1000);
   }
 
-
+scanAnotherQRCode(){
+  this._router.navigateByUrl('/scan')
+}
 
  //Take photo, pass photo time stamp as well as name
   preview(files:any) {
@@ -245,13 +248,13 @@ export class LandingpageComponent implements OnInit{
       
       const reader = new FileReader();
       reader.onload = () => {
-        const imgURL = reader.result as string;
-        localStorage.setItem("previewImgURL", imgURL);
-        this.imgURL = imgURL;
+        // const imgURL = reader.result as string;
+        // localStorage.setItem("previewImgURL", imgURL);
+        // this.imgURL = imgURL;
 
-        const base64URL = this.reader.result as string;
-        localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
-        this.base64 = base64URL;
+        // const base64URL = this.reader.result as string;
+        // localStorage.setItem('previewbase64URL', base64URL); // Store base64 in localStorage
+        // this.base64 = base64URL;
 
         /* var imageToSave = reader.result as string;
         localStorage.setItem('previewImgFile', imageToSave);
