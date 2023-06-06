@@ -45,7 +45,7 @@
 
         <!-- Photo preview -->
         <div class="imageHolder">
-            <img [src]="imgURL" class="imgPreview" *ngIf="imgURL" id="imgPreview">
+            <img [src]="imgURL" class="imgPreview" *ngIf="imgURL" id="imgPreview" (click)="editImage()">
         </div>
 
         <div class="imageButton">
