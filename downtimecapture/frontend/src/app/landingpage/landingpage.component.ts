@@ -88,12 +88,12 @@ export class LandingpageComponent implements OnInit{
     }
     
     //Refresh Page -> if Data in Session Storage, display it
-    if(sessionStorage.getItem('MediaName') && sessionStorage.getItem('MediaTimeStamp') && sessionStorage.getItem('MediaType') && sessionStorage.getItem('MediaFormat') && sessionStorage.getItem('MediaBase64')){
+    if(sessionStorage.getItem('MediaName') && sessionStorage.getItem('MediaTimeStamp') && sessionStorage.getItem('MediaType') && sessionStorage.getItem('MediaFormat') && localStorage.getItem('MediaBase64')){
       this.mediaName = sessionStorage.getItem('MediaName')!;
       this.mediatimestamp = new Date(sessionStorage.getItem('MediaTimeStamp')!);
       this.mediaType = MediaTypeEnum[sessionStorage.getItem('MediaType')!];
       this.mediaFormat = MediaFormatEnum[sessionStorage.getItem('MediaFormat')!];
-      this.imgURL = sessionStorage.getItem('MediaBase64')!;
+      this.imgURL = localStorage.getItem('MediaBase64')!;
       this.originalBase64 = sessionStorage.getItem('OriginalBase64')!;
     }
     if(sessionStorage.getItem('landingPageComment')){
@@ -179,7 +179,7 @@ export class LandingpageComponent implements OnInit{
 
   //Take photo, pass photo time stamp as well as name
   preview(files:any) {
-    if(!sessionStorage.getItem('MediaName') && !sessionStorage.getItem('MediaTimeStamp') && !sessionStorage.getItem('MediaType') && !sessionStorage.getItem('MediaFormat') && !sessionStorage.getItem('MediaBase64')){
+    if(!sessionStorage.getItem('MediaName') && !sessionStorage.getItem('MediaTimeStamp') && !sessionStorage.getItem('MediaType') && !sessionStorage.getItem('MediaFormat') && !localStorage.getItem('MediaBase64')){
       if (files.length === 0){
         return;
       }
@@ -256,7 +256,7 @@ export class LandingpageComponent implements OnInit{
         this.imgURL = imgreader.result as string;
         this.originalBase64 = this.imgURL;
         sessionStorage.setItem('OriginalBase64', this.originalBase64);
-        sessionStorage.setItem('MediaBase64', this.imgURL);
+        localStorage.setItem('MediaBase64', this.imgURL);
           
         this.dialogRef = this.dialog.open(EditImageComponent, {
           height: '100vh',
@@ -271,7 +271,7 @@ export class LandingpageComponent implements OnInit{
           data => {
             if(data.dataurl != ''){
               this.imgURL = data.dataurl;
-              sessionStorage.setItem('MediaBase64', this.imgURL);
+              localStorage.setItem('MediaBase64', this.imgURL);
               
             }else{
               galeryImgInput.value = '';
@@ -307,7 +307,9 @@ export class LandingpageComponent implements OnInit{
     dialogRef.afterClosed().subscribe(data => {
       if (data && data.dataurl !== '') {
           this.imgURL = data.dataurl;
-          sessionStorage.setItem('MediaBase64', this.imgURL)
+          
+          localStorage.removeItem('MediaBase64');
+          localStorage.setItem('MediaBase64', this.imgURL);
       }
     });
   }
@@ -338,7 +340,7 @@ export class LandingpageComponent implements OnInit{
       sessionStorage.removeItem('MediaTimeStamp');
       sessionStorage.removeItem('MediaType');
       sessionStorage.removeItem('MediaFormat');
-      sessionStorage.removeItem('MediaBase64');
+      localStorage.removeItem('MediaBase64');
       sessionStorage.removeItem('OriginalBase64')!;
     }
   }
@@ -426,7 +428,7 @@ export class LandingpageComponent implements OnInit{
     sessionStorage.removeItem('MediaTimeStamp');
     sessionStorage.removeItem('MediaType');
     sessionStorage.removeItem('MediaFormat');
-    sessionStorage.removeItem('MediaBase64');
+    localStorage.removeItem('MediaBase64');
     sessionStorage.removeItem('OriginalBase64')!;
     sessionStorage.removeItem('landingPageComment');
     this.comment = '';
