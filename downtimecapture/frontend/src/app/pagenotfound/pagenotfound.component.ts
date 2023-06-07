@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagenotfound',
@@ -6,4 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./pagenotfound.component.css']
 })
 
-export class PagenotfoundComponent {}
+export class PagenotfoundComponent {
+
+  constructor(
+    private _router: Router
+  ) {}
+
+  scanAnotherQRCode(){
+    this._router.navigateByUrl('/scan');
+  }
+
+}

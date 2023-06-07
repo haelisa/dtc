@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: ':equipmentno/:eventid/:timestamp/:name/:surname', component: LandingpageComponent },
   { path: 'scan', component: ScanNewQRCodeComponent },
   { path: 'start', component: WaitingpageComponent },
-  { path: '', component: HelloworldComponent },
+  // { path: '', component: HelloworldComponent },
   { path: '**', component: PagenotfoundComponent }];
 
 @NgModule({
