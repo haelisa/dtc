@@ -1,7 +1,6 @@
-/* ----------Portrait mode---------- */
+/* ----------Portrait, landscape mode---------- */
 @media (orientation: portrait), (orientation: landscape) {
     .layout{
-        height: 90vh;
         display: grid;
         grid-template-rows: 15% 50% 20% 15%;
         grid-template-areas:
@@ -12,12 +11,21 @@
         justify-items: center;
         align-items: center;
     }
+
+    .device{
+        padding: 40px 0 40px 0;
+    }
+
+    .wait{
+        padding: 70px 0 0 0;
+    }
 }
 
+/* ----------Responsive Design Smartphone---------- */
 /* QR-Code Scanner holder */
-.scannerholder{
-    width: 300px;
-    height: 300px;
+.scannerHolder{
+    width: 250px;
+    height: 250px;
 }
 
 /* QR-Code Link */
@@ -41,7 +49,7 @@
 }
 
 /* Go to Waiting Page button */
-.waitButton{
+.waitingPageButton{
     text-align: center;
     padding: 20px;
     font-size: 16px;
@@ -53,10 +61,10 @@
     box-shadow: 0px 4px 10px 0px #ACAFB2;
     font-family: Arial, sans-serif;
 }
-.waitButton:hover {
+.waitingPageButton:hover {
     transform: scale(1.03);
 }
-.waitButton.linkDisplayed {
+.waitingPageButton.linkDisplayed {
     background-color: #373D40;
     border-color: #373D40;
 }

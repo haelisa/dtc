@@ -85,14 +85,14 @@ export class LandingpageComponent implements OnInit{
     }
     
     //Refresh Page -> if Data in Session Storage, display it
-    if(sessionStorage.getItem('MediaName') && sessionStorage.getItem('MediaTimeStamp') && sessionStorage.getItem('MediaType') && sessionStorage.getItem('MediaFormat') && localStorage.getItem('MediaBase64')){
-      this.mediaName = sessionStorage.getItem('MediaName')!;
-      this.mediatimestamp = new Date(sessionStorage.getItem('MediaTimeStamp')!);
-      this.mediaType = MediaTypeEnum[sessionStorage.getItem('MediaType')!];
-      this.mediaFormat = MediaFormatEnum[sessionStorage.getItem('MediaFormat')!];
-      this.imgURL = localStorage.getItem('MediaBase64')!;
-      this.originalBase64 = sessionStorage.getItem('OriginalBase64')!;
-    }
+    // if(sessionStorage.getItem('MediaName') && sessionStorage.getItem('MediaTimeStamp') && sessionStorage.getItem('MediaType') && sessionStorage.getItem('MediaFormat') && localStorage.getItem('MediaBase64')){
+    //   this.mediaName = sessionStorage.getItem('MediaName')!;
+    //   this.mediatimestamp = new Date(sessionStorage.getItem('MediaTimeStamp')!);
+    //   this.mediaType = MediaTypeEnum[sessionStorage.getItem('MediaType')!];
+    //   this.mediaFormat = MediaFormatEnum[sessionStorage.getItem('MediaFormat')!];
+    //   this.imgURL = localStorage.getItem('MediaBase64')!;
+    //   this.originalBase64 = sessionStorage.getItem('OriginalBase64')!;
+    // }
     if(sessionStorage.getItem('landingPageComment')){
       this.comment = sessionStorage.getItem('landingPageComment')!;
       this.charCount = this.comment.length;
@@ -171,7 +171,7 @@ export class LandingpageComponent implements OnInit{
 
   //Take photo, pass photo time stamp as well as name
   preview(files:any) {
-    if(!sessionStorage.getItem('MediaName') && !sessionStorage.getItem('MediaTimeStamp') && !sessionStorage.getItem('MediaType') && !sessionStorage.getItem('MediaFormat') && !localStorage.getItem('MediaBase64')){
+    // if(!sessionStorage.getItem('MediaName') && !sessionStorage.getItem('MediaTimeStamp') && !sessionStorage.getItem('MediaType') && !sessionStorage.getItem('MediaFormat') && !localStorage.getItem('MediaBase64')){
       if (files.length === 0){
         return;
       }
@@ -240,8 +240,8 @@ export class LandingpageComponent implements OnInit{
       imgreader.onloadend = () => {
         this.imgURL = imgreader.result as string;
         this.originalBase64 = this.imgURL;
-        sessionStorage.setItem('OriginalBase64', this.originalBase64);
-        localStorage.setItem('MediaBase64', this.imgURL);
+        // sessionStorage.setItem('OriginalBase64', this.originalBase64);
+        // localStorage.setItem('MediaBase64', this.imgURL);
           
         this.dialogRef = this.dialog.open(EditImageComponent, {
           height: '100vh',
@@ -256,7 +256,7 @@ export class LandingpageComponent implements OnInit{
           data => {
             if(data.dataurl != ''){
               this.imgURL = data.dataurl;
-              localStorage.setItem('MediaBase64', this.imgURL);
+              // localStorage.setItem('MediaBase64', this.imgURL);
               
             }else{
               galeryImgInput.value = '';
@@ -269,12 +269,12 @@ export class LandingpageComponent implements OnInit{
       formData.append("photo", file);
       
       //Save data in SessionStorage
-      sessionStorage.setItem('MediaName', this.mediaName );
-      sessionStorage.setItem('MediaTimeStamp', this.mediatimestamp.toString());
-      sessionStorage.setItem('MediaType', this.mediaType);
-      sessionStorage.setItem('MediaFormat', this.mediaFormat);
+      // sessionStorage.setItem('MediaName', this.mediaName );
+      // sessionStorage.setItem('MediaTimeStamp', this.mediatimestamp.toString());
+      // sessionStorage.setItem('MediaType', this.mediaType);
+      // sessionStorage.setItem('MediaFormat', this.mediaFormat);
     }
-  }
+  // }
 
   //Edit Button: edit original photo again 
   editImage() {
@@ -291,8 +291,8 @@ export class LandingpageComponent implements OnInit{
       if (data && data.dataurl !== '') {
           this.imgURL = data.dataurl;
           
-          localStorage.removeItem('MediaBase64');
-          localStorage.setItem('MediaBase64', this.imgURL);
+          // localStorage.removeItem('MediaBase64');
+          // localStorage.setItem('MediaBase64', this.imgURL);
       }
     });
   }
@@ -318,12 +318,12 @@ export class LandingpageComponent implements OnInit{
       console.log('Media deleted successfully.');
 
       //Remove Image from SessionStorage
-      sessionStorage.removeItem('MediaName');
-      sessionStorage.removeItem('MediaTimeStamp');
-      sessionStorage.removeItem('MediaType');
-      sessionStorage.removeItem('MediaFormat');
-      localStorage.removeItem('MediaBase64');
-      sessionStorage.removeItem('OriginalBase64')!;
+      // sessionStorage.removeItem('MediaName');
+      // sessionStorage.removeItem('MediaTimeStamp');
+      // sessionStorage.removeItem('MediaType');
+      // sessionStorage.removeItem('MediaFormat');
+      // localStorage.removeItem('MediaBase64');
+      // sessionStorage.removeItem('OriginalBase64')!;
     }
   }
 
@@ -384,12 +384,12 @@ export class LandingpageComponent implements OnInit{
     }); 
 
     //Remove Item from SessionStorage
-    sessionStorage.removeItem('MediaName');
-    sessionStorage.removeItem('MediaTimeStamp');
-    sessionStorage.removeItem('MediaType');
-    sessionStorage.removeItem('MediaFormat');
-    localStorage.removeItem('MediaBase64');
-    sessionStorage.removeItem('OriginalBase64')!;
+    // sessionStorage.removeItem('MediaName');
+    // sessionStorage.removeItem('MediaTimeStamp');
+    // sessionStorage.removeItem('MediaType');
+    // sessionStorage.removeItem('MediaFormat');
+    // localStorage.removeItem('MediaBase64');
+    // sessionStorage.removeItem('OriginalBase64')!;
     sessionStorage.removeItem('landingPageComment');
     this.comment = '';
   }

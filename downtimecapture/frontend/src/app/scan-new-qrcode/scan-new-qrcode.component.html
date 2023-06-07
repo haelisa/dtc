@@ -1,3 +1,4 @@
+<!-- Error Messages -->
 <ng-container *ngIf="hasPermission === undefined">
   <h2>Waiting for permissions.</h2>
   <blockquote>
@@ -23,8 +24,8 @@
   </blockquote>
 </ng-container>
 
-<div class="layout">
 
+<div class="layout">
   <!-- Select device camera button -->
   <div class="device" [hidden]="!hasDevices">
     <select class="deviceButton" (change)="onDeviceSelectChange($any($event.target).value)">
@@ -35,7 +36,7 @@
 
   <!-- QR-Code Scanner -->
   <div class="scanner" [hidden]="!hasDevices">
-    <div class="scannerholder">
+    <div class="scannerHolder">
       <zxing-scanner 
         [(device)]="currentDevice" 
         (scanSuccess)="onCodeResult($event)"
@@ -48,12 +49,12 @@
   <!-- QR-Code Link -->
   <div class="results" [hidden]="!hasDevices">
     <section class="resultsLink" *ngIf="qrResultString">
-      <a href="https://{{ qrResultString }}"> Click here:<br>{{ qrResultString }}</a>
+      <a href="https://{{ qrResultString }}"> <b>Click here:</b><br>{{ qrResultString }}</a>
     </section>
   </div>
 
-  <!-- Go back button -->
+  <!-- Go to Waiting Page button -->
   <div class="wait" [hidden]="!hasDevices" >
-    <button class="waitButton" [class.linkDisplayed]="qrResultString" (click)="btnWaiting()">Go to Waiting Page</button>
+    <button class="waitingPageButton" [class.linkDisplayed]="qrResultString" (click)="routeToWaiting()">Go to Waiting Page</button>
   </div>
 </div>

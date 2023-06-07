@@ -1,23 +1,22 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
 <!-- Loading -->
-<div class="loading" *ngIf="isLoading">
-    <ng-container *ngTemplateOutlet="loadingTemplate ? loadingTemplate : defaultLoading"></ng-container>
-</div>
-
-<ng-template #defaultLoading><p>Loading ...</p></ng-template>
+<ng-container *ngIf="isLoading">
+    <h2>Loading ...</h2>
+</ng-container>
 
 <!-- Error -->
-<div class="error" *ngIf="hasError">
-    <ng-container *ngTemplateOutlet="errorTemplate ? errorTemplate : defaultError"></ng-container>
-</div>
-
-<ng-template #defaultError> <p>{{ errorMessage }}</p> </ng-template>
+<ng-container *ngIf="hasError">
+    <h2>Error Loading</h2>
+    <blockquote>
+    Please select another photo.
+    </blockquote>
+</ng-container>
 
 
 <div class="layout">
     <!-- Image holder-->
-    <div class="canvasholder">
+    <div class="canvasHolder">
         <!-- Image -->
         <canvas id="canvas"></canvas>
     </div>
@@ -37,9 +36,9 @@
                 </span>
 
                 <i class="material-icons btn" [class.disabled]="!canUndo" (click)="undo()"
-                [title]="getTooltipTranslated('undo')">undo</i>
+                    [title]="getTooltipTranslated('undo')">undo</i>
                 <i class="material-icons btn" [class.disabled]="!canRedo" (click)="redo()"
-                [title]="getTooltipTranslated('redo')">redo</i>
+                    [title]="getTooltipTranslated('redo')">redo</i>
                 <i class="material-icons btn" (click)="clearCanvas()" [title]="getTooltipTranslated('clear')">delete</i>
             </div>
             
@@ -53,13 +52,14 @@
             </div>
         </div>
 
-        <!-- Buttons -->
-        <div class="buttons">
-            <!-- Cancel button -->
-            <button id="cancel" class="button btn-light" (click)="cancelAction()">Cancel Edit</button>
+
+        <!-- Buttons area-->
+        <div class="buttonarea">
+            <!-- Cancel Edit button -->
+            <button id="cancel" class="CancelSaveButton Cancel" (click)="cancelAction()">Cancel Edit</button>
 
             <!-- Save button -->
-            <button id="save" class="button btn-primary" [ngClass]="{'button btn-primary': true, 'disabled': isLoading || hasError}" (click)="saveImage()">Save</button>
+            <button id="save" class="CancelSaveButton Save" [ngClass]="{'CancelSaveButton Save': true, 'disabled': isLoading || hasError}" (click)="saveImage()">Save</button>
         </div>
     </div>
-</div>
+<div>

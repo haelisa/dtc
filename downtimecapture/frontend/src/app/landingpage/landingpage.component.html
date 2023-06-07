@@ -3,7 +3,6 @@
 <div class="layout">
     <!-- Header area -->
     <div class="headerarea">
-
         <!-- Title -->
         <div class="heading">
             <h2 class="title">Capture Downtime Message</h2>
@@ -32,13 +31,13 @@
         <div class="uploadButton">
             <!-- Open Camera Button -->
             <div class="openCamera">
-                <label for="captureimg" class="customFileUpload" *ngIf="!imgURL">Open Camera</label>
+                <label for="captureimg" class="CameraGaleryUpload" *ngIf="!imgURL">Open Camera</label>
                 <input #captureImgInput type="file" accept='image/*' (change)="preview(captureImgInput.files)" capture="environments" id="captureimg" />
             </div>
 
             <!-- Open Galery Button-->
             <div class="openGalery">
-                <label for="galeryimg" class="customFileUpload" *ngIf="!imgURL">Open Gallery</label>
+                <label for="galeryimg" class="CameraGaleryUpload" *ngIf="!imgURL">Open Gallery</label>
                 <input #galeryImgInput type="file" accept='image/*' (change)="preview(galeryImgInput.files)" id="galeryimg">
             </div>
         </div>

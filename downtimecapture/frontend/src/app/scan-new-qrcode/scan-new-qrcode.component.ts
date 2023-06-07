@@ -41,7 +41,7 @@ export class ScanNewQRCodeComponent {
     this.hasPermission = has;
   }
 
-  btnWaiting(){
+  routeToWaiting(){
     this._router.navigateByUrl('/start');
   }
   

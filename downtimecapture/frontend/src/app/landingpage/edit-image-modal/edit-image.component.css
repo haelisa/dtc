@@ -1,4 +1,4 @@
-/* ----------Responsive Edit Popup---------- */
+/* ----------Responsive Design Smartphone---------- */
 .layout{
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
 }
 
 /* Image holder */
-.canvasholder{
+.canvasHolder{
     margin-bottom: 20px;
 }
 /* Image */
@@ -25,14 +25,14 @@
 }
 /* Edit Icons rows */
 .row {
-    width: 300px;
+    width: 320px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 /* Edit Icon first row */
 .row:first-child {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 /* Edit arrows, trash can */
 .btn {
@@ -50,9 +50,9 @@
 }
 /* Color dots */
 .color {
-    width: 28px;
-    height: 28px;
-    border-radius: 14px;
+    width: 40px;
+    height: 40px;
+    border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,10 +60,10 @@
 /* Color inner dots */
 .color.selected::after {
     content: "";
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     background: black;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 /* Color dot White */
 .color.white {
@@ -78,14 +78,16 @@
     background: white;
 }
 
-/* Buttons: Save, Cancel */
-.buttons {
-    margin: 10px;
+/* Buttons area */
+.buttonarea {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
-/* Buttons design */
-.button {
+
+/* Buttons: Save, Cancel */
+.CancelSaveButton {
     outline: 0;
     text-decoration: none;
     text-align: center;
@@ -100,22 +102,22 @@
     font-family: Arial, sans-serif;
 }
 /* Save button */
-.button.btn-primary {
+.CancelSaveButton.Save {
     background-color: #456F81;
     border: 1px solid #456F81;
 }
-.button.btn-primary:hover {
+.CancelSaveButton.Save:hover {
     transform: scale(1.03);
 }
-.button.btn-primary.disabled {
+.CancelSaveButton.Save.disabled {
     opacity: 0.5;
     pointer-events: none;
 }
-/* Cancel button */
-.button.btn-light {
+/* Cancel Edit button */
+.CancelSaveButton.Cancel {
     background-color: #373D40;
     border: 1px solid #373D40;
 }
-.button.btn-light:hover {
+.CancelSaveButton.Cancel:hover {
     transform: scale(1.03);
 }

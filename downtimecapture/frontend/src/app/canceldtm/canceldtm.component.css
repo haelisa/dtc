@@ -1,3 +1,4 @@
+/* ----------Responsive Design Smartphone---------- */
 .layout{
     display: grid;
     grid-template-areas: 
@@ -8,6 +9,7 @@
     justify-items: center;
 }
 
+/* Title */
 .title{
     grid-area: title;
     text-align: center;
@@ -17,6 +19,7 @@
     font-family: Arial, sans-serif;
 }
 
+/* Error text */
 .text{
     margin: 30px;
     grid-area: text;
@@ -26,6 +29,7 @@
     font-family: Arial, sans-serif;
 }
 
+/* Scan another QR-Code button */
 .scan{
     grid-area: scan;
     outline: 0;
