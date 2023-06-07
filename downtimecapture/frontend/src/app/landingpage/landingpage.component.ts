@@ -63,6 +63,9 @@ export class LandingpageComponent implements OnInit{
   ) {}
 
   ngOnInit() {
+
+    // localStorage.clear();
+    // sessionStorage.clear();
     //Data from QR-Code
     this.equipmentno = this.route.snapshot.paramMap.get('equipmentno')!;
     this.eventid = this.route.snapshot.paramMap.get('eventid')!;
@@ -165,6 +168,7 @@ export class LandingpageComponent implements OnInit{
 
     if (confirmation) {
       sessionStorage.clear();
+      localStorage.clear();
       this._router.navigateByUrl('/scan');
     }
   }
@@ -222,10 +226,10 @@ export class LandingpageComponent implements OnInit{
       //Photo older than 12 hours
       const ageInMs = Date.now() - file.lastModified;
       const ageInHours = ageInMs / (1000 * 60 * 60);
-      if (ageInHours > 12) {
-        alert("The photo must not be older than 12 hours.");
-        return;
-      }
+      // if (ageInHours > 12) {
+      //   alert("The photo must not be older than 12 hours.");
+      //   return;
+      // }
 
       //Cache TimeStamp
       this.mediatimestamp = new Date(file.lastModified);
