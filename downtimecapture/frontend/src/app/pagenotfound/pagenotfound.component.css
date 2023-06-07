@@ -4,3 +4,25 @@ div{
     align-items: center;
     justify-content: center;
 }
+
+.customFileUpload {
+    display: inline-block;
+    text-align: center;
+    padding: 20px 40px;
+    margin: 5px;
+    width: 100%;
+    max-width: 220px; /* Adjust the max-width as needed */
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #456F81;
+    border-color: #456F81;
+    border-radius: 5px;
+    border-style: solid;
+    box-shadow: 0px 4px 10px 0px #ACAFB2;
+    font-family: Arial, sans-serif;
+  }
+ 
+  .customFileUpload:hover {
+    transform: scale(1.03);
+  }
