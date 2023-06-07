@@ -23,16 +23,15 @@ export class EditImageComponent implements OnInit, OnChanges {
   }
 
   borderCss: string = 'none';
-  @Input() public src?: string;
-  @Input() public width?= 310;
-  @Input() public height?= 375;
-
-  @Input() public forceSizeCanvas = false;
-  @Input() public forceSizeExport = false;
-  @Input() public enableRemoveImage = false;
-  @Input() public enableLoadAnotherImage = false;
-  @Input() public enableTooltip = true;
-  @Input() public showCancelButton = true;
+  src?: string;
+  width?= 310;
+  height?= 375;
+  forceSizeCanvas = false;
+  forceSizeExport = false;
+  enableRemoveImage = false;
+  enableLoadAnotherImage = false;
+  enableTooltip = true;
+  showCancelButton = true;
 
   // @ts-ignore
   @Input('i18n') public i18nUser: I18nInterface;
@@ -165,7 +164,7 @@ export class EditImageComponent implements OnInit, OnChanges {
       if (this.canRedo) {
           const firstInStack = this.stack.splice(-1, 1)[0];
           if (firstInStack) {
-              this.canvas.insertAt(firstInStack, this.canvas.getObjects().length - 1, false);
+            this.canvas.insertAt(firstInStack, this.canvas.getObjects().length , false);
           }
           this.setUndoRedo();
       }
@@ -174,6 +173,7 @@ export class EditImageComponent implements OnInit, OnChanges {
   public clearCanvas() {
       if (this.canvas) {
           this.canvas.remove(...this.canvas.getObjects());
+          this.stack = [];
           this.setUndoRedo();
       }
   }
