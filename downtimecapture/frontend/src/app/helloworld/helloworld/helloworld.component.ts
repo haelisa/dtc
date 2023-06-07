@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './helloworld.component.html',
   styleUrls: ['./helloworld.component.css']
 })
+
 export class HelloworldComponent implements OnInit {
 
   results!: string;  

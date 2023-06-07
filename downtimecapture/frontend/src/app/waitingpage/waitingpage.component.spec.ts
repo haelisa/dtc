@@ -20,4 +20,5 @@ describe('WaitingpageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

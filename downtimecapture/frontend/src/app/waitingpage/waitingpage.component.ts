@@ -7,14 +7,15 @@ import { Router } from '@angular/router';
   templateUrl: './waitingpage.component.html',
   styleUrls: ['./waitingpage.component.css']
 })
+
 export class WaitingpageComponent {
 
   constructor(
     private _router: Router
   ) {}
 
+  scanAnotherQRCode(){
+    this._router.navigateByUrl('/scan');
+  }
 
-scanAnotherQRCode(){
-  this._router.navigateByUrl('/scan');
-}
 }

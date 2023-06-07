@@ -7,6 +7,7 @@ import { MediaFormatEnum } from './enums/media.enum';
 
 @Injectable()
 export class MediaService {
+
   constructor(
     @InjectRepository(Media)
     private readonly mediaRepository: Repository<Media>,
@@ -29,5 +30,5 @@ export class MediaService {
   getMediaTypeEnum(){
     return MediaTypeEnum;
   }
-}
 
+}

@@ -4,17 +4,16 @@ import { MediaService } from './media.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MediaTypeEnum } from './enums/media.enum';
 
-
 @Controller('media')
 export class MediaController {
 
-    constructor(private mediaServices: MediaService){}
+  constructor(private mediaServices: MediaService){}
 
   @Post('setMedia')
   //@UseInterceptors(FileInterceptor('mediafile'))
   async createMedia(@Body('mediaName') medianame: string, @Body('mediaTimeStamp') mediatimestamp: Date, 
-    @Body('mediaType') mediaType: MediaTypeEnum, @Body('mediaFile') mediafile: Blob) {
-
+  
+  @Body('mediaType') mediaType: MediaTypeEnum, @Body('mediaFile') mediafile: Blob) {
     console.log('MediaController funktioniert')
     return this.mediaServices.createMedia(medianame, mediatimestamp, mediaType ,mediafile);
   }
@@ -28,4 +27,5 @@ export class MediaController {
   getMediaFormatEnum(){
     return this.mediaServices.getMediaFormatEnum();
   }
+  
 }

@@ -15,16 +15,8 @@ export class CanceldtmComponent {
     private _router: Router
   ) {}
 
-
   openQRCodeScanner(){
     this._router.navigateByUrl('/scan');
-    //ToDo: Route to scan Page
   }
-
-  routeToWaiting(){
-    //ToDo: Route to Waiting Page
-    // this._router.navigateByUrl('/newpage');
-  }
+  
 }
-
-

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './scan-new-qrcode.component.html',
   styleUrls: ['./scan-new-qrcode.component.css']
 })
+
 export class ScanNewQRCodeComponent {
 
   availableDevices!: MediaDeviceInfo[];
@@ -14,21 +15,17 @@ export class ScanNewQRCodeComponent {
   hasPermission!: boolean;
   qrResultString!: string;
 
-  
   constructor(private _router: Router) { }
-
-
-
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
-  this.hasDevices = Boolean(devices && devices.length);
+    this.hasDevices = Boolean(devices && devices.length);
 
-  // Automatisch die hintere Kamera auswählen
-  const rearCamera = devices.find(device => device.label.toLowerCase().includes('rear'));
-  if (rearCamera) {
-    this.currentDevice = rearCamera;
-  }
+    // automatically select the rear camera
+    const rearCamera = devices.find(device => device.label.toLowerCase().includes('rear'));
+    if (rearCamera) {
+      this.currentDevice = rearCamera;
+    }
   }
 
   onCodeResult(resultString: string) {
@@ -44,8 +41,8 @@ export class ScanNewQRCodeComponent {
     this.hasPermission = has;
   }
 
-  btnGoBack(){
-    //ToDO: go to waiting Page
-    // this._router.navigateByUrl('/scan');
+  btnWaiting(){
+    this._router.navigateByUrl('/start');
   }
+  
 }

@@ -8,7 +8,7 @@
             "device"
             "scanner"
             "results"
-            "back";
+            "wait";
         justify-items: center;
         align-items: center;
     }
@@ -40,11 +40,10 @@
     word-break: break-all;
 }
 
-/* Go back button */
-.backButton{
+/* Go to Waiting Page button */
+.waitButton{
     text-align: center;
-    padding: 15px;
-    width: 140px;
+    padding: 20px;
     font-size: 16px;
     font-weight: bold;
     color: white;
@@ -54,10 +53,10 @@
     box-shadow: 0px 4px 10px 0px #ACAFB2;
     font-family: Arial, sans-serif;
 }
-.backButton:hover {
+.waitButton:hover {
     transform: scale(1.03);
 }
-.backButton.linkDisplayed {
+.waitButton.linkDisplayed {
     background-color: #373D40;
     border-color: #373D40;
 }

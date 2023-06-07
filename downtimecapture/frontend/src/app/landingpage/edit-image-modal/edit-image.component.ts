@@ -6,13 +6,13 @@ import { I18nEn, I18nInterface, i18nLanguages } from './i18n';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-edit-image',
   templateUrl: './edit-image.component.html',
   styleUrls: ['./edit-image.component.css']
 
 })
+
 export class EditImageComponent implements OnInit, OnChanges {
 
   constructor(
@@ -88,9 +88,7 @@ export class EditImageComponent implements OnInit, OnChanges {
 
   private imageUsed?: fabric.Image;
 
-
   public ngOnInit(): void {
-
       this.colorsName = Object.keys(this.colors);
       this.drawingSizesName = Object.keys(this.drawingSizes);
 
@@ -98,6 +96,7 @@ export class EditImageComponent implements OnInit, OnChanges {
           hoverCursor: 'pointer',
           isDrawingMode: true,
       });
+
       this.canvas.backgroundColor = 'white';
       
       this.importPhotoFromSrc(this.src as string);
@@ -128,7 +127,6 @@ export class EditImageComponent implements OnInit, OnChanges {
       if (this.errorText) {
           this.i18n.loadError = this.errorText;
       }
-
   }
 
   // Tools
@@ -343,4 +341,5 @@ export class EditImageComponent implements OnInit, OnChanges {
           }
       }
   }
+  
 }
