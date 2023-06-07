@@ -20,4 +20,5 @@ describe('ScanNewQRCodeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

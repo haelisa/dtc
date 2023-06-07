@@ -9,10 +9,6 @@ async function bootstrap() {
     cors: true
   });
 
-  // app.enableCors({
-  //   origin: ['from', 'to']
-  // })
-
   // Set the timezone
   moment.tz.setDefault('Europe/Berlin');
   app.use(bodyParser.json({ limit: '100mb' }));
@@ -20,4 +16,5 @@ async function bootstrap() {
 
   await app.listen(process.env.DB_PORT || 3000);
 }
+
 bootstrap();

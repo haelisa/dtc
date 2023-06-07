@@ -4,7 +4,6 @@ import { MediaFormatEnum } from './enums/media.enum';
 import { MediaTypeEnum } from './enums/media.enum';
 import { DowntimeMessage } from "../downtimeMessage/downtimeMessage.entity";
 
-
 @Entity()
 
 export class Media {

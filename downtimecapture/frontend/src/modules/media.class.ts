@@ -7,16 +7,13 @@ export class Media {
     //downtimeMessages: DowntimeMessage[];
   }
 
-
 export enum MediaFormatEnum {
     FOTO = 'foto',
     VIDEO = 'video'
 }
-
 
 export enum MediaTypeEnum {
     AUFNAHME = 'aufnahme',
     GALERIE = 'galerie',
     STANDARD = 'standard'
 }
-

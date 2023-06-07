@@ -1,20 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
 body{
+    text-align: center;
     margin: 0;
     padding: 0;
-    font-family: HelveticaNeueLTStd-Th, sans-serif;
-    color: #373d40;
+    font-family: Arial, sans-serif;
+    color: #373D40;
     height: 100vh;
     width: 100vw;
 }
 
-/* Color-Sets
-
-#456f81 -> blau
-*/
-
 /* Style for Modal */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-
-

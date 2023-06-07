@@ -53,7 +53,7 @@
   </div>
 
   <!-- Go back button -->
-  <div class="back" [hidden]="!hasDevices" >
-    <button class="backButton" [class.linkDisplayed]="qrResultString" (click)="btnGoBack()">Go Back</button>
+  <div class="wait" [hidden]="!hasDevices" >
+    <button class="waitButton" [class.linkDisplayed]="qrResultString" (click)="btnWaiting()">Go to Waiting Page</button>
   </div>
 </div>

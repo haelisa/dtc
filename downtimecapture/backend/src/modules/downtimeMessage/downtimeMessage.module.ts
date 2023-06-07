@@ -14,4 +14,5 @@ import { MediaModule } from '../media/media.module';
     providers: [DowntimeMessageService],
     controllers: [DowntimeMessageController],
 })
+
 export class DowntimeMessageModule {}

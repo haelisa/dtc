@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-//Componenten
+//Components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HelloworldComponent } from './helloworld/helloworld/helloworld.component';
@@ -26,7 +26,6 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 //QR-Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { WaitingpageComponent } from './waitingpage/waitingpage.component';
-
 
 @NgModule({
   declarations: [
@@ -54,4 +53,5 @@ import { WaitingpageComponent } from './waitingpage/waitingpage.component';
   providers: [NgxImageCompressService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

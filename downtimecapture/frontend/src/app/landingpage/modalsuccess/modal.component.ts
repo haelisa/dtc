@@ -8,13 +8,13 @@ import { Router } from '@angular/router'
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
+
 export class ModalComponent  {
 
   constructor(
     public dialogRef: MatDialogRef<LandingpageComponent>,
     private _router: Router
   ) {}
-
 
   openQRCodeScanner(){
     this._router.navigateByUrl('/scan');
@@ -23,5 +23,4 @@ export class ModalComponent  {
   routeToWaiting(){
     this._router.navigateByUrl('/start');
   }
-
 }

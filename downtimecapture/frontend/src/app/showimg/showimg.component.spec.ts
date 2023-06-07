@@ -20,4 +20,5 @@ describe('ShowimgComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });

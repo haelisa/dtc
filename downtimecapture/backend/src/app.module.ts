@@ -10,7 +10,6 @@ import { MediaModule } from './modules/media/media.module';
 import { DowntimeMessageModule } from './modules/downtimeMessage/downtimeMessage.module';
 import { join } from 'path';
 
-
 @Module({
   imports: [
     TypeOrmModule.forRoot(

@@ -54,7 +54,6 @@ export class LandingpageComponent implements OnInit{
   //Comment maximum number of characters and popup
   charCount: number = 0;
 
-
   constructor(
     private route: ActivatedRoute, 
     private client: HttpClient, 
@@ -62,8 +61,6 @@ export class LandingpageComponent implements OnInit{
     private imageCompress: NgxImageCompressService,
     private _router: Router
   ) {}
-
-
 
   ngOnInit() {
     //Data from QR-Code
@@ -101,7 +98,6 @@ export class LandingpageComponent implements OnInit{
       this.charCount = this.comment.length;
     }
   
-
     //Get method to check if the eventID already exisits in database   
     const ip = window.location.hostname;
     axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
@@ -152,7 +148,6 @@ export class LandingpageComponent implements OnInit{
     }, { passive: false });
   }
 
-
   //Compress Image with Size larger than 5 MB
   async compressImage(dataUrl: string){
     console.log(this.imageCompress.byteCount(dataUrl));
@@ -164,7 +159,6 @@ export class LandingpageComponent implements OnInit{
     });
   }
 
-
   //Button ScanAnotherQRCode
   scanAnotherQRCode(){
     const confirmation = confirm("Do you want to scan another QR-Code? All your changes will be deleted.");
@@ -174,8 +168,6 @@ export class LandingpageComponent implements OnInit{
       this._router.navigateByUrl('/scan');
     }
   }
-
-
 
   //Take photo, pass photo time stamp as well as name
   preview(files:any) {
@@ -237,17 +229,10 @@ export class LandingpageComponent implements OnInit{
 
       //Cache TimeStamp
       this.mediatimestamp = new Date(file.lastModified);
-      //alert(this.mediatimestamp); //Auskommentieren zum testen und bei deleteImage auch
-
-
-
-    
 
       this.imgToSave = file;
       this.mediaName = this.imgToSave.name;
       console.log(this.imgToSave.name);
-
-
 
       //Open Image Editor Popup, after close get 
       const imgreader = new FileReader();
@@ -280,7 +265,6 @@ export class LandingpageComponent implements OnInit{
         );
       }
 
-
       const formData = new FormData();
       formData.append("photo", file);
       
@@ -291,7 +275,6 @@ export class LandingpageComponent implements OnInit{
       sessionStorage.setItem('MediaFormat', this.mediaFormat);
     }
   }
-
 
   //Edit Button: edit original photo again 
   editImage() {
@@ -313,7 +296,6 @@ export class LandingpageComponent implements OnInit{
       }
     });
   }
-
 
   // Delete Button: Photo preview, photo timestamp, comment content
   deleteImage() {
@@ -345,8 +327,6 @@ export class LandingpageComponent implements OnInit{
     }
   }
 
-
-
   updateCharCount(event: any) {
     const input = event.target.value;
     const textarea = document.getElementById('commentfield') as HTMLTextAreaElement;
@@ -363,26 +343,8 @@ export class LandingpageComponent implements OnInit{
       sessionStorage.setItem("landingPageComment", this.comment);
     }  
   }
-  
-  async onSubmit(){
 
-    //File is read out as ArrayBuffer, Blob object is created
-    /* const buffer = await new Promise<ArrayBuffer>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsArrayBuffer(this.imgToSave);
-      reader.onload = () => resolve(reader.result as ArrayBuffer);
-      reader.onerror = reject;
-    });
-    var mediablob = (new Blob([buffer],{ type: this.imgToSave.type }), this.imgToSave.name);
-    
-    const requestDataMedia = {
-      mediaName: this.imgToSave.name,
-      mediaTimeStamp: this.mediatimestamp,
-      mediaType: this.mediaType,
-      //mediaFormat: this.mediaFormat,
-      mediaFile: mediablob
-    };
- */
+  async onSubmit(){
 
     const ip = window.location.hostname;
 
@@ -393,7 +355,6 @@ export class LandingpageComponent implements OnInit{
     this.mediaObject.MediaType = this.mediaType;
     this.mediaObject.MediaFormat = this.mediaFormat;
     this.mediaObject.mediaFile = this.imgURL;
-
 
     //Convert Date back to UnixTimeStamp for storage in database
     const [day, month, year, hours, minutes, seconds] = this.timestamp.split(/[.: ]/).map(Number);
@@ -416,7 +377,6 @@ export class LandingpageComponent implements OnInit{
 
       //Open Modal for send successful
       console.log('Downtime Message saved successfully.');
-      // alert('Downtime Message saved successfully.' + '\n' + 'MediaType: ' + this.mediaType );
       let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
 
     }, (error) => {
@@ -433,5 +393,5 @@ export class LandingpageComponent implements OnInit{
     sessionStorage.removeItem('landingPageComment');
     this.comment = '';
   }
-
+  
 }
