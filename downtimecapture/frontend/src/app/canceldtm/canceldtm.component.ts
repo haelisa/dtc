@@ -17,6 +17,7 @@ export class CanceldtmComponent {
 
   openQRCodeScanner(){
     this._router.navigateByUrl('/scan');
+    this.dialogRef.close();
   }
   
 }
