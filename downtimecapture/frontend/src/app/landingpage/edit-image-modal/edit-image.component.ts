@@ -54,7 +54,7 @@ export class EditImageComponent implements OnInit, OnChanges {
   drawingSizes: { [name: string]: number } = {
       small: 5,
       medium: 9,
-      large: 12,
+      large: 13,
   };
   
   colors: { [name: string]: string } ={

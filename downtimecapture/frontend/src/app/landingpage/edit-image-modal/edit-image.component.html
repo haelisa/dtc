@@ -27,19 +27,23 @@
             <!-- Edit Icons row one -->
             <div class="row">
                 <span *ngFor="let drawingSizeName of drawingSizesName" class="size btn"
-                    [style.width.px]="drawingSizes[drawingSizeName] * 0.8 + 8"
-                    [style.height.px]="drawingSizes[drawingSizeName] * 0.8 + 8"
-                    [style.borderRadius.px]="drawingSizes[drawingSizeName] * 0.4 + 4"
+                    [style.width.px]="(drawingSizes[drawingSizeName] * 0.8 + 8) * 1.4"
+                    [style.height.px]="(drawingSizes[drawingSizeName] * 0.8 + 8) * 1.4"
+                    [style.borderRadius.px]="(drawingSizes[drawingSizeName] * 0.4 + 4) * 1.4"
                     [class.selected]="currentSize == drawingSizeName"
                     [title]="getTooltipTranslated('sizes.' + drawingSizeName)"
                     (click)="selectDrawingSize(drawingSizeName)">
                 </span>
 
                 <i class="material-icons btn" [class.disabled]="!canUndo" (click)="undo()"
+                    [style.fontSize.px]="24 * 1.4"
                     [title]="getTooltipTranslated('undo')">undo</i>
                 <i class="material-icons btn" [class.disabled]="!canRedo" (click)="redo()"
+                    [style.fontSize.px]="24 * 1.4"
                     [title]="getTooltipTranslated('redo')">redo</i>
-                <i class="material-icons btn" (click)="clearCanvas()" [title]="getTooltipTranslated('clear')">delete</i>
+              <i class="material-icons btn" (click)="clearCanvas()"
+                    [style.fontSize.px]="24 * 1.4"
+                    [title]="getTooltipTranslated('clear')">delete</i>
             </div>
             
             <!-- Edit Icons row two -->
