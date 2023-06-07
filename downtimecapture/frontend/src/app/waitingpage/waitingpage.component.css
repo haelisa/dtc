@@ -17,7 +17,6 @@
  
 .text{
     margin: 50px 0 50px 0;
-    grid-area: text;
     text-align: center;
     font-size: 20px;
     color: #373D40;
