@@ -175,7 +175,6 @@ export class LandingpageComponent implements OnInit{
 
   //Take photo, pass photo time stamp as well as name
   preview(files:any) {
-    if(!sessionStorage.getItem('MediaName') && !sessionStorage.getItem('MediaTimeStamp') && !sessionStorage.getItem('MediaType') && !sessionStorage.getItem('MediaFormat') && !localStorage.getItem('MediaBase64')){
       if (files.length === 0){
         return;
       }
@@ -277,7 +276,6 @@ export class LandingpageComponent implements OnInit{
       sessionStorage.setItem('MediaTimeStamp', this.mediatimestamp.toString());
       sessionStorage.setItem('MediaType', this.mediaType);
       sessionStorage.setItem('MediaFormat', this.mediaFormat);
-    }
   }
 
   //Edit Button: edit original photo again 
