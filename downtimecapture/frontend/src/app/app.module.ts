@@ -14,6 +14,7 @@ import { ModalComponent } from './landingpage/modalsuccess/modal.component';
 import { EditImageComponent } from './landingpage/edit-image-modal/edit-image.component';
 import { ScanNewQRCodeComponent } from './scan-new-qrcode/scan-new-qrcode.component';
 import { CanceldtmComponent } from './canceldtm/canceldtm.component';
+import { WaitingpageComponent } from './waitingpage/waitingpage.component';
 
 //Popup
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +26,6 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 
 //QR-Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { WaitingpageComponent } from './waitingpage/waitingpage.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { WaitingpageComponent } from './waitingpage/waitingpage.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

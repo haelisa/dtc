@@ -1,16 +1,14 @@
-import { Component, Inject, Input, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { EventEmitter, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { fabric } from 'fabric';
 import { I18nEn, I18nInterface, i18nLanguages } from './i18n';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-edit-image',
   templateUrl: './edit-image.component.html',
   styleUrls: ['./edit-image.component.css']
-
 })
 
 export class EditImageComponent implements OnInit, OnChanges {
@@ -23,6 +21,8 @@ export class EditImageComponent implements OnInit, OnChanges {
   }
 
   borderCss: string = 'none';
+  borderradius: string;
+  boxshadow: string;
   src?: string;
   width?= 310;
   height?= 375;
@@ -311,6 +311,8 @@ export class EditImageComponent implements OnInit, OnChanges {
             });
             
             this.borderCss = '1px solid';
+            this.borderradius = '5px';
+            this.boxshadow = '0px 4px 10px 0px #ACAFB2';
           });
       };
   }
