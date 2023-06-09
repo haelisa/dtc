@@ -1,6 +1,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="layout">
+
+<!-- Display loading circle when loading is true -->
+<div *ngIf="loading" class="loading-circle">
+      <div class="spinner"></div>
+  </div>
+
     <!-- Header area -->
     <div class="headerarea">
         <!-- Title -->

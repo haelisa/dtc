@@ -54,6 +54,10 @@ export class LandingpageComponent implements OnInit{
   //Comment maximum number of characters and popup
   charCount: number = 0;
 
+  //Loading-Circle
+  loading: boolean = false;
+
+
   constructor(
     private route: ActivatedRoute, 
     private client: HttpClient, 
@@ -350,6 +354,8 @@ export class LandingpageComponent implements OnInit{
 
     const ip = window.location.hostname;
 
+    
+
     //Create media object to pass into the post method of the downtime message
     this.mediaObject = new Media();
     this.mediaObject.mediaName = this.mediaName;
@@ -364,6 +370,10 @@ export class LandingpageComponent implements OnInit{
     const unixTimestamp = Math.floor(dateObj.getTime() / 1000);
     console.log(unixTimestamp);
 
+    //Start the Loading-Circle
+    this.loading = true;
+
+
     //Post method to send the downtime message to the backend
     const requestDataDtm = {
       dtmComment: xss(this.comment), //XSS sanitized Comment
@@ -375,15 +385,21 @@ export class LandingpageComponent implements OnInit{
       mediaObject: this.mediaObject
     }
 
-    this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
+    // this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
 
       //Open Modal for send successful
+      try {
+        await this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).toPromise();
       console.log('Downtime Message saved successfully.');
       let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
 
-    }, (error) => {
+    } catch (error) /*=>*/ {
       console.error('Error while saving Downtime Message:', error);
-    }); 
+    } //); 
+
+    //Stop the loading-circle
+    this.loading = false;
+
 
     //Remove Item from SessionStorage
     sessionStorage.removeItem('MediaName');
