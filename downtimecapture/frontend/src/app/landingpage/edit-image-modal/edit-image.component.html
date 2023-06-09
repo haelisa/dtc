@@ -18,8 +18,20 @@
     <!-- Image holder-->
     <div class="canvasHolder">
         <!-- Image -->
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas" [ngStyle]="{'border-radius': borderradius, 'box-shadow': boxshadow}"></canvas>
     </div>
+
+    <!-- Loading Spinner -->
+    <ng-container *ngIf="isLoading">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </ng-container>
+
+
 
     <div *ngIf="!isLoading">
         <!-- Edit toolbar -->

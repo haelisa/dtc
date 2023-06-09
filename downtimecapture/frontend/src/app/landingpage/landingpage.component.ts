@@ -9,6 +9,7 @@ import { Media, MediaFormatEnum, MediaTypeEnum } from '../../modules/media.class
 import { ModalComponent } from './modalsuccess/modal.component';
 import { EditImageComponent } from './edit-image-modal/edit-image.component';
 import { CanceldtmComponent } from '../canceldtm/canceldtm.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @Component({
   selector: 'app-landingpage',
@@ -47,12 +48,17 @@ export class LandingpageComponent implements OnInit{
   //Comment
   sanitizedUserInput : string;
   comment: string = '';
+  //Comment maximum number of characters and popup
+  charCount: number = 0;
 
   //refresh page safe
   reader: FileReader;
 
-  //Comment maximum number of characters and popup
-  charCount: number = 0;
+
+
+  //Loading
+  dialogRefLoading: MatDialogRef<LoadingComponent, any>;
+
 
   //Loading-Circle
   loading: boolean = false;
@@ -215,6 +221,19 @@ export class LandingpageComponent implements OnInit{
         return;
       }
         
+      //Photo older than 12 hours
+      const ageInMs = Date.now() - file.lastModified;
+      const ageInHours = ageInMs / (1000 * 60 * 60);
+      if (ageInHours > 12) {
+        alert("The photo must not be older than 12 hours.");
+        return;
+      }
+
+
+      let loading = true;
+      this.showSpinner();
+
+
       //Photo larger than 5MB
       if (file.size > 5 * 1024 * 1024) {
         const compressreader = new FileReader();
@@ -226,13 +245,7 @@ export class LandingpageComponent implements OnInit{
         
       }
 
-      //Photo older than 12 hours
-      const ageInMs = Date.now() - file.lastModified;
-      const ageInHours = ageInMs / (1000 * 60 * 60);
-      // if (ageInHours > 12) {
-      //   alert("The photo must not be older than 12 hours.");
-      //   return;
-      // }
+
 
       //Cache TimeStamp
       this.mediatimestamp = new Date(file.lastModified);
@@ -247,9 +260,11 @@ export class LandingpageComponent implements OnInit{
       imgreader.onloadend = () => {
         this.imgURL = imgreader.result as string;
         this.originalBase64 = this.imgURL;
-        sessionStorage.setItem('OriginalBase64', this.originalBase64);
-        localStorage.setItem('MediaBase64', this.imgURL);
-          
+        // sessionStorage.setItem('OriginalBase64', this.originalBase64);
+        // localStorage.setItem('MediaBase64', this.imgURL);
+        
+
+
         this.dialogRef = this.dialog.open(EditImageComponent, {
           height: '100vh',
           maxWidth: '100vw',
@@ -259,11 +274,19 @@ export class LandingpageComponent implements OnInit{
           }
         });
 
+
+
+        this.dialogRef.afterOpened().subscribe(() => {
+          loading = false;
+          this.closeSpinner();
+      });
+
+
         this.dialogRef.afterClosed().subscribe(
           data => {
             if(data.dataurl != ''){
               this.imgURL = data.dataurl;
-              localStorage.setItem('MediaBase64', this.imgURL);
+              // localStorage.setItem('MediaBase64', this.imgURL);
               
             }else{
               galeryImgInput.value = '';
@@ -281,6 +304,21 @@ export class LandingpageComponent implements OnInit{
       sessionStorage.setItem('MediaType', this.mediaType);
       sessionStorage.setItem('MediaFormat', this.mediaFormat);
   }
+
+
+
+  showSpinner(){
+    this.dialogRefLoading = this.dialog.open(LoadingComponent, {
+      height: '50',
+      maxWidth: '50',
+      disableClose: true
+    });
+  }
+
+  closeSpinner(){
+    this.dialogRefLoading.close();
+  }
+
 
   //Edit Button: edit original photo again 
   editImage() {
