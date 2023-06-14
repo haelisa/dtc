@@ -54,15 +54,11 @@ export class LandingpageComponent implements OnInit{
   //refresh page safe
   reader: FileReader;
 
-
-
   //Loading
   dialogRefLoading: MatDialogRef<LoadingComponent, any>;
 
-
   //Loading-Circle
   loading: boolean = false;
-
 
   constructor(
     private route: ActivatedRoute, 
@@ -229,10 +225,8 @@ export class LandingpageComponent implements OnInit{
         return;
       }
 
-
       let loading = true;
       this.showSpinner();
-
 
       //Photo larger than 5MB
       if (file.size > 5 * 1024 * 1024) {
@@ -242,10 +236,7 @@ export class LandingpageComponent implements OnInit{
           this.imgURL = compressreader.result as string;
           this.compressImage(this.imgURL);
         }
-        
       }
-
-
 
       //Cache TimeStamp
       this.mediatimestamp = new Date(file.lastModified);
@@ -263,8 +254,6 @@ export class LandingpageComponent implements OnInit{
         // sessionStorage.setItem('OriginalBase64', this.originalBase64);
         // localStorage.setItem('MediaBase64', this.imgURL);
         
-
-
         this.dialogRef = this.dialog.open(EditImageComponent, {
           height: '100vh',
           maxWidth: '100vw',
@@ -274,13 +263,10 @@ export class LandingpageComponent implements OnInit{
           }
         });
 
-
-
         this.dialogRef.afterOpened().subscribe(() => {
           loading = false;
           this.closeSpinner();
       });
-
 
         this.dialogRef.afterClosed().subscribe(
           data => {
@@ -305,8 +291,6 @@ export class LandingpageComponent implements OnInit{
       sessionStorage.setItem('MediaFormat', this.mediaFormat);
   }
 
-
-
   showSpinner(){
     this.dialogRefLoading = this.dialog.open(LoadingComponent, {
       height: '50',
@@ -318,7 +302,6 @@ export class LandingpageComponent implements OnInit{
   closeSpinner(){
     this.dialogRefLoading.close();
   }
-
 
   //Edit Button: edit original photo again 
   editImage() {
@@ -392,8 +375,6 @@ export class LandingpageComponent implements OnInit{
 
     const ip = window.location.hostname;
 
-    
-
     //Create media object to pass into the post method of the downtime message
     this.mediaObject = new Media();
     this.mediaObject.mediaName = this.mediaName;
@@ -410,7 +391,6 @@ export class LandingpageComponent implements OnInit{
 
     //Start the Loading-Circle
     this.loading = true;
-
 
     //Post method to send the downtime message to the backend
     const requestDataDtm = {
@@ -437,7 +417,6 @@ export class LandingpageComponent implements OnInit{
 
     //Stop the loading-circle
     this.loading = false;
-
 
     //Remove Item from SessionStorage
     sessionStorage.removeItem('MediaName');
