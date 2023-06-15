@@ -11,38 +11,45 @@
     /* ----------Header area---------- */
 
 
-    /* Title */
-    .title{
-        display: grid;
-        margin: 10px 0 15px 0;
-        grid-template-columns: 35% 65%;
-        grid-template-areas: 
-            "logo header";
-        align-items: center;
-        justify-items: center;
-    }
-    /* Logo */
-    .logo{
-        display: grid;
-        margin: 0 10px 0 10px;
-        align-items: center;
-        justify-items: center;
-    }
-    #KiefelLogo{
-        width: 120px;
-    }
-    /* Header */
-    .header{
-        margin: 0 0 0 10px;
-        font-size: 24px;
-        font-weight: bold;
-        color: #373D40;
-        font-family: Arial, sans-serif;
-    }
+   /* Title */
+.title {
+    display: grid;
+    margin: 10px 0 15px 0;
+    grid-template-columns: 65% 35%;
+    grid-template-areas: "header logo";
+    align-items: center;
+    justify-items: center;
+  }
+  
+  /* Logo */
+  .logo {
+    display: grid;
+    margin: 0 0 0 auto;
+    align-items: center;
+    justify-items: end;
+    grid-area: logo; 
+  }
+  
+  #KiefelLogo {
+    width: 100px;
+  }
+  
+  /* Header */
+  .header {
+    margin: 0 0 0 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #373d40;
+    font-family: Arial, sans-serif;
+    grid-area: header;
+  }
+  
 
     /* Machinedata */
     .machinedata{
         display: inline-block;
+        margin-top: 10px; 
+
     }
 
     /* Machinedata table */
@@ -58,6 +65,7 @@
         color: #7C7E80;
         font-size: 16px;
         font-family: Arial, sans-serif;
+        margin-top: 10px;
     }
     
     /* ----------Photo area---------- */
@@ -124,6 +132,7 @@
         background-color: #456F81;
         box-shadow: 0px 4px 10px 0px #ACAFB2;
         font-family: Arial, sans-serif;
+
     }
     .CameraGaleryUpload:hover {
         transform: scale(1.03);
@@ -134,6 +143,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
     }
 
     /* Delete button */
@@ -154,8 +164,8 @@
 
     /* Delete button icon */
     #deleteIcon {
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
     }
 
     /* Edit button */
