@@ -9,53 +9,49 @@
 /* ----------Responsive Design Smartphone---------- */
 
     /* ----------Header area---------- */
-
-
-   /* Title */
-.title {
-    display: grid;
-    margin: 10px 0 15px 0;
-    grid-template-columns: 65% 35%;
-    grid-template-areas: "header logo";
-    align-items: center;
-    justify-items: center;
-  }
+    /* Title */
+    .title {
+        display: grid;
+        margin: 10px 0 10px 0;
+        grid-template-columns: 65% 35%;
+        grid-template-areas: "header logo";
+        align-items: center;
+        justify-items: center;
+    }
+    
+    /* Logo */
+    .logo {
+        grid-area: logo;
+        display: grid;
+        margin: 0 10px 0 0;
+        align-items: center;
+        justify-items: end;
+    }
+    
+    #KiefelLogo {
+        width: 120px;
+    }
   
-  /* Logo */
-  .logo {
-    display: grid;
-    margin: 0 0 0 auto;
-    align-items: center;
-    justify-items: end;
-    grid-area: logo; 
-  }
+    /* Header */
+    .header {
+        grid-area: header;
+        margin: 0 10px 0 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #373d40;
+        font-family: Arial, sans-serif;
+    }
   
-  #KiefelLogo {
-    width: 100px;
-  }
-  
-  /* Header */
-  .header {
-    margin: 0 0 0 10px;
-    font-size: 17px;
-    font-weight: bold;
-    color: #373d40;
-    font-family: Arial, sans-serif;
-    grid-area: header;
-  }
-  
-
     /* Machinedata */
     .machinedata{
         display: inline-block;
-        margin-top: 10px; 
-
     }
 
     /* Machinedata table */
     .machinedataTable{
         display: grid;
         text-align: left;
+        margin: 10px 0 5px 0;
         grid-template-columns: 40% 60%;
         grid-template-areas:
             "labelTimestamp timestampContent"
@@ -65,7 +61,6 @@
         color: #7C7E80;
         font-size: 16px;
         font-family: Arial, sans-serif;
-        margin-top: 10px;
     }
     
     /* ----------Photo area---------- */
@@ -132,7 +127,6 @@
         background-color: #456F81;
         box-shadow: 0px 4px 10px 0px #ACAFB2;
         font-family: Arial, sans-serif;
-
     }
     .CameraGaleryUpload:hover {
         transform: scale(1.03);
@@ -336,6 +330,16 @@
 /* ----------Responsive Design Smartphone Medium---------- */
 @media only screen and (min-width: 475px) {
 
+    /* ----------Header area---------- */
+    /* Title */
+    .title {
+        margin: 20px 0 10px 0;
+    }
+    
+    #KiefelLogo {
+        width: 140px;
+    }
+
     /* ----------Photo area---------- */
     .imageHolder{
         justify-items: end;
@@ -353,17 +357,16 @@
 
     /* ----------Header area---------- */
     /* Title */
-    .title{
-        margin: 20px 0 25px 0;
+    .title {
+        margin: 25px 0 25px 0;
     }
-    .logo{
-        margin: 0 35px 0 50px;
-    }
-    #KiefelLogo{
+    
+    #KiefelLogo {
         width: 200px;
     }
+  
     /* Header */
-    .header{
+    .header {
         font-size: 32px;
     }
 
@@ -444,21 +447,18 @@
 @media only screen and (min-width: 768px) {
 
     /* ----------Header area---------- */
-    /* ----------Header area---------- */
     /* Title */
-    .title{
-        margin: 30px 0 35px 0;
+    .title {
+        margin: 40px 0 40px 0;
     }
-    .logo{
-        margin: 0 0 0 30px;
-    }
-    #KiefelLogo{
+    
+    #KiefelLogo {
         width: 250px;
     }
+  
     /* Header */
-    .header{
+    .header {
         font-size: 40px;
-        margin: 0 0 0 35px;
     }
 
     /* Machinedata table */
