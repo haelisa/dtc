@@ -43,10 +43,9 @@
     width: 140px;
     font-size: 16px;
     font-weight: bold;
-    color: white;
-    background-color: #373D40;
-    border-radius: 5px;
-    border: 1px solid #373D40;
+    color: #456F81;
+    background-color: white;
+    border: 1px solid #456F81;
     box-shadow: 0px 4px 10px 0px #ACAFB2;
     font-family: Arial, sans-serif;
 }
@@ -65,7 +64,6 @@
     font-weight: bold;
     color: white;
     background-color: #456F81;
-    border-radius: 5px;
     border: 1px solid #456F81;
     box-shadow: 0px 4px 10px 0px #ACAFB2;
     font-family: Arial, sans-serif;

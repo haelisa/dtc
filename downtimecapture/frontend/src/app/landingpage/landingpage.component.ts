@@ -310,7 +310,7 @@ export class LandingpageComponent implements OnInit{
       maxWidth: '100vw',
       disableClose: true,
       data: {
-        dataUrl: this.originalBase64
+        dataUrl: this.imgURL
       }
     });
 

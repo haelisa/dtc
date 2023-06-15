@@ -25,7 +25,7 @@ export class EditImageComponent implements OnInit, OnChanges {
   boxshadow: string;
   src?: string;
   width?= 310;
-  height?= 375;
+  height?= 325;
   forceSizeCanvas = false;
   forceSizeExport = false;
   enableRemoveImage = false;

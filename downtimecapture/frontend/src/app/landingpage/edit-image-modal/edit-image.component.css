@@ -4,16 +4,20 @@
     flex-direction: column;
     align-items: center;
 }
+.text{
+    font-size: 16px;
+    font-weight: bold;
+    color: #373D40;
+}
 
 /* Image holder */
 .canvasHolder{
-    margin-bottom: 20px;
+    margin: 20px 0 20px 0;
 }
 /* Image */
 #canvas{
     object-fit: contain;
 }
-
 
 /* Loading Spinner  */
 .lds-ring {
@@ -132,13 +136,12 @@
     width: 140px;
     font-size: 16px;
     font-weight: bold;
-    color: white;
-    border-radius: 5px;
     box-shadow: 0px 4px 10px 0px #ACAFB2;
     font-family: Arial, sans-serif;
 }
 /* Save button */
 .CancelSaveButton.Save {
+    color: white;
     background-color: #456F81;
     border: 1px solid #456F81;
 }
@@ -151,8 +154,9 @@
 }
 /* Cancel Edit button */
 .CancelSaveButton.Cancel {
-    background-color: #373D40;
-    border: 1px solid #373D40;
+    color: #456F81;
+    background-color: white;
+    border: 1px solid #456F81;
 }
 .CancelSaveButton.Cancel:hover {
     transform: scale(1.03);

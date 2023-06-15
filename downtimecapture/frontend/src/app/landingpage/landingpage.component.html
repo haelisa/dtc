@@ -18,10 +18,6 @@
         <div class="data">
             <div class="machinedata">
                 <div class="machinedataTable">
-                    <div class="labelEq">Equipment No: </div>
-                    <div class="eqContent">{{equipmentno}}</div>
-                    <div class="labelEventid">Event ID: </div>
-                    <div class="eventidContent">{{eventid}}</div>
                     <div class="labelTimestamp">Time Stamp: </div>
                     <div id="timestamp" class="timestampContent">{{timestamp}}</div>
                     <div class="labelName">Name: </div>
@@ -80,7 +76,7 @@
         </div>
 
         <!-- Comment field -->
-        <textarea rows="5" [(ngModel)]="comment" placeholder="Add a comment..." (input)="updateCharCount($event)" id="commentfield"></textarea>
+        <textarea rows="5" [(ngModel)]="comment" placeholder="Type to describe the machine error..." (input)="updateCharCount($event)" id="commentfield"></textarea>
     </div>
        
     <!-- buttons -->

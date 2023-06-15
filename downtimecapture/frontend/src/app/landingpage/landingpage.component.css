@@ -32,16 +32,14 @@
     .machinedataTable{
         display: grid;
         text-align: left;
-        grid-template-columns: 27% 73%;
-        grid-template-areas: 
-            "labelEq eqContent"
-            "labelEventid eventidContent"
+        grid-template-columns: 40% 60%;
+        grid-template-areas:
             "labelTimestamp timestampContent"
             "labelName nameContent";
-        line-height: 20px;
+        line-height: 25px;
         column-gap: 10px;
         color: #7C7E80;
-        font-size: 12px;
+        font-size: 16px;
         font-family: Arial, sans-serif;
     }
     
@@ -107,7 +105,6 @@
         font-weight: bold;
         color: white;
         background-color: #456F81;
-        border-radius: 5px;
         box-shadow: 0px 4px 10px 0px #ACAFB2;
         font-family: Arial, sans-serif;
     }
@@ -129,8 +126,8 @@
         margin: 5px;
         color: #373D40;
         background-color: #ff0000a8;
-        border: 1px solid #373D40;
         border-radius: 5px;
+        border: 1px solid #373D40;
         box-shadow: 0px 4px 10px 0px #ACAFB2;
     } 
     .delete:hover {
@@ -151,8 +148,8 @@
         margin: 5px;
         color: #373D40;
         background-color: white;
-        border: 1px solid #373D40;
         border-radius: 5px;
+        border: 1px solid #373D40;
         box-shadow: 0px 4px 10px 0px #ACAFB2;
     } 
 
@@ -238,10 +235,9 @@
         width: 140px;
         font-size: 16px;
         font-weight: bold;
-        color: white;
-        background-color: #373D40;
-        border-radius: 5px;
-        border: 1px solid #373D40;
+        color: #456F81;
+        background-color: white;
+        border: 1px solid #456F81;
         box-shadow: 0px 4px 10px 0px #ACAFB2;
         font-family: Arial, sans-serif;
     }
@@ -258,7 +254,6 @@
         font-weight: bold;
         color: white;
         background-color: #456F81;
-        border-radius: 5px;
         border: 1px solid #456F81;
         box-shadow: 0px 4px 10px 0px #ACAFB2;
         font-family: Arial, sans-serif;
@@ -278,9 +273,9 @@
     /* ----------Header area---------- */
     /* Machinedata table */
     .machinedataTable{
-        grid-template-columns: 34% 66%;
+        grid-template-columns: 38 62%;
         max-width: 325;
-        column-gap: 20px;
+        column-gap: 8px;
     }
     .eventidContent{
         grid-area: eventidContent;
@@ -334,7 +329,7 @@
     .machinedataTable{
         line-height: 25px;
         column-gap: 15px;
-        font-size: 16px;
+        font-size: 20px;
     }
     
     /* ----------Photo area---------- */
@@ -416,7 +411,7 @@
     .machinedataTable{
         line-height: 30px;
         column-gap: 20px;
-        font-size: 20px;
+        font-size: 24px;
     }
     
     /* ----------Photo area---------- */
