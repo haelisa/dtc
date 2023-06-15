@@ -2,30 +2,32 @@
 
 <div class="layout">
 
-<!-- Display loading circle when loading is true -->
-<div *ngIf="loading" class="loading-circle">
-      <div class="spinner"></div>
-  </div>
+    <!-- Display loading circle when loading is true -->
+    <div *ngIf="loading" class="loading-circle">
+        <div class="spinner"></div>
+    </div>
 
     <!-- Header area -->
-    <div class="headerarea">
-        <!-- Title -->
-        <div class="heading">
-            <h2 class="title">Capture Downtime Message</h2>
+    <div class="title">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="../../assets/Logo/KiefelLogo.png" id="KiefelLogo">
         </div>
+
+        <!-- Header -->
+        <div class="header">Capture Downtime Message</div>
+    </div>
         
-        <!-- Machinedate table -->
-        <div class="data">
-            <div class="machinedata">
-                <div class="machinedataTable">
-                    <div class="labelTimestamp">Time Stamp: </div>
-                    <div id="timestamp" class="timestampContent">{{timestamp}}</div>
-                    <div class="labelName">Name: </div>
-                    <div class="nameContent">{{name}} {{surname}}</div>
-                </div>
-            </div>
+    <!-- Machinedate table -->
+    <div class="machinedata">
+        <div class="machinedataTable">
+            <div class="labelTimestamp">Time Stamp: </div>
+            <div id="timestamp" class="timestampContent">{{timestamp}}</div>
+            <div class="labelName">Name: </div>
+            <div class="nameContent">{{name}} {{surname}}</div>
         </div>
-        
+    </div>
+
     <!-- Photo area-->
     <div class="photoarea">
         <div class="uploadButton">

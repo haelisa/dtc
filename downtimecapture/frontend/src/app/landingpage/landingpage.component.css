@@ -9,16 +9,33 @@
 /* ----------Responsive Design Smartphone---------- */
 
     /* ----------Header area---------- */
-    .headerarea{
-        text-align: center;
-        grid-template-areas: 
-            "heading"
-            "data";
-    }
+
 
     /* Title */
     .title{
+        display: grid;
+        margin: 10px 0 15px 0;
+        grid-template-columns: 35% 65%;
+        grid-template-areas: 
+            "logo header";
+        align-items: center;
+        justify-items: center;
+    }
+    /* Logo */
+    .logo{
+        display: grid;
+        margin: 0 10px 0 10px;
+        align-items: center;
+        justify-items: center;
+    }
+    #KiefelLogo{
+        width: 120px;
+    }
+    /* Header */
+    .header{
+        margin: 0 0 0 10px;
         font-size: 24px;
+        font-weight: bold;
         color: #373D40;
         font-family: Arial, sans-serif;
     }
@@ -45,7 +62,7 @@
     
     /* ----------Photo area---------- */
     .photoarea{
-        margin: 15px 0 25px 0;
+        margin: 20px 0 10px 0;
         display: grid;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -271,9 +288,14 @@
 @media only screen and (max-width: 341px) {
 
     /* ----------Header area---------- */
+    /* Logo */
+    #KiefelLogo{
+        width: 100px;
+    }
+
     /* Machinedata table */
     .machinedataTable{
-        grid-template-columns: 38 62%;
+        grid-template-columns: 38% 62%;
         max-width: 325;
         column-gap: 8px;
     }
@@ -322,6 +344,16 @@
     /* ----------Header area---------- */
     /* Title */
     .title{
+        margin: 20px 0 25px 0;
+    }
+    .logo{
+        margin: 0 35px 0 50px;
+    }
+    #KiefelLogo{
+        width: 200px;
+    }
+    /* Header */
+    .header{
         font-size: 32px;
     }
 
@@ -402,9 +434,21 @@
 @media only screen and (min-width: 768px) {
 
     /* ----------Header area---------- */
+    /* ----------Header area---------- */
     /* Title */
     .title{
+        margin: 30px 0 35px 0;
+    }
+    .logo{
+        margin: 0 0 0 30px;
+    }
+    #KiefelLogo{
+        width: 250px;
+    }
+    /* Header */
+    .header{
         font-size: 40px;
+        margin: 0 0 0 35px;
     }
 
     /* Machinedata table */
