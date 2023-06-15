@@ -23,12 +23,5 @@ export class MediaService {
     return this.mediaRepository.save(media);
   }
 
-  getMediaFormatEnum(){
-    return MediaFormatEnum;
-  }
-
-  getMediaTypeEnum(){
-    return MediaTypeEnum;
-  }
-
+ 
 }

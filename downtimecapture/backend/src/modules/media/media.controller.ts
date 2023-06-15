@@ -9,23 +9,6 @@ export class MediaController {
 
   constructor(private mediaServices: MediaService){}
 
-  @Post('setMedia')
-  //@UseInterceptors(FileInterceptor('mediafile'))
-  async createMedia(@Body('mediaName') medianame: string, @Body('mediaTimeStamp') mediatimestamp: Date, 
-  
-  @Body('mediaType') mediaType: MediaTypeEnum, @Body('mediaFile') mediafile: Blob) {
-    console.log('MediaController funktioniert')
-    return this.mediaServices.createMedia(medianame, mediatimestamp, mediaType ,mediafile);
-  }
-
-  @Get('mediatype-enum')
-  getMediaTypeEnum(){
-    return this.mediaServices.getMediaTypeEnum();
-  }
-
-  @Get('mediaformat-enum')
-  getMediaFormatEnum(){
-    return this.mediaServices.getMediaFormatEnum();
-  }
+ // Der MediaController wird von keiner Anfragemethode (HTTP-Request) aufgerufen.
   
 }
