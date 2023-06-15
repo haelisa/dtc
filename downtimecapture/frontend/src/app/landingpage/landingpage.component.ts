@@ -360,7 +360,7 @@ export class LandingpageComponent implements OnInit{
       if (input.length > 300) {
       event.target.value = input.substring(0, 300);
       this.charCount = 300;
-      alert('Limit of 300 characters has been exceeded');
+      alert('Limit of 300 characters has been exceeded.');
       textarea.scrollTop = 0;
       textarea.selectionStart = 0;
       textarea.selectionEnd = 0;
@@ -370,8 +370,14 @@ export class LandingpageComponent implements OnInit{
       sessionStorage.setItem("landingPageComment", this.comment);
     }  
   }
+  isButtonDisabled: boolean;
 
   async onSubmit(){
+
+    if (!this.imgURL) {
+      alert('Take a photo first or upload a photo from the gallery.');
+
+    } else{
 
     const ip = window.location.hostname;
 
@@ -427,6 +433,7 @@ export class LandingpageComponent implements OnInit{
     sessionStorage.removeItem('OriginalBase64')!;
     sessionStorage.removeItem('landingPageComment');
     this.comment = '';
-  }
+    }
   
+  }
 }
