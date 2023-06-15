@@ -64,8 +64,9 @@
     transform: scale(1.03);
 }
 .waitingPageButton.linkDisplayed {
-    background-color: #373D40;
-    border-color: #373D40;
+    color: #456F81;
+    background-color: white;
+    border: 1px solid #456F81;
 }
 
 /* device cameras button */
