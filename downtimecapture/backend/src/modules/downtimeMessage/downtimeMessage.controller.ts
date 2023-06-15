@@ -18,11 +18,6 @@ export class DowntimeMessageController {
     return this.dtmServices.checkEventID(eventid);
   }  
 
-   @Get('event/:eventId')
-  getDowntimeMessageByEventId(@Param('eventId') eventId: string) {
-    return this.dtmServices.getDowntimeMessageByEventId(eventId);
-  }
-
   @Post('createDtm')
   async createDowntimeMessage(
     @Body('dtmComment') downtimeComment : string,
@@ -41,7 +36,7 @@ export class DowntimeMessageController {
       dtmObject.surname = downtimeSurname;
 
       const timezone = 'Europe/Berlin'; // The desired time zone
-      // Convent the passed MediaTimeStamp to the desired time zone
+      // Convert the passed MediaTimeStamp to the desired time zone
       const momentObj = moment(mediaObject.mediaTimeStamp);
       const parsedMediaTimeStamp = momentObj.tz(timezone).toDate();
 
