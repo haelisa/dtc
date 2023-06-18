@@ -49,6 +49,9 @@
                     (click)="selectDrawingSize(drawingSizeName)">
                 </span>
 
+                <i class="material-icons btn"  (click)="resetImage()"
+                    [style.fontSize.px]="24 * 1.4"
+                    [title]="getTooltipTranslated('reset')">restart_alt</i>
                 <i class="material-icons btn" [class.disabled]="!canUndo" (click)="undo()"
                     [style.fontSize.px]="24 * 1.4"
                     [title]="getTooltipTranslated('undo')">undo</i>

@@ -17,6 +17,7 @@ export const I18nEn: I18nInterface = {
     undo: 'Undo',
     redo: 'Redo',
     clear: 'Clear',
+    reset: 'Reset',
 
     colors: {
         black: 'Black',
@@ -53,6 +54,7 @@ export interface I18nInterface {
     undo?: string;
     redo?: string;
     clear?: string;
+    reset?: string;
 
     colors?: { [name: string]: string };
 

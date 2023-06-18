@@ -343,5 +343,10 @@ export class EditImageComponent implements OnInit, OnChanges {
           }
       }
   }
+
+  resetImage(){
+    this.clearCanvas();
+    this.importPhotoFromSrc(sessionStorage.getItem('OriginalBase64') as string);
+  }
   
 }
