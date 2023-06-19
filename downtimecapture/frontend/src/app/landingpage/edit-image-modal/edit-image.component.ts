@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { OnInit, TemplateRef } from '@angular/core';
 import { fabric } from 'fabric';
 import { I18nEn, I18nInterface, i18nLanguages } from './i18n';
 
@@ -11,7 +11,7 @@ import { I18nEn, I18nInterface, i18nLanguages } from './i18n';
   styleUrls: ['./edit-image.component.css']
 })
 
-export class EditImageComponent implements OnInit, OnChanges {
+export class EditImageComponent implements OnInit  {
 
   constructor(
     public dialogRef: MatDialogRef<EditImageComponent>,
@@ -220,34 +220,9 @@ export class EditImageComponent implements OnInit, OnChanges {
   private setUndoRedo() {
       this.canUndo = this.canvas.getObjects().length > 0;
       this.canRedo = this.stack.length > 0;
-      // this.canvas.renderAll();
   }
 
-  public importPhotoFromFile(event: Event | any) {
-      if (event.target.files && event.target.files.length > 0) {
-          const file = event.target.files[0];
-          if (file.type.match('image.*')) {
-              this.importPhotoFromBlob(file);
-          } else {
-              throw new Error('Not an image !');
-          }
-      }
-  }
 
-  public removeImage() {
-      if (this.imageUsed) {
-          this.imageUsed.dispose();
-          this.imageUsed ;
-      }
-      this.canvas.backgroundImage ;
-
-      if (this.width && this.height) {
-          this.canvas.setWidth(this.width);
-          this.canvas.setHeight(this.height);
-      }
-
-      this.canvas.renderAll();
-  }
 
   public get hasImage(): boolean {
       return !!this.canvas.backgroundImage;
@@ -280,7 +255,6 @@ export class EditImageComponent implements OnInit, OnChanges {
             let height = imgEl.height;
 
 
-            //dddd
             if(width > height){
               if (this.width) {
                 width = this.width;
@@ -315,33 +289,6 @@ export class EditImageComponent implements OnInit, OnChanges {
             this.boxshadow = '0px 4px 10px 0px #ACAFB2';
           });
       };
-  }
-
-  private importPhotoFromBlob(file: Blob | File) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (evtReader: any) => {
-          if (evtReader.target.readyState == FileReader.DONE) {
-              this.importPhotoFromSrc(evtReader.target.result);
-          }
-      };
-  }
-
-  public importPhotoFromUrl() {
-      const url = prompt(this.getTooltipTranslated('loadImageUrl'));
-      if (url) {
-          this.importPhotoFromSrc(url);
-      }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-      if (changes['src'] && !changes['src'].firstChange && changes['src'].currentValue) {
-          if (typeof changes['src'].currentValue === 'string') {
-              this.importPhotoFromSrc(changes['src'].currentValue);
-          } else if (changes['src'].currentValue instanceof Blob) {
-              this.importPhotoFromBlob(changes['src'].currentValue);
-          }
-      }
   }
 
   resetImage(){
