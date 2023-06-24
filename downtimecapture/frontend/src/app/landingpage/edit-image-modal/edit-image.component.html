@@ -16,7 +16,7 @@
 
 <div class="layout">
     <!-- TODO Text -->
-    <div class="text">Please mark the machine error in the photo.</div>
+    <div class="text" *ngIf="!isLoading">Please mark the machine error in the photo.</div>
 
     <!-- Image holder-->
     <div class="canvasHolder">

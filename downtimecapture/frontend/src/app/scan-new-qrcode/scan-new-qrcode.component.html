@@ -49,7 +49,7 @@
   <!-- QR-Code Link -->
   <div class="results" [hidden]="!hasDevices">
     <section class="resultsLink" *ngIf="qrResultString">
-      <a href="https://{{ qrResultString }}"> <b>Click here:</b><br>{{ qrResultString }}</a>
+      <a href="{{ qrResultString }}"> <b>Click here:</b><br>{{ qrResultString }}</a>
     </section>
   </div>
 
