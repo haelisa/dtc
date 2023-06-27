@@ -107,18 +107,6 @@ export class LandingpageComponent implements OnInit{
       this.charCount = this.comment.length;
     }
   
-    //Get method to check if the eventID already exisits in database   
-    const ip = window.location.hostname;
-    axios.get(`http://${ip}:3000/dtm/checkEventID/${this.eventid}`).then(response =>{
-      console.log('Response from Backend, EventID already exists: ' , response.data);
-      if(response.data){
-        let dialogRef = this.dialog.open(CanceldtmComponent,  { disableClose: true });
-      }
-
-      this.checkEventId = response.data
-      console.log(this.checkEventId); // this.checkEventId above initialized as boolean, so you can work with it in the whole class
-    });
-
     //Disable scroll refresh and "Go back" gesture (Chrome for Android)
     window.addEventListener('touchmove', function(event) {
       const threshold = 5; // Adjust this value to control the sensitivity of scrolling
@@ -380,60 +368,29 @@ export class LandingpageComponent implements OnInit{
 
     } else{
 
-    const ip = window.location.hostname;
-
-    //Create media object to pass into the post method of the downtime message
-    this.mediaObject = new Media();
-    this.mediaObject.mediaName = this.mediaName;
-    this.mediaObject.mediaTimeStamp = this.mediatimestamp;
-    this.mediaObject.MediaType = this.mediaType;
-    this.mediaObject.MediaFormat = this.mediaFormat;
-    this.mediaObject.mediaFile = this.imgURL;
-
-    //Convert Date back to UnixTimeStamp for storage in database
-    const [day, month, year, hours, minutes, seconds] = this.timestamp.split(/[.: ]/).map(Number);
-    const dateObj = new Date(year, month - 1, day, hours, minutes, seconds);
-    const unixTimestamp = Math.floor(dateObj.getTime() / 1000);
-    console.log(unixTimestamp);
-
-    //Start the Loading-Circle
-    this.loading = true;
-
-    //Post method to send the downtime message to the backend
-    const requestDataDtm = {
-      dtmComment: xss(this.comment), //XSS sanitized Comment
-      dtmTimeStamp: unixTimestamp,
-      dtmEquipmentNo: this.equipmentno,
-      dtmEventid: this.eventid,
-      dtmName: this.name,
-      dtmSurname: this.surname,
-      mediaObject: this.mediaObject
-    }
+    
 
     // this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).subscribe(() => {
 
       //Open Modal for send successful
       try {
-        await this.client.post(`http://${ip}:3000/dtm/createDtm`, requestDataDtm).toPromise();
-      console.log('Downtime Message saved successfully.');
-      let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
+        let dialogRef = this.dialog.open(ModalComponent,  { disableClose: true });
+      } catch (error) /*=>*/ {
+        console.error('Error while saving Downtime Message:', error);
+      } //); 
 
-    } catch (error) /*=>*/ {
-      console.error('Error while saving Downtime Message:', error);
-    } //); 
+      //Stop the loading-circle
+      this.loading = false;
 
-    //Stop the loading-circle
-    this.loading = false;
-
-    //Remove Item from SessionStorage
-    sessionStorage.removeItem('MediaName');
-    sessionStorage.removeItem('MediaTimeStamp');
-    sessionStorage.removeItem('MediaType');
-    sessionStorage.removeItem('MediaFormat');
-    localStorage.removeItem('MediaBase64');
-    sessionStorage.removeItem('OriginalBase64')!;
-    sessionStorage.removeItem('landingPageComment');
-    this.comment = '';
+      //Remove Item from SessionStorage
+      sessionStorage.removeItem('MediaName');
+      sessionStorage.removeItem('MediaTimeStamp');
+      sessionStorage.removeItem('MediaType');
+      sessionStorage.removeItem('MediaFormat');
+      localStorage.removeItem('MediaBase64');
+      sessionStorage.removeItem('OriginalBase64')!;
+      sessionStorage.removeItem('landingPageComment');
+      this.comment = '';
     }
   
   }
